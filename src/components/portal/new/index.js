@@ -2,8 +2,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Page from '../common/Page';
-import Header from './Header';
 import SubmitTicket from './SubmitTicket';
 
 const Content = styled.div`
@@ -15,15 +13,12 @@ const Content = styled.div`
     height: 1fr;
 `;
 
-const Home = (props) => {
+const NewTicket = (props) => {
     return (
-        <Page>
-            <Header />
-            <Content>
-                <SubmitTicket />
-            </Content>
-        </Page>
+        <Content>
+            <SubmitTicket />
+        </Content>
     );
 }
 
-export default Home;
+export default NewTicket;

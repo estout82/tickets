@@ -2,11 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-import Button from '../common/Button';
-import Dropdown from '../common/Dropdown';
-import FormSelect from '../common/FormSelect';
-import FormInput from '../common/FormInput';
-import FormText from '../common/FormText';
+import Button from '../../common/Button';
+import Dropdown from '../../common/Dropdown';
+import FormSelect from '../../common/FormSelect';
+import FormInput from '../../common/FormInput';
+import FormText from '../../common/FormText';
 
 const Wrapper = styled.div`
     display: flex;

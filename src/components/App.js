@@ -1,19 +1,20 @@
 
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
-import Route from 'react-router-dom/Route';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
-import Tickets from './tickets';
-import Home from './home';
+import Admin from './admin';
+import Portal from './portal';
 import * as theme from '../config/theme';
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <Route path="/" exact component={Home}/>
-        <Route path="/tickets" exact component={Tickets} />
+        <Switch>
+          <Route path="/portal" component={Portal}/>
+          <Route path="/admin" component={Admin} />
+        </Switch>
       </Router>
     </ThemeProvider>
   );

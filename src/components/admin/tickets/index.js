@@ -3,17 +3,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import MainSidebar from '../common/MainSidebar';
 import TicketList from './TicketList';
 import TicketDetails from './TicketDetails';
 
-const Page = styled.div`
-    display: flex;
-    flex-flow: row nowrap;
-    height: 100%;
-`;
-
-const Content = styled.div`
+const Wrapper = styled.div`
     height: 100%;
     flex-grow: 1;
     background: ${ props => props.theme.backgroundColorTwo };
@@ -49,7 +42,7 @@ const Nav = styled.nav`
     }
 `;
 
-const Wrapper = styled.div`
+const Content = styled.div`
     height: calc(100% - 80px - 30px);
     display: flex;
     flex-flow: row nowrap;
@@ -58,25 +51,22 @@ const Wrapper = styled.div`
 
 const Tickets = (props) => {
     return (
-        <Page>
-            <MainSidebar />
+        <Wrapper>
+            <Header>
+                <h1>Tickets</h1>
+                <Nav>
+                    <Link to="">All</Link>
+                    <Link to="">Open</Link>
+                    <Link to="">Category</Link>
+                    <Link to="">Tech</Link>
+                    <Link to="">More</Link>
+                </Nav>
+            </Header>
             <Content>
-                <Header>
-                    <h1>Tickets</h1>
-                    <Nav>
-                        <Link to="">All</Link>
-                        <Link to="">Open</Link>
-                        <Link to="">Category</Link>
-                        <Link to="">Tech</Link>
-                        <Link to="">More</Link>
-                    </Nav>
-                </Header>
-                <Wrapper>
-                    <TicketList />
-                    <TicketDetails />
-                </Wrapper>
+                <TicketList />
+                <TicketDetails />
             </Content>
-        </Page>
+        </Wrapper>
     );
 }
 

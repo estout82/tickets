@@ -3,6 +3,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import Text from '../common/Text';
+
 const Wrapper = styled.div`
     display: flex;
     flex-flow: column nowrap;
@@ -20,20 +22,8 @@ const Label = styled.label`
     margin-bottom: ${ props => props.theme.largeMargin };
 `;
 
-const Text = styled.textarea`
-    flex-grow: 1;
-    padding: ${ props => props.theme.meduimPad };
-    resize: none;
-    background: none;
-    outline: none;
-    border: 1px solid ${ props => props.theme.textColorTwo };
-    border-radius: 5px;
-    font-family: 'Poppins', sans-serif;
-    color: ${ props => props.theme.textColorOne };
-`;
-
 const FormText = (props) => {
-    const handleChange = (event) => {
+    const handleValueChange = (event) => {
         if (props.onValueChange) {
             props.onValueChange(event.target.value);
         }
@@ -43,7 +33,7 @@ const FormText = (props) => {
         <Wrapper row={props.row} column={props.column}>
             <Label htmlFor={props.name}>{props.name}</Label>
             <Text name={props.name} placeholder={props.name} 
-                onChange={handleChange} />
+                onValueChange={handleValueChange}/>
         </Wrapper>
     );
 }

@@ -27,8 +27,15 @@ const InputComponent = styled.input`
 `;
 
 const Input = (props) => {
+    const handleValueChange = (event) => {
+        if (props.onValueChange) {
+            props.onValueChange(event.target.value);
+        }
+    }
+
     return (
-        <InputComponent {...props}>
+        <InputComponent name={props.name} onChange={handleValueChange} value={props.value} 
+            placeholder={props.placeholder}>
             {props.value}
         </InputComponent>
     );

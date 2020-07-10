@@ -2,7 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Label from '../common/Label';
+import Label from '../../common/Label';
 
 import TicketInfo from './TicketInfo';
 import TicketToDo from './TicketToDo';

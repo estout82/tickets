@@ -58,16 +58,16 @@ const Header = (props) => {
             <Title>Bayside <span>IT Helpdesk</span></Title>
             <NavWrapper>
                 <NavItem selected>
-                    <Link to="">Submit Ticket</Link>
+                    <Link to="/portal/new">New Ticket</Link>
                 </NavItem>
                 <NavItem>
-                    <Link to="">View My Tickets</Link>
+                    <Link to="/portal/view">View My Tickets</Link>
                 </NavItem>
                 <NavItem>
-                    <Link to="">Knowledge Base</Link>
+                    <Link to="/portal/knowledge">Knowledge Base</Link>
                 </NavItem>
                 <NavItem>
-                    <Link to="">Schedule Appointment</Link>
+                    <Link to="/portal/appointment">Schedule Appointment</Link>
                 </NavItem>
             </NavWrapper>
         </Wrapper>

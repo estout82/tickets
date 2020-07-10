@@ -2,9 +2,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Button from '../common/Button';
-import Dropdown from '../common/Dropdown';
-import DropdownItem from '../common/DropdownItem';
+import Button from '../../common/Button';
+import Dropdown from '../../common/Dropdown';
+import DropdownItem from '../../common/DropdownItem';
 
 const Wrapper = styled.div`
     display: grid;
