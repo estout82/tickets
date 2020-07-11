@@ -2,12 +2,14 @@
 // colors
 export const backgroundColorOne = '#e5e5e5';
 export const backgroundColorTwo = '#f8f8f8';
-export const textColorOne = '#1F1F1F';
+export const backgroundColorThree = 'rgba(184, 203, 211, .4)';
+export const textColorOne = '#353535';
 export const textColorTwo = 'rgba(0, 0, 0, .30)';
 export const textColorThree = 'white';
 export const highlightColorOne = '#519EE5';
 export const highlightColorTwo = 'rgba(208, 231, 254, .79)';
 export const highlightColorTwoDark = '#9BC7EF';
+export const errorColorOne = '#edada3';
 
 // rounding
 export const smallRound = '5px';

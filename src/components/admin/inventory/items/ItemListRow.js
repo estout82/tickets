@@ -30,20 +30,19 @@ const Wrapper = styled.div`
 `;
 
 const ItemListRow = (props) => {
-    console.log('ran');
-
     return (
-        <Wrapper colSizes={ props.format.cols.map(col => col.size) }>
+        <Wrapper colSizes={ props.format.cols.map(col => col.size) }
+         onClick={props.onClick}>
             {
                 props.format.cols.map(col => {
                     const data = props.data[col.dataField];
 
                     if (data == null) {
-                        return <p>Unknown</p>
+                        return <p key={col.dataField}>Unknown</p>
                     }
 
                     return (
-                        <p>{ data }</p>
+                        <p key={col.dataField}>{ data }</p>
                     );
                 })
             }

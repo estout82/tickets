@@ -7,7 +7,7 @@ import Dropdown from './Dropdown';
 const Wrapper = styled.div`
     display: flex;
     flex-flow: column nowrap;
-    grid-column: ${ props => props.column ? props.column : 'auto' };
+    grid-column: ${ props => props.col ? props.col : 'auto' };
     grid-row: ${ props => props.row ? props.row : 'auto' };
     padding: ${ props => props.theme.largePad };
     border: 1px solid  ${ props => props.theme.textColorTwo };
@@ -23,11 +23,11 @@ const Label = styled.label`
 
 const FormSelect = (props) => {
     return (
-        <Wrapper row={props.row} column={props.column}>
-            <Label htmlFor={props.name}>{props.name}</Label>
-            <Dropdown name={props.name} defaultValue={props.name}
-                options={props.options} onValueChange={props.onValueChange}
-            />
+        <Wrapper row={ props.row } col={ props.col }>
+            <Label htmlFor={ props.name }>{ props.name }</Label>
+            <Dropdown name={ props.name } defaultValue={ props.name }
+             options={ props.options } boundSetter={ props.boundSetter }
+             onChange={ props.onChange } />
         </Wrapper>
     );
 }

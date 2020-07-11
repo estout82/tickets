@@ -5,19 +5,28 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import ItemListRow from './ItemListRow';
+import LocationPicker from './LocationPicker';
+import Button from '../../../common/Button';
+import Modal from '../../../common/Modal';
+import FormSelect from '../../../common/FormSelect';
+import FormInput from '../../../common/FormInput';
+import FormText from '../../../common/FormText';
+import AddItemModal from './AddItemModal';
 
 const itemUrl = 'http://localhost:9000/api/inventory/item'
 
 const Wrapper = styled.div`
     width: 100%;
     height: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 50px 1fr 80px;
     border-radius: ${ props => props.theme.meduimRound };
     box-shadow: ${ props => props.theme.largeShadow };
 `;
 
 const Header = styled.div`
     width: 100%;
-    min-height: 50px;
     display: grid;
     grid-template-columns: ${ props => props.colSizes.join(' ')  };
     grid-template-rows: 1fr;
@@ -49,6 +58,54 @@ const ErrorWrapper = styled.div`
     }
 `;
 
+const ItemListWrapper = styled.div`
+    height: 100%;
+`;
+
+const ControlsWrapper = styled.div`
+    height: 100%;
+    display: grid;
+    grid-template: 1fr / repeat(3, 1fr);
+`;
+
+const PagenationWrapper = styled.div`
+    border-radius: 0 0 10px 10px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+
+`;
+
+const PageControlButton = styled.button`
+    padding: 10px;
+    min-width: 40px;
+    margin: 0 20px;
+    background: none;
+    border: 1px solid ${ props => props.theme.highlightColorOne };
+    border-radius: 5px;
+    color: ${ props => props.theme.highlightColorOne };
+    outline: none;
+
+    :hover {
+        background: ${ props => props.theme.highlightColorOne };
+        color: white;
+        transition: .15s background;
+        cursor: pointer;
+    }
+`;
+
+const PageIcon = styled.span`
+    padding: 10px 0;
+    min-width: 30px;
+    border: ${ props => props.selected ? '1px solid ' + props.theme.textColorTwo : 'none' };
+    border-radius: 10px;
+    text-align: center;
+    margin-right: 5px;
+    font-size: 10pt;
+    font-weight: 200;
+`;
+
 const ItemList = (props) => {
     const [status, setStatus] = useState({
         isLoading: true,
@@ -65,7 +122,7 @@ const ItemList = (props) => {
 
     const loadItems = async () => {
         let headers = new Headers();
-        headers.append('x-auth', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvaWQiOiI1ZWY2OTM2ZjcxYTllODdkODAxMjJiYmEiLCJpYXQiOjE1OTQ0MDY0MjEsIm5iZiI6MTU5NDQwNjQyMSwiZXhwIjoxNTk0NDEwMDIxfQ.1w5b0LnAnWNckQa4hCG2AnGP8-6fD8nT6SB4hPDyNy0');
+        headers.append('x-auth', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvaWQiOiI1ZWY2OTM2ZjcxYTllODdkODAxMjJiYmEiLCJpYXQiOjE1OTQ0MTU5ODAsIm5iZiI6MTU5NDQxNTk4MCwiZXhwIjoxNTk0NDE5NTgwfQ.dlgPL82dmNeZ7NiXSerzc4MaMSAunshwjma89L2wm7E');
     
         let options = {
             method:'GET',
@@ -110,19 +167,35 @@ const ItemList = (props) => {
             return (
                 items.map(item => {
                     return (
-                        <ItemListRow key={item._id} format={format} data={item} />
+                        <ItemListRow key={item._id} format={format} data={item} 
+                         onClick={() => handleItemRowClick(item._id)}/>
                     );
                 })
             );
         }
     }
 
+    const handleItemRowClick = (id) => {
+        
+    }
+
+    const handleAddItemClick = () => {
+        // TODO: display modal
+        // TODO: validate input
+        // TODO: post request
+    }
+
+    const handlePostItem = () => {
+
+    }
+
     return (
         <Wrapper>
+            <AddItemModal shown={true} />
             <Header colSizes={format.cols.map(elem => elem.size)}>
                 {
-                    format.cols.map(item => {
-                        let properString = item.dataField;
+                    format.cols.map(col => {
+                        let properString = col.dataField;
                         
                         // capatalize first letter of string
                         if (properString && properString.length > 0) {
@@ -131,12 +204,25 @@ const ItemList = (props) => {
                         }
 
                         return (
-                            <p>{properString}</p>
+                            <p key={col.dataField}>{properString}</p>
                         );
                     })
                 }
             </Header>
-            { renderItemsList() }
+            <ItemListWrapper>
+                { renderItemsList() }
+            </ItemListWrapper>
+            <ControlsWrapper>
+                <Button>Click</Button>
+                <PagenationWrapper>
+                    <PageControlButton>&lt;</PageControlButton>
+                    <PageIcon>1</PageIcon>
+                    <PageIcon selected>2</PageIcon>
+                    <PageIcon>. . .</PageIcon>
+                    <PageControlButton>&gt;</PageControlButton>
+                </PagenationWrapper>
+                <Button onClick={handleAddItemClick}>Add Item</Button>
+            </ControlsWrapper>
         </Wrapper>
     );
 }

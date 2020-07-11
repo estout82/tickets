@@ -8,7 +8,7 @@ import Text from '../common/Text';
 const Wrapper = styled.div`
     display: flex;
     flex-flow: column nowrap;
-    grid-column: ${ props => props.column ? props.column : 'auto' };
+    grid-column: ${ props => props.col ? props.col : 'auto' };
     grid-row: ${ props => props.row ? props.row : 'auto' };
     padding: ${ props => props.theme.largePad };
     border: 1px solid  ${ props => props.theme.textColorTwo };
@@ -30,7 +30,7 @@ const FormText = (props) => {
     }
 
     return (
-        <Wrapper row={props.row} column={props.column}>
+        <Wrapper row={props.row} col={props.col}>
             <Label htmlFor={props.name}>{props.name}</Label>
             <Text name={props.name} placeholder={props.name} 
                 onValueChange={handleValueChange}/>

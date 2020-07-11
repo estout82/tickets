@@ -80,8 +80,13 @@ const Dropdown = (props) => {
         setValue(option);
 
         // call value change callback if exists
-        if (props.onValueChange) {
-            props.onValueChange(option);
+        if (props.onChange) {
+            props.onChange(option);
+        }
+
+        // call bound setter
+        if (props.boundSetter) {
+            props.boundSetter(option);
         }
     }
 
