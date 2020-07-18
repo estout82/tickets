@@ -65,33 +65,25 @@ const Header = styled.div`
 `;
 
 const Modal = (props) => {
-    const [shown, setShown] = useState(props.shown);
-
-    const handleCloseClick = () => {
-        if (props.onClose) {
-            // call callback
-            const result = props.onClose();
-
-            if (result === true) {
-                setShown(false);
-            }
-        } else {
-            setShown(false);
-        }
-    }
 
     return (
-        <Wrapper shown={ shown }>
-            <ContentWrapper size={ props.size }>
-                <Header>
-                    <h3>{ props.title }</h3>
-                    <ButtonWrapper>
-                        <button onClick={handleCloseClick}>X</button>
-                    </ButtonWrapper>
-                </Header>
-                { props.children }
-            </ContentWrapper>
-        </Wrapper>
+        <>
+            {
+                props.shown ?
+                <Wrapper shown={ props.shown }>
+                    <ContentWrapper size={ props.size }>
+                        <Header>
+                            <h3>{ props.title }</h3>
+                            <ButtonWrapper>
+                                <button onClick={props.onClose}>X</button>
+                            </ButtonWrapper>
+                        </Header>
+                        { props.children }
+                    </ContentWrapper>
+                </Wrapper>
+                : null
+            }
+        </>
     );
 }
 

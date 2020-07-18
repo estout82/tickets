@@ -110,6 +110,7 @@ const ItemList = (props) => {
     const [status, setStatus] = useState({
         isLoading: true,
         isError: false,
+        isAddItemModalShown: false,
         message: null
     });
     const [items, setItems] = useState([]);
@@ -180,18 +181,20 @@ const ItemList = (props) => {
     }
 
     const handleAddItemClick = () => {
-        // TODO: display modal
-        // TODO: validate input
-        // TODO: post request
+        const newStatus = status;
+        newStatus.isAddItemModalShown = true;
+        setStatus(newStatus);
     }
 
-    const handlePostItem = () => {
-
+    const onAddItemModalClose = () => {
+        const newStatus = status;
+        newStatus.isAddItemModalShown = false;
+        setStatus(newStatus);
     }
 
     return (
         <Wrapper>
-            <AddItemModal shown={true} />
+            <AddItemModal onClose={ onAddItemModalClose } shown={ status.isAddItemModalShown } />
             <Header colSizes={format.cols.map(elem => elem.size)}>
                 {
                     format.cols.map(col => {

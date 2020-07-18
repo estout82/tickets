@@ -9,7 +9,7 @@ import FormText from '../../../common/FormText';
 import Button from '../../../common/Button';
 import LocationPicker from './LocationPicker';
 import * as constants from '../../../../config/constants';
-import ErrorBanner from '../../../common/ErrorBanner';
+import Banner from '../../../common/Banner';
 
 const FormWrapper = styled.div`
     height: 100%;
@@ -30,6 +30,7 @@ const FormControlWrapper = styled.div`
 const AddItemModal = (props) => {
     // component state
     const [error, setError] = useState({ error: false, msg: [] });
+    const [addItemModalShown, setAddItemShown] = useState(false);
 
     // form data state
     const [name, setName] = useState(null);
@@ -83,7 +84,7 @@ const AddItemModal = (props) => {
         }
     }
 
-    const handleSave = () => {
+    const handleSave = async () => {
         // build object with all form data
         const data = {
             name: name,
@@ -111,31 +112,64 @@ const AddItemModal = (props) => {
         if (validateResult.valid !== true) {
             // post error message
             setError({ error: true, msg: validateResult.msg });
+            return;
         }
 
-        // TODO: post to API
-        // TODO: handle error
+        // post to api
+        const requestHeaders = new Headers();
+        requestHeaders.append('Content-Type', 'application/json');
+
+        const requestOptions = {
+            method: 'POST',
+            headers: requestHeaders
+        };
+
+        const endpoint = 'http://localhost:9000/api/inventory/item/create';
+
+        try {
+            let response = await fetch(endpoint, requestOptions);
+            let responseJson = await response.json();
+
+            console.log('add item respoonse: ', responseJson);
+
+            // see if response is ok
+            if (response.status === 200) {
+                alert('ok'); // TODO: change this to a popup
+            }
+        } catch (err) {
+            alert('err'); // TODO: change this ti a popup
+        }
+
+        onClose(); // close modal
     };
 
     const onErrorBannerClose = () => {
         setError({ error: false, msg: [] });
     }
+    // given to modal as onClose event
+    const onClose = () => {
+        if (props.onClose) {
+            props.onClose();
+        }
+    }
+
+    console.log(props.shown);
 
     return (
         <>
             {
                 error.error ? 
                 (
-                    <ErrorBanner onClose={ onErrorBannerClose }>
+                    <Banner type='error' onClose={ onErrorBannerClose }>
                         {
                             error.msg.map(elem => <p>{elem}</p>)
                         }
-                    </ErrorBanner>
+                    </Banner>
                 ) :
                 null
             }
             <Modal size={{ width: '1000px', height: 'min-content' }} 
-                    title="New Item" shown={ props.shown }>
+                    title="New Item" shown={ props.shown } onClose={ onClose } >
                 <FormWrapper>
                     <FormInput boundSetter={ setName } row='1 / 2' col="1 / 2" 
                         name="Name" placeholder="Name" validator={ nameValidator } />

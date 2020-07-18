@@ -9,3 +9,5 @@
  - aad auth
 
  - aad integration
+
+ - add a global config context
