@@ -5,6 +5,7 @@ import { ThemeProvider } from 'styled-components';
 
 import Admin from './admin';
 import Portal from './portal';
+import Login from './login';
 import * as theme from '../config/theme';
 
 function App() {
@@ -12,8 +13,9 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <Switch>
-          <Route path="/portal" component={Portal}/>
-          <Route path="/admin" component={Admin} />
+          <Route path="/portal" component={ Portal }/>
+          <Route path="/admin" component={ Admin } />
+          <Route path="/login" component={ Login } />
         </Switch>
       </Router>
     </ThemeProvider>

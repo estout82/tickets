@@ -11,3 +11,5 @@
  - aad integration
 
  - add a global config context
+
+ - BACKEND: add a password requirements validator

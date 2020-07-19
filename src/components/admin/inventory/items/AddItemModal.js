@@ -146,12 +146,17 @@ const AddItemModal = (props) => {
     const onErrorBannerClose = () => {
         setError({ error: false, msg: [] });
     }
+
     // given to modal as onClose event
     const onClose = () => {
+        // TODO: display message saying data will be lost
+
         if (props.onClose) {
             props.onClose();
         }
     }
+
+    // TODO: move error to a context so we can call a function to add a banner to banner manager
 
     console.log(props.shown);
 

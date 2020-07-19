@@ -5,12 +5,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import ItemListRow from './ItemListRow';
-import LocationPicker from './LocationPicker';
 import Button from '../../../common/Button';
-import Modal from '../../../common/Modal';
-import FormSelect from '../../../common/FormSelect';
-import FormInput from '../../../common/FormInput';
-import FormText from '../../../common/FormText';
 import AddItemModal from './AddItemModal';
 
 const itemUrl = 'http://localhost:9000/api/inventory/item'
@@ -113,6 +108,7 @@ const ItemList = (props) => {
         isAddItemModalShown: false,
         message: null
     });
+    const [addItemModalShown, setAddItemModalShown] = useState(false);
     const [items, setItems] = useState([]);
     const [format, setFormat] = useState({
         cols: [
@@ -181,20 +177,16 @@ const ItemList = (props) => {
     }
 
     const handleAddItemClick = () => {
-        const newStatus = status;
-        newStatus.isAddItemModalShown = true;
-        setStatus(newStatus);
+        setAddItemModalShown(true);
     }
 
     const onAddItemModalClose = () => {
-        const newStatus = status;
-        newStatus.isAddItemModalShown = false;
-        setStatus(newStatus);
+        setAddItemModalShown(false);
     }
 
     return (
         <Wrapper>
-            <AddItemModal onClose={ onAddItemModalClose } shown={ status.isAddItemModalShown } />
+            <AddItemModal onClose={ onAddItemModalClose } shown={ addItemModalShown } />
             <Header colSizes={format.cols.map(elem => elem.size)}>
                 {
                     format.cols.map(col => {

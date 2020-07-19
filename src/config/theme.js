@@ -36,6 +36,7 @@ export const smallSizeFont = '8pt';
 export const mediumSizeFont = '10pt';
 export const largeSizeFont = '12pt';
 export const headerSizeFont = '18pt';
+export const largeHeaderSizeFont = '24pt';
 
 export const lightFont = '100';
 export const lightMeduimFont = '200';
