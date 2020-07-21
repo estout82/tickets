@@ -1,8 +1,8 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
-
 import TicketListRow from './TicketListRow';
+import { AuthUserContext } from '../../context/AuthUserContext';
 
 const Wrapper = styled.div`
     display: grid;
@@ -80,20 +80,20 @@ const PageIcon = styled.span`
 `;
 
 const TicketList = (props) => {
-
     const [tickets, setTickets] = useState([]);
+    const authUser = useContext(AuthUserContext);
 
     useEffect(() => {
+        // TODO: fix this
 
-        // TODO: better error handling
-        // TODO: fix hard coded urls
-        const inside = async () => {
-            let res = await fetch("http://localhost:3001/ticket");
-            let data = await res.json();
-            setTickets(data);
-        }
-        
-        inside();
+        const endpoint = 'http://localhost:9000/api/ticket';
+
+        let headers = new Headers();
+        headers.append('X-Auth', authUser.accessToken);
+
+        const options = {
+            method: 'GET'
+        };
     }, []);
 
     const selectTicket = (event) => {

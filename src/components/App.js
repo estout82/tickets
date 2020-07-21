@@ -7,17 +7,22 @@ import Admin from './admin';
 import Portal from './portal';
 import Login from './login';
 import * as theme from '../config/theme';
+import { AuthUserProvider } from './context/AuthUserContext';
+import AuthCheck from './AuthCheck';
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Router>
-        <Switch>
-          <Route path="/portal" component={ Portal }/>
-          <Route path="/admin" component={ Admin } />
-          <Route path="/login" component={ Login } />
-        </Switch>
-      </Router>
+      <AuthUserProvider>
+        <Router>
+          <AuthCheck />
+          <Switch>
+            <Route path="/portal" component={ Portal }/>
+            <Route path="/admin" component={ Admin } />
+            <Route path="/login" component={ Login } />
+          </Switch>
+        </Router>
+      </AuthUserProvider>
     </ThemeProvider>
   );
 }

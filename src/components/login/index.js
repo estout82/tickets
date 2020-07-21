@@ -1,7 +1,8 @@
 
 // TODO: make this look better ?
+// TODO: set the username in userAuth context
 
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 
 import Page from '../common/Page';
@@ -10,6 +11,8 @@ import Button from '../common/Button';
 import Logo from './bayside-b.jpg';
 import * as constants from '../../config/constants';
 import Banner from '../common/Banner';
+import { AuthUserContext } from '../context/AuthUserContext';
+import { Redirect } from 'react-router-dom';
 
 const Header = styled.div`
     display: flex;
@@ -77,7 +80,8 @@ const Login = (props) => {
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
     const [formValid, setFormValid] = useState(false);
-    const [status, setStatus] = useState({ error: false, msg: null });
+    const [status, setStatus] = useState({ error: false, msg: null, redirect: null });
+    const authUser = useContext(AuthUserContext);
 
     const resetForm = () => {
         setUsername('');
@@ -95,11 +99,12 @@ const Login = (props) => {
 
     // executed when login button is clicked
     const onLogin = () => {
-        const endpoint = "http://localhost:9000/login";
+        const endpoint = "/api/login";
         const headers = new Headers();
         const options = {
-            method: 'GET'
-        }
+            method: 'GET',
+            credentials: 'same-origin'
+        };
 
         // only proceed if form is valid
         if (formValid === false) {
@@ -122,8 +127,6 @@ const Login = (props) => {
         // make request
         fetch(endpoint, options)
         .then((response) => {
-            console.dir(response);
-
             if (response.status === 200) {
                 // return json body from response
                 return response.json();
@@ -139,11 +142,35 @@ const Login = (props) => {
                     error: true,
                     msg: 'Username or password is invalid'
                 });
+            } else if (response.status === 500) {
+                setStatus({
+                    error: true,
+                    msg: 'Server error occured while logging in'
+                });
             }
         })
-        .then((responseData) => {
-            // TODO: redirect user based on role / perms
-            console.dir(responseData);
+        .then((json) => {
+            // TODO: find a better flow (throw errors?)
+
+            // make sure json isnt undefined before proceeding
+            if (!json) {
+                return;
+            }
+
+            const data = json.data;
+
+            authUser.setUserData('placeholder', data.token);
+
+            // TODO: take a look at the security of this...
+            let newStatus = {...status};
+            
+            if (data.userType === 'admin' || data.userType === 'tech') {
+                newStatus.redirect = '/admin';
+            }  else {
+                newStatus.redirect = '/portal';
+            }
+
+            setStatus(newStatus);
         })
         .catch((error) => {
             // set error status to display message
@@ -186,33 +213,40 @@ const Login = (props) => {
     }
 
     return (
-        <Page direction="column">
+        <>
             {
-                status.error ?
-                <Banner onClose={ onErrorBannerClose }>
-                    <ErrorWrapper>
-                        { status.msg }
-                    </ErrorWrapper>
-                </Banner> 
+                status.redirect ?
+                <Redirect from='/login' to={status.redirect} />
                 : null
             }
-            <Header>
-                <h1>
-                    Bayside <span>IT <br />Helpdesk</span>
-                </h1>
-                <img alt="Logo" src={Logo} />
-            </Header>
-            <Content>
-                <FormWrapper>
-                    <h3>Login</h3>
-                    <FormInput boundSetter={ setUsername } validator={ usernameValidator }
-                     name="Username" value={ username } />
-                    <FormInput boundSetter={ setPassword } validator={ passwordValidator }
-                     name="Password" type="password" value={ password } />
-                    <Button onClick={ onLogin } marginRight="0">Login</Button>
-                </FormWrapper>
-            </Content>
-        </Page>
+            <Page direction="column">
+                {
+                    status.error ?
+                    <Banner onClose={ onErrorBannerClose }>
+                        <ErrorWrapper>
+                            { status.msg }
+                        </ErrorWrapper>
+                    </Banner> 
+                    : null
+                }
+                <Header>
+                    <h1>
+                        Bayside <span>IT <br />Helpdesk</span>
+                    </h1>
+                    <img alt="Logo" src={Logo} />
+                </Header>
+                <Content>
+                    <FormWrapper>
+                        <h3>Login</h3>
+                        <FormInput boundSetter={ setUsername } validator={ usernameValidator }
+                        name="Username" value={ username } />
+                        <FormInput boundSetter={ setPassword } validator={ passwordValidator }
+                        name="Password" type="password" value={ password } />
+                        <Button onClick={ onLogin } marginRight="0">Login</Button>
+                    </FormWrapper>
+                </Content>
+            </Page>
+        </>
     );
 }
 

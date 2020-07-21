@@ -1,12 +1,13 @@
 
 // TODO: make fancy loading animations
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 
 import ItemListRow from './ItemListRow';
 import Button from '../../../common/Button';
 import AddItemModal from './AddItemModal';
+import { AuthUserContext } from '../../../context/AuthUserContext';
 
 const itemUrl = 'http://localhost:9000/api/inventory/item'
 
@@ -116,10 +117,16 @@ const ItemList = (props) => {
             { size: '1fr', dataField: 'category' }
         ]
     });
+    const authUser = useContext(AuthUserContext);
 
     const loadItems = async () => {
+        if (!authUser.accessToken) {
+            setStatus({ isLoading: false, isError: true });
+            return;
+        }
+
         let headers = new Headers();
-        headers.append('x-auth', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvaWQiOiI1ZWY2OTM2ZjcxYTllODdkODAxMjJiYmEiLCJpYXQiOjE1OTQ0MTU5ODAsIm5iZiI6MTU5NDQxNTk4MCwiZXhwIjoxNTk0NDE5NTgwfQ.dlgPL82dmNeZ7NiXSerzc4MaMSAunshwjma89L2wm7E');
+        headers.append('x-auth', authUser.accessToken);
     
         let options = {
             method:'GET',

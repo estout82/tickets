@@ -25,6 +25,8 @@ const InputComponentWrapper = styled.div`
 `;
 
 const InputComponent = styled.input`
+    min-height: 30px;
+    box-sizing: border-box;
     height: min-content;
     width: calc(100% - 20px);
     padding: ${ props => props.theme.meduimPad };
