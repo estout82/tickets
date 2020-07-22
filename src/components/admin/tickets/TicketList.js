@@ -86,7 +86,7 @@ const TicketList = (props) => {
     useEffect(() => {
         // TODO: fix this
 
-        const endpoint = 'http://localhost:9000/api/ticket';
+        const endpoint = 'api/ticket';
 
         let headers = new Headers();
         headers.append('X-Auth', authUser.accessToken);

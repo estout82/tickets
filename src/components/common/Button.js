@@ -4,14 +4,8 @@ import styled from 'styled-components';
 
 const ButtonComponent = styled.button`
     display: inline-block;
-
+    margin: ${ props => props.margin ? props.margin : '0 7px 0 0' };
     padding: ${ props => props.theme.meduimPad };
-    margin-left: ${ props => props.marginLeft ? props.marginLeft : '0' };
-    margin-right: ${ props => props.marginRight ? props.marginRight : 
-            props.theme.meduimMargin };
-    margin-top: ${ props => props.marginTop ? props.marginTop : '0' };
-    margin-bottom: ${ props => props.marginBottom ? props.marginBottom : '0' };
-
     color: ${ props => props.theme.highlightColorOne };
     background: none;
     outline: none;
@@ -31,7 +25,10 @@ const ButtonComponent = styled.button`
 
 const Button = (props) => {
     return (
-        <ButtonComponent {...props}>
+        <ButtonComponent
+         margin={ props.margin }
+         onClick={ props.onClick }
+        >
             { props.children }
         </ButtonComponent>
     );

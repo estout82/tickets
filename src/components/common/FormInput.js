@@ -7,10 +7,12 @@ const Wrapper = styled.div`
     flex-flow: column nowrap;
     grid-column: ${ props => props.col ? props.col : 'auto' };
     grid-row: ${ props => props.row ? props.row : 'auto' };
-    padding: ${ props => props.theme.largePad };
-    border: 1px solid  ${ props => props.theme.textColorTwo };
+    margin: ${ props => props.margin ? props.margin : '0' };
+    padding: ${ props => props.minimal ? '0' : props.theme.largePad };
+    border: ${ props => props.minimal ? 'none' :
+        `1px solid ${props.theme.textColorTwo}` };
     border-radius: ${ props => props.theme.smallRound };
-    color: ${ props => props.theme.textColorOne }
+    color: ${ props => props.theme.textColorOne };
 `;
 
 const Label = styled.label`
@@ -21,14 +23,15 @@ const Label = styled.label`
 
 
 const InputComponentWrapper = styled.div`
+    display: block;
     position: relative;
+    margin: 0;
+    padding: 0;
 `;
 
 const InputComponent = styled.input`
     min-height: 30px;
     box-sizing: border-box;
-    height: min-content;
-    width: calc(100% - 20px);
     padding: ${ props => props.theme.meduimPad };
     background: none;
     outline: none;
@@ -41,6 +44,7 @@ const InputComponent = styled.input`
 
 const ErrorWrapper = styled.div`
     position: absolute;
+    width: min-content;
     top: calc(100% + 1px);
     padding: ${ props => props.theme.largePad };
     border-radius: ${ props => props.theme.smallRound };
@@ -77,15 +81,29 @@ const FormInput = (props) => {
     }
 
     return (
-        <Wrapper row={ props.row } col={ props.col }>
-            <Label errorMsg={ validation.msg } htmlFor={ props.name }>
-                { props.name }
-            </Label>
-            <InputComponentWrapper>
-                <InputComponent name={ props.name } value={ props.value }
-                placeholder={ props.placeholder ? props.placeholder : props.name } 
-                onChange={ handleChange } valid={ validation.valid } 
-                type={ props.type } />
+        <Wrapper 
+         minimal={ props.minimal } 
+         row={ props.row } 
+         col={ props.col } 
+         margin={ props.margin } >
+            {
+                props.minimal ? 
+                null :
+                <Label 
+                 errorMsg={ validation.msg } 
+                 htmlFor={ props.name }>
+                    { props.name }
+                </Label>
+            }
+            <InputComponentWrapper minimal={ props.minimal} >
+                <InputComponent 
+                 minimal={ props.minimal } 
+                 name={ props.name } 
+                 value={ props.value }
+                 placeholder={ props.placeholder ? props.placeholder : props.name } 
+                 onChange={ handleChange } 
+                 valid={ validation.valid } 
+                 type={ props.type } />
                 {
                     validation.valid === false ? (
                         <ErrorWrapper>

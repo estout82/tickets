@@ -42,7 +42,6 @@ const AuthCheck = (props) => {
             if (response.status === 200) {
                 return response.json();
             } else {
-                console.log('fail');
                 // if status is not 200, redirect to login page
                 setIsLoading(false);
                 setRedirect('/login');
@@ -75,11 +74,8 @@ const AuthCheck = (props) => {
     }
 
     useEffect(() => {
-        console.log('attempting login');
         loginAttempt();
     }, []);
-
-    console.log('rendering');
 
     return (
         <>

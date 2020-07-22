@@ -124,7 +124,7 @@ const AddItemModal = (props) => {
             headers: requestHeaders
         };
 
-        const endpoint = 'http://localhost:9000/api/inventory/item/create';
+        const endpoint = '/api/inventory/item/create';
 
         try {
             let response = await fetch(endpoint, requestOptions);
