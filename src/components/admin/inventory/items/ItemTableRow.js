@@ -6,9 +6,8 @@
  *      - 
  */
 
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { AuthUserContext } from '../../../context/AuthUserContext';
 import Button from '../../../common/Button';
 import FormInput from '../../../common/FormInput';
 import * as constants from '../../../../config/constants';
@@ -106,48 +105,28 @@ const ItemRow = (props) => {
     // hooks
 
     const [selected, setSelected] = useState(false);
-    const [status, setStatus] = useState('loading');
-    const [itemDetails, setItemDetails] = useState();
+    const [status, setStatus] = useState('done');
+    const [itemDetails, setItemDetails] = useState({
+        name: 'Test Item',
+        description: 'Test description',
+        manufacture: 'Apple',
+        upc: '12345612346',
+        category: 'Adapter',
+        role: 'USB-C to HDMI',
+        location: 'Cabinent A',
+        customId: 'dong1',
+        source: '',
+        price: '$40.00',
+        newOnHand: 1,
+        refurbishedOnHand: 2,
+        idealOnHand: 3,
+        lastDateIssued: '',
+        displayInStore: '',
+    });
     const [isEditing, setIsEditing] = useState(false);
-    const authUser = useContext(AuthUserContext);
-
-    useEffect(() => {
-        loadItemDetails()
-    }, []);
 
     // --------------------------------------------------------------------------------------------
     // event handlers
-
-    // loads item details from backend
-    const loadItemDetails = async () => {
-
-        const endpoint = `/api/inventory/item/${props.data._id}`;
-
-        let headers = new Headers();
-        headers.append('X-Auth', authUser.accessToken);
-        
-        try {
-            const response = await fetch(endpoint, {
-                method: 'GET',
-                credentials: 'include',
-                headers: headers
-            });
-
-            let json = await response.json();
-
-            switch (response.status) {
-                case 200:
-                    setItemDetails(json.data);
-                    setStatus('done');
-                    break;
-                default:
-                    throw json; // TODO: fix the error handling
-            }
-        } catch (err) {
-            setStatus('error');
-            console.log(err);
-        }
-    }
 
     // called whenever the status changes and handles accordingly
     const onStatusChange  = (newStatus) => {
@@ -184,7 +163,6 @@ const ItemRow = (props) => {
 
     const resetForm = () => {
         setStatus('loading');
-        loadItemDetails();
     }
 
     // --------------------------------------------------------------------------------------------

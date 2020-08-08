@@ -1,0 +1,20 @@
+
+.btn {
+    display: inline-block;
+    padding: 10px;
+    min-width: 40px;
+    color: var(--hlt-color-one);
+    background: none;
+    outline: none;
+    border: 1px solid var(--hlt-color-one);
+    border-radius: 5px;
+    font-size: 12pt;
+    font-weight: 200;
+}
+
+.btn:hover {
+    background: var(--hlt-color-one);
+    color: var(--main-color-three);
+    transition: color .15s, background .15s;
+    cursor: pointer;
+}

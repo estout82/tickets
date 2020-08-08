@@ -26,18 +26,57 @@ const InputComponent = styled.input`
     }
 `;
 
+const InputComponentMinimal = styled.input`
+    display: inline-block;
+    width: ${ props => props.fliud ? '100%' : 'auto' };
+    padding: 3px;
+    margin-left: ${ props => props.marginLeft ? props.marginLeft : '0' };
+    margin-right: ${ props => props.marginRight ? props.marginRight : 
+            props.theme.meduimMargin };
+    margin-top: ${ props => props.marginTop ? props.marginTop : '0' };
+    margin-bottom: ${ props => props.marginBottom ? props.marginBottom : '0' };
+    background: none;
+    outline: none;
+    border: 1px solid ${ props => props.theme.textColorTwo };
+    border-radius: ${ props => props.theme.smallRound };
+    color: ${ props => props.theme.textColorOne };
+    font-size: 10pt;
+    font-weight: 300;
+
+    &:focus {
+        border-color: ${ props => props.theme.highlightColorOne };
+    }
+
+    &::placeholder {
+        color: ${ props => props.theme.textColorTwo };
+    }
+`;
+
 const Input = (props) => {
     const handleValueChange = (event) => {
-        if (props.onValueChange) {
-            props.onValueChange(event.target.value);
+        if (props.onChange) {
+            props.onChange(event.target.value);
         }
     }
 
+    if (props.minimal) {
+        return (
+            <InputComponentMinimal
+             name={ props.name }
+             onChange={ handleValueChange }
+             value={ props.value }
+             placeholder={ props.placeholder } 
+            />
+        );
+    }
+
     return (
-        <InputComponent name={props.name} onChange={handleValueChange} value={props.value} 
-            placeholder={props.placeholder}>
-            {props.value}
-        </InputComponent>
+        <InputComponent 
+         name={ props.name } 
+         onChange={ handleValueChange } 
+         value={ props.value } 
+         placeholder={ props.placeholder } 
+        />
     );
 };
 

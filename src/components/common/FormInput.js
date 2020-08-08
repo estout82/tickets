@@ -31,6 +31,7 @@ const InputComponentWrapper = styled.div`
 
 const InputComponent = styled.input`
     min-height: 30px;
+    width: 100%;
     box-sizing: border-box;
     padding: ${ props => props.theme.meduimPad };
     background: none;

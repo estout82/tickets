@@ -2,7 +2,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
-
 import Admin from './admin';
 import Portal from './portal';
 import Login from './login';
@@ -15,7 +14,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <AuthUserProvider>
         <Router>
-          <AuthCheck />
+          
           <Switch>
             <Route path="/portal" component={ Portal }/>
             <Route path="/admin" component={ Admin } />

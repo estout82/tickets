@@ -1,10 +1,25 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
+header, div, main, section, h1, h2, h3, h4, h5, h6, span, input, button,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+button, input {
+  outline: none;
+  border: none;
+  box-shadow: none;
+  appearance: none;
+}
+
 html {
   width: 100vw;
   height: 100vh;
+  font-weight: 300;
   font-family: 'Poppins', sans-serif;
+  font-size: 16pt;
 }
 
 body {
@@ -16,3 +31,6 @@ body {
 #root {
   height: 100%;
 }
+
+@import './layout.css';
+@import './color.css';

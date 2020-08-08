@@ -26,7 +26,6 @@ const Wrapper = styled.div`
 
 const AuthCheck = (props) => {
     const [isLoading, setIsLoading] = useState(true);
-    const [authFail, setAuthFail] = useState(false);
     const [redirect, setRedirect] = useState();
     const authUser = useContext(AuthUserContext);
 

@@ -95,7 +95,7 @@ const Login = (props) => {
         });
     }
 
-    // event handlers --------------------
+    // event handlers ---------------------------------------------
 
     // executed when login button is clicked
     const onLogin = () => {
@@ -219,7 +219,7 @@ const Login = (props) => {
                 <Redirect from='/login' to={status.redirect} />
                 : null
             }
-            <Page direction="column">
+            <Page direction="col">
                 {
                     status.error ?
                     <Banner onClose={ onErrorBannerClose }>

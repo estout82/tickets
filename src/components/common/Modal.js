@@ -10,7 +10,7 @@ const Wrapper = styled.div`
     right: 0;
     width: 100vw;
     height: 100vh;
-    display: ${ props => props.shown ? 'flex' : 'none' };
+    display: flex;
     justify-content: center;
     align-items: center;
     background: rgba(0, 0, 0, .6);
@@ -19,7 +19,6 @@ const Wrapper = styled.div`
 const ContentWrapper = styled.div`
     width: ${ props => props.size.width ? props.size.width : '400px' };
     height: ${ props => props.size.height ? props.size.height : '400px' };
-    min-height: 400px;
     background: orange;
     display: flex;
     flex-flow: column nowrap;
@@ -33,19 +32,23 @@ const ButtonWrapper = styled.div`
     justify-content: flex-end;
 `;
 
+const TitleWrapper = styled.div`
+    padding: 0;
+    margin: 0;
+`;
+
 const Header = styled.div`
     width: 100%;
-    min-height: 50px;
+    min-height: 40px;
     display: grid;
     grid-template: 1fr / 1fr 1fr;
-    background: ${ props => props.theme.backgroundColorThree };
     border-top-left-radius: ${ props => props.theme.meduimRound }; 
     border-top-right-radius: ${ props => props.theme.meduimRound }; 
     color: ${ props => props.theme.textColorOne };
 
     h3 {
         font-weight: 400;
-        padding: ${ props => props.theme.largePad };
+        padding: 10px 10px 0 10px;
         margin: 0;
     }
 
@@ -65,23 +68,21 @@ const Header = styled.div`
 const Modal = (props) => {
 
     return (
-        <>
-            {
-                props.shown ?
-                <Wrapper shown={ props.shown }>
-                    <ContentWrapper size={ props.size }>
-                        <Header>
-                            <h3>{ props.title }</h3>
-                            <ButtonWrapper>
-                                <button onClick={props.onClose}>X</button>
-                            </ButtonWrapper>
-                        </Header>
-                        { props.children }
-                    </ContentWrapper>
-                </Wrapper>
-                : null
-            }
-        </>
+        <Wrapper>
+            <ContentWrapper size={ props.size }>
+                <Header>
+                    <TitleWrapper>
+                        <h3>
+                            { props.title }
+                        </h3>
+                    </TitleWrapper>
+                    <ButtonWrapper>
+                        <button onClick={ props.onClose ? props.onClose : () => {} }>X</button>
+                    </ButtonWrapper>
+                </Header>
+                { props.children }
+            </ContentWrapper>
+        </Wrapper>
     );
 }
 

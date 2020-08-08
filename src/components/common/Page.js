@@ -1,18 +1,28 @@
 
 import React from 'react';
-import styled from 'styled-components';
-
-const PageComponent = styled.div`
-    display: flex;
-    flex-flow: ${ props => props.direction } nowrap;
-    height: 100%;
-`;
 
 const Page = (props) => {
+    const buildWrapperClassName = () => {
+        let className = 'flex full-height'
+
+        switch (props.direction) {
+            case 'row':
+                className = className + ' flex-row';
+                break;
+            case 'col':
+                className = className + ' flex-col';
+                break;
+            default:
+                break;
+        }
+
+        return className;
+    }
+
     return (
-        <PageComponent direction={props.direction}>
+        <div className={ buildWrapperClassName() }>
             {props.children}
-        </PageComponent>
+        </div>
     );
 }
 

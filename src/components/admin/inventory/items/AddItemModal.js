@@ -30,7 +30,6 @@ const FormControlWrapper = styled.div`
 const AddItemModal = (props) => {
     // component state
     const [error, setError] = useState({ error: false, msg: [] });
-    const [addItemModalShown, setAddItemShown] = useState(false);
 
     // form data state
     const [name, setName] = useState(null);
@@ -174,7 +173,7 @@ const AddItemModal = (props) => {
                 null
             }
             <Modal size={{ width: '1000px', height: 'min-content' }} 
-                    title="New Item" shown={ props.shown } onClose={ onClose } >
+                    title="New Item" onClose={ onClose } >
                 <FormWrapper>
                     <FormInput boundSetter={ setName } row='1 / 2' col="1 / 2" 
                         name="Name" placeholder="Name" validator={ nameValidator } />
