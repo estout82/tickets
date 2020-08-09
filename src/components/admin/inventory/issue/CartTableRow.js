@@ -21,26 +21,65 @@ const Cell = styled.div`
     align-items: center;
 `;
 
+const DeleteButton = styled.button`
+    background: none;
+    color: ${ props => props.theme.textColorTwo };
+
+    &:hover {
+        font-weight: 700;
+        color: ${ props => props.theme.highlightColorOne };
+        cursor: pointer;
+    }
+`;
+
 const CartTableRow = (props) => {
     const handleMouseEnter = () => {
-
+        if (props.onMouseEnter) {
+            props.onMouseEnter();
+        }
     }
 
     const handleMouseLeave = () => {
-
+        if (props.onMouseLeave) {
+            props.onMouseLeave();
+        }
     }
 
     const handleDeleteButtonClick = () => {
+        if (props.onDelete) {
+            props.onDelete();
+        }
+    }
 
+    const handleIsLoanerButtonClick = (newValue) => {
+        if (props.onIsLoanerChange) {
+            props.onIsLoanerChange(newValue)
+        }
     }
 
     return (
-        <Wrapper>
-            <Cell>Name</Cell>
-            <Cell>Quantity</Cell>
-            <Cell><Checkbox value={ true } /></Cell>
-            <Cell>Price</Cell>
-            <Cell>x</Cell>
+        <Wrapper
+         onMouseEnter={ handleMouseEnter }
+         onMouseLeave={ handleMouseLeave }>
+            <Cell>{ props.name }</Cell>
+            <Cell>{ props.quantity }</Cell>
+            <Cell>
+                <Checkbox 
+                 value={ props.isLoaner } 
+                 onChange={ handleIsLoanerButtonClick }
+                />
+            </Cell>
+            <Cell>{ props.price }</Cell>
+            { 
+                props.hovering ?
+                <Cell>
+                    <DeleteButton
+                     onClick={ handleDeleteButtonClick }>
+                        x
+                    </DeleteButton>
+                </Cell> :
+                null
+            }
         </Wrapper>
     );
 }

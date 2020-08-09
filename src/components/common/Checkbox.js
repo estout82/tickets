@@ -8,6 +8,10 @@ const Wrapper = styled.div`
     border: 1px solid ${ props => props.theme.textColorTwo };
     border-radius: 5px;
     background: ${ props => props.value === true ? props.theme.highlightColorOne : 'none' };
+
+    &:hover {
+        cursor: pointer;
+    }
 `;
 
 const Checkbox = (props) => {
