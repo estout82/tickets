@@ -14,7 +14,6 @@ function App() {
     <ThemeProvider theme={theme}>
       <AuthUserProvider>
         <Router>
-          
           <Switch>
             <Route path="/portal" component={ Portal }/>
             <Route path="/admin" component={ Admin } />

@@ -21,6 +21,10 @@ const InputComponent = styled.input`
     font-size: ${ props => props.theme.meduimSizeFont };
     color: ${ props => props.theme.textColorOne };
 
+    &:focus {
+        border-color: ${ props => props.theme.highlightColorOne };
+    }
+
     &::placeholder {
         color: ${ props => props.theme.textColorTwo };
     }
@@ -64,6 +68,9 @@ const Input = (props) => {
             <InputComponentMinimal
              name={ props.name }
              onChange={ handleValueChange }
+             onBlur={ props.onBlur }
+             onFocus={ props.onFocus }
+             onClick={ props.onClick }
              value={ props.value }
              placeholder={ props.placeholder } 
             />
@@ -74,7 +81,11 @@ const Input = (props) => {
         <InputComponent 
          name={ props.name } 
          onChange={ handleValueChange } 
+         onBlur={ props.onBlur }
+         onFocus={ props.onFocus }
+         onClick={ props.onClick }
          value={ props.value } 
+         ref={ props.innerRef } 
          placeholder={ props.placeholder } 
         />
     );
