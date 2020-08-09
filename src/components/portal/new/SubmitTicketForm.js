@@ -25,7 +25,7 @@ const Form = styled.div`
 const SubmitTicketForm = (props) => {
     const [selectedCategory, setSelectedCategory] = useState(null);
 
-    const [categories, setCategories] = useState([
+    const [ categories ] = useState([
         {
             name: 'Hardware Issue',
             id: 1,

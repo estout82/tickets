@@ -1,6 +1,5 @@
 
 // TODO: event logic in here needs some serious help
-// TODO: add a notes form field
 
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';

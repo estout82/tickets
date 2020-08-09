@@ -2,8 +2,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import Card from './Card';
-import Button from  '../../common/Button';
 import AzureIntegrationCard from './AzureIntegrationCard';
 
 // TODO: make the grid responsive
@@ -19,16 +17,6 @@ const Content = styled.div`
     margin: 20px;
     color: ${ props => props.theme.textColorOne };
     overflow: scroll;
-`;
-
-const CardHeader = styled.h3`
-    font-weight: ${ props => props.theme.meduimFont };
-    margin: ${ props => props.theme.largePad };
-`;
-
-const CardContent = styled.div`
-    flex-grow: 1;
-    padding: ${ props => props.theme.largePad };
 `;
 
 const Config = (props) => {

@@ -37,7 +37,7 @@ const AddItemModal = (props) => {
     const [manufacture, setManufacture] = useState(null);
     const [upc, setUpc] = useState(null);
     const [price, setPrice] = useState(null);
-    const [showInStore, setShowInStore] = useState(null);
+    const [showInStore ] = useState(null);
     const [description, setDescription] = useState(null);
     const [sourceUrl, setSourceUrl] = useState(null);
     const [sourceVendor, setSourceVendor] = useState(null);
@@ -75,7 +75,7 @@ const AddItemModal = (props) => {
 
     // TODO: make this a real url validator
     const sourceUrlValidator = (value) => {
-        if (/(http:\/\/|https:\/\/)[^\.]+\.[^\.]+/.test(value) || 
+        if (/(http:\/\/|https:\/\/)[^.]+\.[^.]+/.test(value) || 
             value === constants.EMPTY_STRING) {
             return true;
         } else {

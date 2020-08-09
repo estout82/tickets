@@ -1,7 +1,8 @@
 
+// TODO: add a notes form field
+
 import React from 'react';
 import styled from 'styled-components';
-import Select from '../../../common/Select';
 import UserPicker from './UserPicker';
 
 const Wrapper = styled.div`

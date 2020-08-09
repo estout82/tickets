@@ -13,10 +13,6 @@ const Wrapper = styled.div`
     grid-template-columns: 1fr;
 `;
 
-const ContentWrapper = styled.div`
-    background: red;
-`;
-
 const Cart = (props) => {
     return (
         <Wrapper>

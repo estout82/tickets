@@ -7,7 +7,6 @@ import Portal from './portal';
 import Login from './login';
 import * as theme from '../config/theme';
 import { AuthUserProvider } from './context/AuthUserContext';
-import AuthCheck from './AuthCheck';
 
 function App() {
   return (

@@ -1,8 +1,7 @@
 
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import TicketListRow from './TicketListRow';
-import { AuthUserContext } from '../../context/AuthUserContext';
 
 const Wrapper = styled.div`
     display: grid;
@@ -80,21 +79,7 @@ const PageIcon = styled.span`
 `;
 
 const TicketList = (props) => {
-    const [tickets, setTickets] = useState([]);
-    const authUser = useContext(AuthUserContext);
-
-    useEffect(() => {
-        // TODO: fix this
-
-        const endpoint = 'api/ticket';
-
-        let headers = new Headers();
-        headers.append('X-Auth', authUser.accessToken);
-
-        const options = {
-            method: 'GET'
-        };
-    }, []);
+    const [tickets] = useState([]);
 
     const selectTicket = (event) => {
         event.target.selected = true;
