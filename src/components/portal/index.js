@@ -11,7 +11,7 @@ import Appointment from './appointment';
 
 const Portal = (props) => {
     return (
-        <Page direction="column">
+        <Page direction="col">
             <Header />
             <Switch>
                 <Route path="/portal/new" component={NewTicket} />

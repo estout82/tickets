@@ -14,13 +14,22 @@ const MessageWrapper = styled.p`
     font-size: 10pt;
 `;
 
+const TableHeader = styled.div`
+    display: grid;
+    grid-template-columns: 1fr .5fr .5fr .5fr .5fr 40px;
+    padding-bottom: 10px;
+
+    font-size: 10pt;
+`;
+
 const NOT_HOVERING = -1;
 
 const CartTable = (props) => {
     const [ cartRows, setCartRows ] = useState([
         { 
             name: "USBC to HDMI Adapter",
-            quantity: 1,
+            newCount: 1,
+            refurbCount: 0,
             isLoaner: true,
             price: '$50.00'
         }
@@ -59,6 +68,13 @@ const CartTable = (props) => {
 
     return (
         <Wrapper>
+            <TableHeader>
+                <p>Name</p>
+                <p>New Count</p>
+                <p>Refurb Count</p>
+                <p>Loaner</p>
+                <p>Price</p>
+            </TableHeader>
             {
                 cartRows ?
                 cartRows.map( ( row, index ) => {
@@ -66,7 +82,8 @@ const CartTable = (props) => {
                         <CartTableRow 
                          key={ row.name }
                          name={ row.name }
-                         quantity={ row.quantity }
+                         newCount={ row.newCount }
+                         refurbCount={ row.refurbCount }
                          isLoaner={ row.isLoaner }
                          price={ row.price }
                          hovering={ hoveringRow === index }

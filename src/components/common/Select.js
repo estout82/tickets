@@ -34,21 +34,26 @@ const Select = (props) => {
          onChange={ handleChange }>
             { 
                 props.options ?
-                props.options.map( option => {
-                    if (option === props.value) {
+                // options are structured as { value: label }
+                // value is name of property in DB
+                // value is what is presented to the user
+                Object.keys(props.options).map( key => {
+                    const label = props.options[key];
+
+                    if (key === props.value) {
                         return (
                             <option
-                             name={ option }
+                             name={ key }
                              selected >
-                                { option }
+                                { label }
                             </option>
                         );
                     }
 
                     return (
                         <option
-                         name={ option }>
-                            { option }
+                         name={ key }>
+                            { label }
                         </option>
                     );
                 } ) :

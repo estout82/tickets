@@ -164,7 +164,7 @@ const EditItemModal = (props) => {
     return (
         <>
             <Modal 
-            size={ { width: '500px', height: 'fit-contentdddddd' } }
+            size={ { width: '500px', height: 'fit-content' } }
             title="Edit Item"
             message={ { type: 'ok', msg: 'Changes saved sucessfully' } }
             onClose={ props.onClose }>

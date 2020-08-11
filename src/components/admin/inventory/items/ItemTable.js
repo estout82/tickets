@@ -3,6 +3,7 @@ import React from 'react';
 import Table from '../../../common/Table';
 
 const ItemTable = (props) => {
+
     const data = {
         head: [
             'Name',

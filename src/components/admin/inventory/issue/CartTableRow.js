@@ -5,7 +5,7 @@ import Checkbox from '../../../common/Checkbox';
 
 const Wrapper = styled.div`
     display: grid;
-    grid-template-columns: 1fr .75fr .75fr .75fr 40px;
+    grid-template-columns: 1fr .5fr .5fr .5fr .5fr 40px;
 
     font-size: 10pt;
 
@@ -62,7 +62,8 @@ const CartTableRow = (props) => {
          onMouseEnter={ handleMouseEnter }
          onMouseLeave={ handleMouseLeave }>
             <Cell>{ props.name }</Cell>
-            <Cell>{ props.quantity }</Cell>
+            <Cell>{ props.newCount }</Cell>
+            <Cell>{ props.refurbCount }</Cell>
             <Cell>
                 <Checkbox 
                  value={ props.isLoaner } 

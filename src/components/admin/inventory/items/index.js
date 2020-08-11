@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import styled from 'styled-components';
-
 import ItemTable from './ItemTable';
 import AddItemModal from './AddItemModal';
 import Controls from './Controls';
@@ -19,8 +18,8 @@ const Wrapper = styled.div`
 `;
 
 const Items = (props) => {
-    const [addItemModalShown, setAddItemModalShown] = useState(false);
-    const [editItemModalShown, setEditItemModalShown] = useState(false);
+    const [ addItemModalShown, setAddItemModalShown ] = useState(false);
+    const [ editItemModalShown, setEditItemModalShown ] = useState(false);
 
     const onAddItemModalClose = () => {
         setAddItemModalShown(false);
