@@ -60,7 +60,7 @@ const InfoModal = (props) => {
     return (
         <Modal
          size={ { width: 'fit-content', height: '200px' } }
-         title={ props.data.name }
+         title={ props.data.firstName + ' ' + props.data.lastName }
          onClose={ handleClose }>
             <Wrapper>
                 

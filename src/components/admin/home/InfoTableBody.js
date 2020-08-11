@@ -2,11 +2,19 @@
 import React from 'react';
 import styled from 'styled-components';
 import InfoTableRow from './InfoTableRow';
+import useLoadingText from '../../../config/hooks/useLoadingText';
 
-const Wrapper = styled.div`
-`;
+const LoadingWrapper = styled.div`
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    width: 100%;
+    color: ${ props => props.theme.highlightColorOne }
+`; 
 
 const InfoTableBody = (props) => {
+    const loadingText = useLoadingText();
+
     const handleRowClick = (index) => {
         if (props.onRowClick) {
             props.onRowClick(index);
@@ -14,17 +22,19 @@ const InfoTableBody = (props) => {
     }
 
     return (
-        <Wrapper>
+        <>
             {
-                props.data.map( ( row, index ) => {
+                props.data.loading ?
+                <LoadingWrapper>{ loadingText }</LoadingWrapper> :
+                props.data.users.map( ( row, index ) => {
                     return (
                         <InfoTableRow 
                          key={ row.name }
-                         name={ row.name }
+                         name={ row.firstName + ' ' + row.lastName }
                          organization={ row.organization }
                          tags={ row.tags }
                          department={ row.department }
-                         openTickets={ row.openTickets }
+                         openTicketCount={ row.openTicketCount }
                          assetCount={ row.assetCount }
                          itemCount={ row.itemCount }
                          onLoanCount={ row.onLoanCount }
@@ -33,7 +43,7 @@ const InfoTableBody = (props) => {
                     );
                 } )
             }
-        </Wrapper>
+        </>
     );
 }
 
