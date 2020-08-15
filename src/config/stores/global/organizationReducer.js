@@ -17,7 +17,7 @@ const fakeResponse = {
 
 const reducer = (state, action) => {
     const dispatch = action.payload.dispatch;
-    const response = action.payload.dispatch;
+    const response = action.payload.response;
 
     switch (action.type) {
         case actions.FETCH_START:

@@ -13,7 +13,7 @@ const GlobalStore = (props) => {
     // fetch all data when component mounts
     useEffect(() => {
         organizationsDispatch({
-            type: organizationActions.FETCH_SUCESS,
+            type: organizationActions.FETCH_START,
             payload: {
                 dispatch: organizationsDispatch
             }

@@ -8,19 +8,22 @@ import Login from './login';
 import * as theme from '../config/theme';
 import { AuthUserProvider } from './context/AuthUserContext';
 import GlobalStore from '../config/stores/global/GlobalStore';
+import Loading from './Loading';
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <AuthUserProvider>
         <GlobalStore>
-          <Router>              
-            <Switch>
-              <Route path="/portal" component={ Portal }/>
-              <Route path="/admin" component={ Admin } />
-              <Route path="/login" component={ Login } />
-            </Switch>
-          </Router>
+          <Loading>
+            <Router>              
+              <Switch>
+                <Route path="/portal" component={ Portal }/>
+                <Route path="/admin" component={ Admin } />
+                <Route path="/login" component={ Login } />
+              </Switch>
+            </Router>
+          </Loading>
         </GlobalStore>
       </AuthUserProvider>
     </ThemeProvider>
