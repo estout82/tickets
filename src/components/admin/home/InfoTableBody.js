@@ -24,12 +24,12 @@ const InfoTableBody = (props) => {
     return (
         <>
             {
-                props.data.loading ?
+                props.data.status === 'loading' ?
                 <LoadingWrapper>{ loadingText }</LoadingWrapper> :
                 props.data.users.map( ( row, index ) => {
                     return (
                         <InfoTableRow 
-                         key={ row.name }
+                         key={ row.firstName + row.lastName }
                          name={ row.firstName + ' ' + row.lastName }
                          organization={ row.organization }
                          tags={ row.tags }

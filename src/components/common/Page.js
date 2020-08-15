@@ -1,28 +1,20 @@
 
 import React from 'react';
+import styled from 'styled-components';
 
-const Page = (props) => {
-    const buildWrapperClassName = () => {
-        let className = 'flex full-height'
+const Wrapper = styled.div`
+    display: flex;
+    flex-flow: ${ props => props.direction } nowrap;
+    width: 100%;
+    height: 100%;
+`;
 
-        switch (props.direction) {
-            case 'row':
-                className = className + ' flex-row';
-                break;
-            case 'col':
-                className = className + ' flex-col';
-                break;
-            default:
-                break;
-        }
 
-        return className;
-    }
-
+const Page = ({ direction, children }) => {
     return (
-        <div className={ buildWrapperClassName() }>
-            {props.children}
-        </div>
+        <Wrapper direction={ direction }>
+            { children }
+        </Wrapper>
     );
 }
 

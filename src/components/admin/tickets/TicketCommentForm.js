@@ -3,8 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Button from '../../common/Button';
-import Dropdown from '../../common/Dropdown';
-import DropdownItem from '../../common/DropdownItem';
+import Select from '../../common/Select';
 
 const Wrapper = styled.div`
     display: grid;
@@ -39,11 +38,10 @@ const TicketCommentForm = (props) => {
             <input placeholder="Add a comment..." />
             <ControlWrapper>
                 <Button>Post</Button>
-                <Dropdown title="Public">
-                    <DropdownItem>Public</DropdownItem>
-                    <DropdownItem>Private</DropdownItem>
-                    <DropdownItem>Personal</DropdownItem>
-                </Dropdown>
+                <Select 
+                 name="title"
+                 options={ { public: 'Public', private: 'Private', personal: 'Personal' } }
+                />
             </ControlWrapper>
         </Wrapper>
     );

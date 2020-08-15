@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Select from '../../../common/Select';
 import Input from '../../../common/Input';
@@ -24,8 +24,6 @@ const Row = styled.div`
 `;
 
 const ItemPickerControls = (props) => {
-    const [ source, setSource ] = useState('Items');
-    
     return (
         <Wrapper>
             <Row>

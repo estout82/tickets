@@ -4,32 +4,35 @@ import styled from 'styled-components';
 import InfoTableHeader from './InfoTableHeader';
 import InfoTableBody from './InfoTableBody';
 import InfoModal from './InfoModal';
+import useUsersPage from '../../../config/stores/user/useUsersPage';
 
 const Wrapper = styled.div`
     padding: 0 10px 10px 10px;
 `;
 
 const InfoTable = (props) => {
-    const [ infoModalShown, setInfoModalShown ] = useState(false);
+    const [ infoModalData, setInfoModalData ] = useState();
+    const userPageData = useUsersPage(0);
 
     const handleRowClick = (index) => {
-        setInfoModalShown(true);
+        setInfoModalData(userPageData.users[index]);
     }
 
     const handleInfoModalClose = () => {
-        setInfoModalShown(false);
+        setInfoModalData(null);
     }
 
     return (
         <Wrapper>
             <InfoTableHeader />
             <InfoTableBody 
-             data={ props.data }
+             data={ userPageData }
              onRowClick={ handleRowClick }
             />
             {
-                infoModalShown ?
+                infoModalData ?
                 <InfoModal
+                 data={ infoModalData }
                  onClose={ handleInfoModalClose }    
                 />
                 : null

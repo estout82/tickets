@@ -52,6 +52,7 @@ const Select = (props) => {
 
                     return (
                         <option
+                         key={ key }
                          name={ key }>
                             { label }
                         </option>

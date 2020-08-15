@@ -1,9 +1,8 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import InfoTable from './InfoTable';
 import InfoControls from './InfoControls';
-import useGetUsers from '../../../config/hooks/useGetUsers';
+import InfoTable from './InfoTable';
 
 const Wrapper = styled.div`
     width: 100%;
@@ -13,12 +12,10 @@ const Wrapper = styled.div`
 `;
 
 const Info = (props) => {
-    const { users, loading } = useGetUsers();
-
     return (
         <Wrapper>
             <InfoControls />
-            <InfoTable data={ {users, loading} }/>
+            <InfoTable />
         </Wrapper>
     );
 }

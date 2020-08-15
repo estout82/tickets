@@ -1,9 +1,6 @@
 
 import React from 'react';
 import styled from 'styled-components';
-
-import Label from '../../common/Label';
-
 import TicketInfo from './TicketInfo';
 import TicketToDo from './TicketToDo';
 import TicketComment from './TicketComment';
@@ -61,7 +58,7 @@ const TicketDetails = (props) => {
     return (
         <Wrapper>
             <TitleWrapper>
-                <Label>4473</Label>
+                <p>4473</p>
                 <span>Need MacMini</span>
                 <span>Tyler Kanishiro</span>
                 <span>Granite Bay</span>

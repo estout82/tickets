@@ -11,15 +11,6 @@ import LocationPicker from './LocationPicker';
 import * as constants from '../../../../config/constants';
 import Banner from '../../../common/Banner';
 
-const FormWrapper = styled.div`
-    height: 100%;
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-auto-rows: 100px;
-    grid-gap: 10px;
-    padding: 10px;
-`;
-
 const FormControlWrapper = styled.div`
     height: 50px;
     padding-left: ${ props => props.theme.largePad };
@@ -174,7 +165,6 @@ const AddItemModal = (props) => {
             }
             <Modal size={{ width: '1000px', height: 'min-content' }} 
                     title="New Item" onClose={ onClose } >
-                <FormWrapper>
                     <FormInput boundSetter={ setName } row='1 / 2' col="1 / 2" 
                         name="Name" placeholder="Name" validator={ nameValidator } />
                     <FormSelect boundSetter={ setCategory }
@@ -194,7 +184,6 @@ const AddItemModal = (props) => {
                     <FormSelect boundSetter={ setSourceVendor } row="3 /4" col="5 / 7" 
                         name="Source Vendor" options={['Apple', 'Amazon', 'Tiger Direct']} />
                     <LocationPicker boundSetter={ setLocations } row="4 / 7" col="1 / 7" />
-                </FormWrapper>
                 <FormControlWrapper>
                     <Button onClick={ handleSave }>Save</Button>
                 </FormControlWrapper>

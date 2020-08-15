@@ -1,7 +1,9 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Modal from '../../common/Modal';
+import useForm from '../../../config/hooks/useForm';
+import EditableDataList from '../../common/EditableDataList';
 
 const Wrapper = styled.div`
     padding: 10px;
@@ -50,21 +52,32 @@ const Message = styled.p`
     } }
 `;
 
-const InfoModal = (props) => {
+const InfoModal = ({ data, onClose }) => {
+    const [ formValues, handleChange ] = useForm(data);
+
+    const format = {
+        firstName: { type: 'input', label: 'First Name', editable: true },
+        lastName: { type: 'input', label: 'First Name', editable: true }
+    }
+
     const handleClose = () => {
-        if (props.onClose) {
-            props.onClose();
+        if (onClose) {
+            onClose();
         }
     }
 
     return (
         <Modal
          size={ { width: 'fit-content', height: '200px' } }
-         title={ props.data.firstName + ' ' + props.data.lastName }
+         title={ data.firstName + ' ' + data.lastName }
          onClose={ handleClose }>
-            <Wrapper>
-                
-            </Wrapper>
+            <EditableDataList
+             data={ formValues }
+             onChange={ handleChange }
+             format={ format }
+             meessage={ { type: 'ok', msg: 'Test message' } }>
+
+            </EditableDataList>
         </Modal>
     );
 }

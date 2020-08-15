@@ -3,8 +3,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import Button from '../../common/Button';
-import Dropdown from '../../common/Dropdown';
-import FormSelect from '../../common/FormSelect';
+import Select from '../../common/Select';
 import FormInput from '../../common/FormInput';
 import FormText from '../../common/FormText';
 
@@ -69,19 +68,18 @@ const SubmitTicketForm = (props) => {
 
     return (
         <Wrapper>
-            <Dropdown marginRight="0" onClick={() => selectedCategory(categories[1])} 
+            <Select marginRight="0" onClick={() => selectedCategory(categories[1])} 
                 defaultValue="Ticket Type" options={categories.map(category => category.name)}
                 onValueChange={(value) => {
                     handleSelectCategory(categories.find(elem => elem.name === value))
-                }}>
-            </Dropdown>
+                }} />
             <Form>
                 {
                     selectedCategory ? selectedCategory.form.map(elem => {
                         switch (elem.type) {
                             case 'select':
                                 return (
-                                    <FormSelect name={elem.name} 
+                                    <Select name={elem.name} 
                                         options={elem.options} row={elem.grid.row}
                                         column={elem.grid.column} />
                                 );

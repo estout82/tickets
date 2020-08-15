@@ -2,7 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Dropdown from './Dropdown';
+import Select from './Select';
 
 const Wrapper = styled.div`
     display: flex;
@@ -25,7 +25,7 @@ const FormSelect = (props) => {
     return (
         <Wrapper row={ props.row } col={ props.col }>
             <Label htmlFor={ props.name }>{ props.name }</Label>
-            <Dropdown name={ props.name } defaultValue={ props.name }
+            <Select name={ props.name } defaultValue={ props.name }
              options={ props.options } boundSetter={ props.boundSetter }
              onChange={ props.onChange } />
         </Wrapper>

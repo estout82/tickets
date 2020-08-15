@@ -2,8 +2,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Label from '../../common/Label';
-
 const Wrapper = styled.div`
     display: flex;
     flex-flow: row wrap;
@@ -29,7 +27,7 @@ const TicketListRow = (props) => {
 
     return (
         <Wrapper selected={props.selected}>
-            <Label>{props.num}</Label>
+            <p>{props.num}</p>
             <span>{props.title}</span>
             <span>{props.client}</span>
             <span>{props.organization}</span>

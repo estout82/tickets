@@ -1,5 +1,5 @@
 
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 
 const useLoadingText = (props) => {
     const [ text, setText ] = useState('Loading');

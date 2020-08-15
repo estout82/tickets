@@ -31,7 +31,7 @@ const tmpFields = {
 const tmpOperators = {
     is: 'Is',
     isNot: 'Is not',
-    contains: 'contains'
+    contains: 'Contains'
 };
 
 const tmpJoins = {
@@ -41,7 +41,7 @@ const tmpJoins = {
 };
 
 const InfoControls = (props) => {
-    const [ conditions, setConditions ] = useState([
+    const [ conditions ] = useState([
         { field: 'name', operator: 'is', value: '', join: '' },
         { field: 'name', operator: 'is', value: '', join: '' },
         { field: 'name', operator: 'is', value: '', join: '' }
@@ -53,7 +53,7 @@ const InfoControls = (props) => {
                 conditions ?
                 conditions.map( ( condition, index ) => {
                     return (
-                        <Row>
+                        <Row key={ index }>
                             <Select options={ tmpFields }/>
                             <Select options={ tmpOperators }/>
                             <Input />
