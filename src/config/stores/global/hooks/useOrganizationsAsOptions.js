@@ -6,8 +6,6 @@ import useGlobalStore from '../useGlobalStore';
 const useOrganizationsAsOptions = () => {
     const store = useGlobalStore();
 
-    console.dir(store);
-
     if (store.status !== 'done') {
         return { }; // return empty object to avoid error
     }

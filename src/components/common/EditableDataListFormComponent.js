@@ -6,7 +6,8 @@ import Select from './Select';
 const EditableDataListFormComponent = ({ value, format, onChange }) => {
     const doRender = (value, format, onChange) => {
         switch (format.type) {
-            case 'text':
+            case 'input':
+                console.log(value);
                 return (
                     <Input
                      minimal

@@ -20,7 +20,7 @@ const InfoTableBody = (props) => {
             props.onRowClick(index);
         }
     }
-
+    
     return (
         <>
             {

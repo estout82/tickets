@@ -15,7 +15,8 @@ const InfoTable = (props) => {
     const page = useUserPage(0);
 
     const handleRowClick = (index) => {
-        setInfoModalData(page.users[index]);
+        // TODO: fix this jank ass crap
+        setInfoModalData(page.users[Object.keys(page.users)[index]].data);
     }
 
     const handleInfoModalClose = () => {
