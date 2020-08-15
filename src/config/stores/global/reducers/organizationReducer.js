@@ -34,7 +34,7 @@ const reducer = (state, action) => {
             return copyAndSet(state, 'status', 'loading');
         case actions.FETCH_SUCESS:
             let newState = copyAndSet(state, 'status', 'done');
-            newState.organizations = response.data;
+            newState.data = response.data;
             return newState;
         case actions.FETCH_ERROR:
             // TODO:

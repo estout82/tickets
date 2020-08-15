@@ -4,7 +4,10 @@ import styled from 'styled-components';
 import Modal from '../../common/Modal';
 import useForm from '../../../config/hooks/useForm';
 import EditableDataList from '../../common/EditableDataList';
-import useOrganizationsAsOptions from '../../../config/stores/global/useOrganizationsAsOptions';
+import useOrganizationsAsOptions 
+    from '../../../config/stores/global/hooks/useOrganizationsAsOptions';
+import useDepartmentsAsOptions 
+    from '../../../config/stores/global/hooks/useDepartmentsAsOptions';
 
 const Wrapper = styled.div`
     padding: 10px;
@@ -56,17 +59,32 @@ const Message = styled.p`
 const InfoModal = ({ data, onClose }) => {
     const [ formValues, handleChange ] = useForm(data);
     const organizationOptions = useOrganizationsAsOptions();
+    const departmentOptions = useDepartmentsAsOptions();
 
     const format = {
-        firstName: { type: 'input', label: 'First Name', editable: true },
-        lastName: { type: 'input', label: 'Last Name', editable: false },
-        organization: { 
+        firstName: { 
+            type: 'input', 
+            label: 'First Name', 
+            editable: true 
+        }, lastName: { 
+            type: 'input', 
+            label: 'Last Name', 
+            editable: false 
+        }, organization: { 
             type: 'select', 
             label: 'Organization', 
             options: organizationOptions,
-            editable: true },
-        tags: {},
-        department: {}
+            editable: true 
+        }, tags: { 
+            type: 'input', 
+            label: 'Tags', 
+            editable: true 
+        }, department: { type: 
+            'select', 
+            label: 'Department', 
+            editable: true,
+            options: departmentOptions
+        }
     }
 
     const handleClose = () => {

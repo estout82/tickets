@@ -10,7 +10,7 @@ const useOrganizations = () => {
         return { status: 'none' }
     }
 
-    return store.organizations;
+    return store.organizations.data;
 }
 
 export default useOrganizations;

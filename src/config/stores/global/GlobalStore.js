@@ -1,21 +1,32 @@
 
 import React, { useEffect, createContext, useReducer, useState } from 'react';
-import organizationReducer, { actions as organizationActions } from './organizationReducer';
+import organizationReducer, { actions as organizationActions }
+    from './reducers/organizationReducer';
+import departmentReducer, { actions as departmentActions }
+    from './reducers/departmentReducer';
 
 export const context = createContext();
 
 const GlobalStore = (props) => {
     const [status, setStatus] = useState('loading');
-    const [organizations, organizationsDispatch] = 
+    const [organizations, organizationDispatch] = 
         useReducer(organizationReducer, { status: 'loading' });
+    const [departments, departmentDispatch] = 
+        useReducer(departmentReducer, { status: 'loading' });
     
-
     // fetch all data when component mounts
     useEffect(() => {
-        organizationsDispatch({
+        organizationDispatch({
             type: organizationActions.FETCH_START,
             payload: {
-                dispatch: organizationsDispatch
+                dispatch: organizationDispatch
+            }
+        });
+
+        departmentDispatch({
+            type: departmentActions.FETCH_START,
+            payload: {
+                dispatch: departmentDispatch
             }
         });
     }, []);
@@ -23,14 +34,16 @@ const GlobalStore = (props) => {
     // re-compute status on every render
     useEffect(() => {
         if (organizations.status !== 'done') return;
+        if (departments.status !== 'done') return;
 
         // if we are here, then all required data is loaded
         setStatus('done');
-    }, [organizations.status]);
+    }, [organizations.status, departments.status]);
 
     const value = {
         status: status,
-        organizations: organizations
+        organizations: organizations,
+        departments: departments
     }
 
     return (

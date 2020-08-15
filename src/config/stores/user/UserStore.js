@@ -1,14 +1,14 @@
 
+// TODO: re-architect so that all user data is stored in one place
+
 import React, { createContext, useReducer, useEffect } from 'react';
-import pageReducer, { actions as pageActions } from './pagesReducer';
-import singleReducer from './singleReducer';
-import metaReducer, { actions as metaActions } from './metaReducer';
+import userReducer, { actions as userActions } from './reducers/userReducer';
+import metaReducer, { actions as metaActions } from './reducers/metaReducer';
 
 export const context = createContext();
 
 const UserStore = ({ children }) => {
-    const [pages, pagesDispatch] = useReducer(pageReducer, { status: 'loading' });
-    const [single, singleDispatch] = useReducer(singleReducer, { status: 'loading' });
+    const [users, userDispatch] = useReducer(userReducer, { status: 'loading' });
     const [meta, metaDispatch] = useReducer(metaReducer, { status: 'loading' });
 
     // load meta data
@@ -19,29 +19,54 @@ const UserStore = ({ children }) => {
                 dispatch: metaDispatch
             }
         });
+
+
     }, []);
 
+    // gets a page async from API
     const getPage = (page) => {
-        if (!pages[page]) {
-            pagesDispatch({
-                type: pageActions.FETCH_SINGLE_START,
+        if (!users.pages[page]) {
+            userDispatch({
+                type: userActions.FETCH_PAGE_START,
                 payload: {
                     page: page,
-                    dispatch: pagesDispatch
+                    dispatch: userDispatch
                 }
             });
+
             return { status: 'loading' };
         }
 
-        return pages[page];
+        // if we are here, page is already loaded... return it
+        return users.pages[page];
+    }
+
+    // gets a user async from API
+    const getUser = (id) => {
+        // TODO:
+    }
+
+    // patches user data async
+    const patchUser = (id, newData, onFinish) => {
+        // dispatch action
+
+        // pass in id, new data, finish (call when complete to update UI with status of op)
+
+        // return an object with status
+        return { status: 'in-progress' };
     }
 
     const value = {
+        // DATA
         status: meta.status,
         meta: meta.data,
-        pages: pages,
+        pages: users.pages,
+        users: users.data,
+
+        // ACTIONS
+        getUser: getUser,
         getPage: getPage,
-        single: single
+        patchUser: patchUser
     }
 
     return (

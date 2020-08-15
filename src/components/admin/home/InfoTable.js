@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import InfoTableHeader from './InfoTableHeader';
 import InfoTableBody from './InfoTableBody';
 import InfoModal from './InfoModal';
-import useUsersPage from '../../../config/stores/user/useUsersPage';
+import useUserPage from '../../../config/stores/user/hooks/useUserPage';
 
 const Wrapper = styled.div`
     padding: 0 10px 10px 10px;
@@ -12,7 +12,7 @@ const Wrapper = styled.div`
 
 const InfoTable = (props) => {
     const [ infoModalData, setInfoModalData ] = useState();
-    const userPageData = useUsersPage(0);
+    const userPageData = useUserPage(0);
 
     const handleRowClick = (index) => {
         setInfoModalData(userPageData.users[index]);

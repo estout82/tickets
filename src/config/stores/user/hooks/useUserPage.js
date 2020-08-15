@@ -1,10 +1,10 @@
 
-import useUsersStore from '../useUsersStore';
+import useUserStore from '../useUserStore';
 import { useEffect } from 'react';
 
-const useUsersPage = (page, options = {}) => {
+const useUserPage = (page, options = {}) => {
     const forceRefetch = options.forceRefetch;
-    const store = useUsersStore();
+    const store = useUserStore();
 
     // fetch data if needed (run every render)
     useEffect(() => {
@@ -21,4 +21,4 @@ const useUsersPage = (page, options = {}) => {
     }
 }
 
-export default useUsersPage;
+export default useUserPage;
