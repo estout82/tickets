@@ -1,5 +1,5 @@
 
-import useUsersStore from './useUsersStore';
+import useUsersStore from '../useUsersStore';
 import { useEffect } from 'react';
 
 const useUsersPage = (page, options = {}) => {

@@ -1,5 +1,5 @@
 
-import useGlobalStore from './useGlobalStore';
+import useGlobalStore from '../useGlobalStore';
 
 const useOrganizations = () => {
     const store = useGlobalStore();

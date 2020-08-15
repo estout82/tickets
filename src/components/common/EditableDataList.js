@@ -141,7 +141,7 @@ const EditableDataList = ({ data, format, message, onChange, onDelete, onPatch }
                                 data[key]
                             }
                             {
-                                isRowHovering && !isRowEditing && format.editable === true ? 
+                                isRowHovering && !isRowEditing && rowFormat.editable === true ? 
                                 <img 
                                  onClick={ () => handleEditButtonClick(key) } 
                                  src={ EditIcon } 

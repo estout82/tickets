@@ -1,49 +1,40 @@
 
-/**
- * This reducer handles fetching meta data to do with users
- * 
- * {
- *  numUserPages: Int
- *  numUsersPerPage: Int
- * }
- */
-
-import { copyAndSet } from '../../util';
+import { copyAndSet } from '../../../util';
 
 export const actions = {
     FETCH_START: 'FETCH_START',
     FETCH_SUCESS: 'FETCH_SUCESS',
     FETCH_ERROR: 'FETCH_ERROR'
-}
+};
 
 const fakeResponse = {
     msg: 'sucess',
-    data: {
-        numUserPages: 1,
-        numUsersPerPage: 50
-    }
+    data: [
+        { name: 'Granite Bay Campus', shortName: 'gbc' },
+        { name: 'Thriving Churches International', shortName: 'tci' }
+    ]
 };
 
 const reducer = (state, action) => {
-    const response = action.payload.response;
     const dispatch = action.payload.dispatch;
+    const response = action.payload.response;
 
     switch (action.type) {
         case actions.FETCH_START:
-            // fake fetch the data
+            // fetch fake data
             setTimeout(() => {
                 dispatch({
                     type: actions.FETCH_SUCESS,
                     payload: {
                         response: fakeResponse
                     }
-                })
-            }, 1000);
+                });
+            }, 200);
 
             return copyAndSet(state, 'status', 'loading');
         case actions.FETCH_SUCESS:
-            let newState = copyAndSet(state, 'data', response.data);
-            newState.status = 'done';
+            let newState = copyAndSet(state, 'status', 'done');
+            newState.organizations = response.data;
             return newState;
         case actions.FETCH_ERROR:
             // TODO:

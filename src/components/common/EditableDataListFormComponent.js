@@ -9,17 +9,17 @@ const EditableDataListFormComponent = ({ value, format, onChange }) => {
             case 'text':
                 return (
                     <Input
-                    minimal
-                    value={ value }
-                    onChange={ onChange }
+                     minimal
+                     value={ value }
+                     onChange={ onChange }
                     />
                 );
             case 'select':
                 return (
                     <Select
-                    value={ value } 
-                    options={ format.options }
-                    onChange={ onChange }
+                     value={ value } 
+                     options={ format.options }
+                     onChange={ onChange }
                     />
                 );
             default: 
@@ -29,7 +29,7 @@ const EditableDataListFormComponent = ({ value, format, onChange }) => {
 
     return (
         <>
-            { doRender() }
+            { doRender(value, format, onChange) }
         </>
     );
 }

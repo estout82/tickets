@@ -1,9 +1,10 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Modal from '../../common/Modal';
 import useForm from '../../../config/hooks/useForm';
 import EditableDataList from '../../common/EditableDataList';
+import useOrganizationsAsOptions from '../../../config/stores/global/useOrganizationsAsOptions';
 
 const Wrapper = styled.div`
     padding: 10px;
@@ -54,11 +55,16 @@ const Message = styled.p`
 
 const InfoModal = ({ data, onClose }) => {
     const [ formValues, handleChange ] = useForm(data);
+    const organizationOptions = useOrganizationsAsOptions();
 
     const format = {
-        firstName: { type: 'input', label: 'First Name', editable: false },
+        firstName: { type: 'input', label: 'First Name', editable: true },
         lastName: { type: 'input', label: 'Last Name', editable: false },
-        organization: { type: 'select', label: 'Organization',  },
+        organization: { 
+            type: 'select', 
+            label: 'Organization', 
+            options: organizationOptions,
+            editable: true },
         tags: {},
         department: {}
     }

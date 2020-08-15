@@ -1,6 +1,6 @@
 
 import React, { useEffect, createContext, useReducer, useState } from 'react';
-import organizationReducer, { actions as organizationActions, actions} from './organizationReducer';
+import organizationReducer, { actions as organizationActions } from './organizationReducer';
 
 export const context = createContext();
 

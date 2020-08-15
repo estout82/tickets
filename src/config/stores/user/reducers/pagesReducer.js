@@ -1,5 +1,5 @@
 
-import { copyAndSet } from '../../util';
+import { copyAndSet } from '../../../util';
 
 export const actions = {
     FETCH_SINGLE_START: 'FETCH_SINGLE_START',
