@@ -1,17 +1,20 @@
 
 import { useState } from 'react';
 
-const useLoadingText = (props) => {
+const useLoadingText = (loaded) => {
     const [ text, setText ] = useState('Loading');
 
-    setTimeout(() => {
-        if (/[.]{3}/.test(text)) {
-            // clear last intervals if exists
-            setText('Loading');
-        } else {
-            setText(text + '.');
-        }
-    }, 500);
+    // only run animation if not loaded
+    if (!loaded) {
+        setTimeout(() => {
+            if (/[.]{3}/.test(text)) {
+                // clear last intervals if exists
+                setText('Loading');
+            } else {
+                setText(text + '.');
+            }
+        }, 500);
+    }
 
     return text;
 }

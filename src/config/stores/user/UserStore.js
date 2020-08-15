@@ -8,7 +8,11 @@ import metaReducer, { actions as metaActions } from './reducers/metaReducer';
 export const context = createContext();
 
 const UserStore = ({ children }) => {
-    const [users, userDispatch] = useReducer(userReducer, { status: 'loading' });
+    const [users, userDispatch] = useReducer(userReducer, { 
+        status: 'loading',
+        pages: {},
+        users: {}
+    });
     const [meta, metaDispatch] = useReducer(metaReducer, { status: 'loading' });
 
     // load meta data
@@ -19,8 +23,6 @@ const UserStore = ({ children }) => {
                 dispatch: metaDispatch
             }
         });
-
-
     }, []);
 
     // gets a page async from API

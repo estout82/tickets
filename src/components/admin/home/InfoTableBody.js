@@ -13,7 +13,7 @@ const LoadingWrapper = styled.div`
 `; 
 
 const InfoTableBody = (props) => {
-    const loadingText = useLoadingText();
+    const loadingText = useLoadingText(props.data.status !== 'loading');
 
     const handleRowClick = (index) => {
         if (props.onRowClick) {
@@ -26,7 +26,10 @@ const InfoTableBody = (props) => {
             {
                 props.data.status === 'loading' ?
                 <LoadingWrapper>{ loadingText }</LoadingWrapper> :
-                props.data.users.map( ( row, index ) => {
+                Object.keys(props.data.users).map((key, index) => {
+                    // extract actual data from page references to user cache
+                    const row = props.data.users[key].data;
+
                     return (
                         <InfoTableRow 
                          key={ row.firstName + row.lastName }

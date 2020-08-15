@@ -12,10 +12,10 @@ const Wrapper = styled.div`
 
 const InfoTable = (props) => {
     const [ infoModalData, setInfoModalData ] = useState();
-    const userPageData = useUserPage(0);
+    const page = useUserPage(0);
 
     const handleRowClick = (index) => {
-        setInfoModalData(userPageData.users[index]);
+        setInfoModalData(page.users[index]);
     }
 
     const handleInfoModalClose = () => {
@@ -26,7 +26,7 @@ const InfoTable = (props) => {
         <Wrapper>
             <InfoTableHeader />
             <InfoTableBody 
-             data={ userPageData }
+             data={ page }
              onRowClick={ handleRowClick }
             />
             {

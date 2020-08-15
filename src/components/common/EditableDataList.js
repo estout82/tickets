@@ -13,8 +13,6 @@
 
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
-import Input from './Input';
-import Select from './Select';
 import Button from './Button'
 import EditIcon from './edit.svg';
 import EditableDataListFormComponent from './EditableDataListFormComponent';

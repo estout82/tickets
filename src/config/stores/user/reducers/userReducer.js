@@ -24,7 +24,7 @@ const fakePageResponse = {
         1: {
             status: 'done',
             data: {
-                id: 'jhsad7uj2',
+                id: '1',
                 firstName: 'Jim',
                 lastName: 'Jimmerson',
                 organization: 'Granite Bay',
@@ -39,7 +39,7 @@ const fakePageResponse = {
         2: {
             status: 'done',
             data: {
-                id: 'mndgq287ugbd',
+                id: '2',
                 firstName: 'Sally',
                 lastName: 'McBean',
                 organization: 'Midtown',
@@ -72,6 +72,8 @@ const reducer = (state, action) => {
                 })
             }, 1000);
 
+            alert('shouldn\'t be here');
+
             return copyAndSet(state, page, { status: 'loading' });
         case actions.FETCH_SINGLE_SUCESS:
             return copyAndSet(state, page, { status: 'done', users: response.data });
@@ -84,7 +86,8 @@ const reducer = (state, action) => {
                 dispatch({
                     type: actions.FETCH_PAGE_SUCESS,
                     payload: {
-                        response: fakePageResponse
+                        response: fakePageResponse,
+                        page: page
                     }
                 });
             }, 1000);
@@ -98,13 +101,20 @@ const reducer = (state, action) => {
             const pageUserIds = [...responseDataKeys];
             let stateAfterPageFetch = {...state};
 
-            // update page state
-            stateAfterPageFetch.pages[page] = { status: 'done', ids: pageUserIds };
-
             // update user cache state
+            let userObjRefs = {};
             responseDataKeys.forEach(key => {
-                stateAfterPageFetch[key] = {...response.data[key], status: 'done'};
+                stateAfterPageFetch.users[key] = {...response.data[key], status: 'done'};
+                userObjRefs[key] = stateAfterPageFetch.users[key];
             });
+
+            // update page state
+            
+            stateAfterPageFetch.pages[page] = { 
+                status: 'done', 
+                ids: pageUserIds,
+                users: userObjRefs
+            };
 
             return stateAfterPageFetch;
         case actions.FETCH_PAGE_ERROR:

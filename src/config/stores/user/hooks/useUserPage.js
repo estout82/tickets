@@ -14,11 +14,7 @@ const useUserPage = (page, options = {}) => {
     });
 
     // return the appropriate data
-    if (store.pages[page] || forceRefetch) {
-        return store.pages[page];
-    } else {
-        return { status: 'loading' }
-    }
+    return store.pages[page] || forceRefetch ? store.pages[page] : { status: 'loading' }
 }
 
 export default useUserPage;
