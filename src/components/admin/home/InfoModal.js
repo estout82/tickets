@@ -56,8 +56,11 @@ const InfoModal = ({ data, onClose }) => {
     const [ formValues, handleChange ] = useForm(data);
 
     const format = {
-        firstName: { type: 'input', label: 'First Name', editable: true },
-        lastName: { type: 'input', label: 'First Name', editable: true }
+        firstName: { type: 'input', label: 'First Name', editable: false },
+        lastName: { type: 'input', label: 'Last Name', editable: false },
+        organization: { type: 'select', label: 'Organization',  },
+        tags: {},
+        department: {}
     }
 
     const handleClose = () => {
@@ -68,16 +71,14 @@ const InfoModal = ({ data, onClose }) => {
 
     return (
         <Modal
-         size={ { width: 'fit-content', height: '200px' } }
+         size={ { width: 'fit-content', height: 'fit-content' } }
          title={ data.firstName + ' ' + data.lastName }
          onClose={ handleClose }>
             <EditableDataList
              data={ formValues }
              onChange={ handleChange }
              format={ format }
-             meessage={ { type: 'ok', msg: 'Test message' } }>
-
-            </EditableDataList>
+             meessage={ { type: 'ok', msg: 'Test message' } } />
         </Modal>
     );
 }

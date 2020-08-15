@@ -13,8 +13,28 @@ export const actions = {
 const singleFakeResponse = {
     msg: 'sucess',
     data: [
-        { firstName: 'Jim' },
-        { firstName: 'Tim' }
+        { 
+            firstName: 'Jim',
+            lastName: 'Jimmerson',
+            organization: 'Granite Bay',
+            tags: [],
+            department: 'Information Services',
+            openTicketCount: 0,
+            assetCount: 0,
+            itemCount: 0,
+            onLoanCount: 1
+        },
+        {
+            firstName: 'Sally',
+            lastName: 'McBean',
+            organization: 'Midtown',
+            tags: [],
+            department: 'Childrens',
+            openTicketCount: 1,
+            assetCount: 0,
+            itemCount: 0,
+            onLoanCount: 22
+        }
     ]
 }
 
@@ -40,14 +60,19 @@ const reducer = (state, action) => {
         case actions.FETCH_SINGLE_SUCESS:
             return copyAndSet(state, page, { status: 'done', users: response.data });
         case actions.FETCH_SINGLE_ERROR:
+            // TODO:
             return;
         case actions.FETCH_ALL_START:
+            // TODO:
             return;
         case actions.FETCH_ALL_SUCESS:
+            // TODO:
             return;
         case actions.FETCH_ALL_ERROR:
+            // TODO:
             return;
         default:
+            // TODO:
             return;
     }
 }
