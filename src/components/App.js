@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Admin from './admin';
 import Portal from './portal';
@@ -8,14 +8,13 @@ import Loading from './common/Loading';
 import useGlobalStore from '../config/stores/global/useGlobalStore';
 
 function App() {
+  // used to determine loading status
   const globalStore = useGlobalStore();
-  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    if (globalStore.status !== 'done') return;
-    
-    // if were here, then evrything has loaded
-    setIsLoading(false);
+  // callback passed to loading component
+  const isLoading = useCallback(() => {
+    if (globalStore.status !== 'done') return true;
+    return false;
   }, [globalStore.status]);
 
   return (

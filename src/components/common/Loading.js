@@ -36,10 +36,21 @@ const Icon = styled.div`
 `;
 
 const LoadingAnimation = ({ children, isLoading }) => {
+    const [loading, setLoading] = useState(true);
+
+    // required that isLoading is created by useCallback
+    // this means that new function will be created when a dep changes
+    // this effect will pick that change up and only run when deps change
+    useEffect(() => {
+        if (!isLoading()) {
+            setLoading(false);
+        }
+    }, [isLoading]);
+
     return (
         <>
             {
-                isLoading ?
+                loading ?
                 <Wrapper>
                     <Icon animation={ IconAnimation }/>
                 </Wrapper> :
@@ -47,6 +58,6 @@ const LoadingAnimation = ({ children, isLoading }) => {
             }
         </>
     );
-}
+};
 
 export default LoadingAnimation;
