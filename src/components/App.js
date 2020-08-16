@@ -1,32 +1,33 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
 import Admin from './admin';
 import Portal from './portal';
 import Login from './login';
-import * as theme from '../config/theme';
-import { AuthUserProvider } from './context/AuthUserContext';
-import GlobalStore from '../config/stores/global/GlobalStore';
-import Loading from './Loading';
+import Loading from './common/Loading';
+import useGlobalStore from '../config/stores/global/useGlobalStore';
 
 function App() {
+  const globalStore = useGlobalStore();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (globalStore.status !== 'done') return;
+    
+    // if were here, then evrything has loaded
+    setIsLoading(false);
+  }, [globalStore.status]);
+
   return (
-    <ThemeProvider theme={theme}>
-      <AuthUserProvider>
-        <GlobalStore>
-          <Loading>
-            <Router>              
-              <Switch>
-                <Route path="/portal" component={ Portal }/>
-                <Route path="/admin" component={ Admin } />
-                <Route path="/login" component={ Login } />
-              </Switch>
-            </Router>
-          </Loading>
-        </GlobalStore>
-      </AuthUserProvider>
-    </ThemeProvider>
+    <Loading isLoading={ isLoading }>
+      <Router>
+        <Switch>
+          <Route path="/portal" component={ Portal }/>
+          <Route path="/admin" component={ Admin } />
+          <Route path="/login" component={ Login } />
+        </Switch>
+      </Router>
+    </Loading>
   );
 }
 

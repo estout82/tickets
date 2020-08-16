@@ -5,7 +5,7 @@ import organizationReducer, { actions as organizationActions }
 import departmentReducer, { actions as departmentActions }
     from './reducers/departmentReducer';
 
-export const context = createContext();
+export const context = createContext({ status: 'loading' });
 
 const GlobalStore = (props) => {
     const [status, setStatus] = useState('loading');
