@@ -2,6 +2,8 @@
 // TODO: if this is slow, fetch partial data on bluk and all on single
 //  - for now we will just fetch all data at once
 
+// TODO: convert all actions to little functions
+
 import { copyAndSet } from '../../../util';
 
 export const actions = {
@@ -10,7 +12,10 @@ export const actions = {
     FETCH_SINGLE_ERROR: 'FETCH_SINGLE_ERROR',
     FETCH_PAGE_START: 'FETCH_PAGE_START',
     FETCH_PAGE_SUCESS: 'FETCH_PAGE_SUCESS',
-    FETCH_PAGE_ERROR: 'FETCH_PAGE_ERROR'
+    FETCH_PAGE_ERROR: 'FETCH_PAGE_ERROR',
+    PATCH_START: 'PATCH_START',
+    PATCH_SUCESS: 'PATCH_SUCESS',
+    PATCH_ERROR: 'PATCH_ERROR'
 };
 
 const fakeResponse = {
@@ -54,10 +59,21 @@ const fakePageResponse = {
     }
 }
 
+const fakePatchResponse = {
+    msg: 'sucess',
+    data: {
+        id: '983hjfnjabs'
+    }
+};
+
 const reducer = (state, action) => {
     const page = action.payload.page;
     const dispatch = action.payload.dispatch;
     const response = action.payload.response;
+    const dataToSet = action.payload.dataToSet;
+    const id = action.payload.id;
+    const onComplete = action.payload.onComplete;
+    let newState = {...state}; // TODO: convert all to work like this
 
     switch (action.type) {
         case actions.FETCH_SINGLE_START:
@@ -118,6 +134,41 @@ const reducer = (state, action) => {
 
             return stateAfterPageFetch;
         case actions.FETCH_PAGE_ERROR:
+            // TODO:
+            return;
+        case actions.PATCH_START:
+            // if no data to set, return
+            if (!dataToSet || Object.keys(dataToSet).length === 0) {
+                console.error('dispatched a patch op with no new data');
+                return state;
+            }
+
+            // send fake request to server
+            setTimeout(() => {
+                dispatch({
+                    type: actions.PATCH_SUCESS,
+                    payload: {
+                        onComplete: onComplete,
+                        id: id,
+                        dataToSet: dataToSet,
+                        response: fakePatchResponse
+                    }
+                });
+            }, 1000);
+
+            return state;
+        case actions.PATCH_SUCESS:
+            // since op was sucess, set data in cache
+            // TODO: make this better
+            let newUserData = {...state.users[id].data};
+            Object.assign(newUserData, dataToSet);
+            newState.users[id] = newUserData;
+
+            // call on complete and pass in result
+            onComplete(response);
+
+            return newState;
+        case actions.PATCH_ERROR:
             // TODO:
             return;
         default:

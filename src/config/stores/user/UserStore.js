@@ -49,13 +49,17 @@ const UserStore = ({ children }) => {
     }
 
     // patches user data async
-    const patchUser = (id, newData, onFinish) => {
+    const patchUser = (id, dataToSet, onComplete) => {
         // dispatch action
-
         // pass in id, new data, finish (call when complete to update UI with status of op)
-
-        // return an object with status
-        return { status: 'in-progress' };
+        userDispatch({
+            type: userActions.PATCH,
+            payload: {
+                id: id,
+                dataToSet: dataToSet,
+                onComplete: onComplete
+            }
+        });
     }
 
     const value = {

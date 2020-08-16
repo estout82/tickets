@@ -1,5 +1,5 @@
 
-/**
+/*
  * props:
  *  {
  *      data: { key: value }
@@ -36,7 +36,6 @@ const Row = styled.div`
     }
 
     &:hover {
-        content: 'l';
         cursor: default;
     }
 
@@ -62,7 +61,7 @@ const Message = styled.p`
             default:
                 return 'none';
         }
-    } }
+    }}
 `;
 
 const NONE = -1;
@@ -110,7 +109,7 @@ const EditableDataList = ({ data, format, message, onChange, onDelete, onPatch }
                 <Message type={ message.type }>
                     { message.msg }
                 </Message> :
-                null 
+                null
             }
             {
                 Object.keys(format).map((key) => {
@@ -139,7 +138,7 @@ const EditableDataList = ({ data, format, message, onChange, onDelete, onPatch }
                                 data[key]
                             }
                             {
-                                isRowHovering && !isRowEditing && rowFormat.editable === true ? 
+                                isRowHovering && editingRow === NONE && rowFormat.editable === true ? 
                                 <img 
                                  onClick={ () => handleEditButtonClick(key) } 
                                  src={ EditIcon } 
