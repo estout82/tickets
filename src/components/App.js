@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Admin from './admin';
 import Portal from './portal';
 import Login from './login';
-import Loading from './common/Loading';
+import useLoading from './common/hooks/useLoading';
 import useGlobalStore from '../config/stores/global/useGlobalStore';
 
 function App() {
@@ -12,13 +12,14 @@ function App() {
   const globalStore = useGlobalStore();
 
   // callback passed to loading component
-  const isLoading = useCallback(() => {
-    if (globalStore.status !== 'done') return true;
-    return false;
-  }, [globalStore.status]);
+  const renderWhenLoaded = useLoading(useCallback(() => {
+      if (globalStore.status !== 'done') return true;
+      return false;
+    }, [globalStore.status])
+  );
 
-  return (
-    <Loading isLoading={ isLoading }>
+  const render = () => {
+    return (
       <Router>
         <Switch>
           <Route path="/portal" component={ Portal }/>
@@ -26,8 +27,10 @@ function App() {
           <Route path="/login" component={ Login } />
         </Switch>
       </Router>
-    </Loading>
-  );
+    );
+  }
+
+  return renderWhenLoaded(render);
 }
 
 export default App;

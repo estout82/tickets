@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
 const Wrapper = styled.div`
@@ -35,29 +35,12 @@ const Icon = styled.div`
     animation-direction: alternate;
 `;
 
-const LoadingAnimation = ({ children, isLoading }) => {
-    const [loading, setLoading] = useState(true);
-
-    // required that isLoading is created by useCallback
-    // this means that new function will be created when a dep changes
-    // this effect will pick that change up and only run when deps change
-    useEffect(() => {
-        if (!isLoading()) {
-            setLoading(false);
-        }
-    }, [isLoading]);
-
+const Loading = () => {
     return (
-        <>
-            {
-                loading ?
-                <Wrapper>
-                    <Icon animation={ IconAnimation }/>
-                </Wrapper> :
-                children
-            }
-        </>
+        <Wrapper>
+            <Icon animation={ IconAnimation }/>
+        </Wrapper>
     );
 };
 
-export default LoadingAnimation;
+export default Loading;
