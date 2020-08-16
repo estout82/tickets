@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import Modal from '../../common/Modal';
 import useForm from '../../../config/hooks/useForm';
 import EditableDataList from '../../common/EditableDataList';
@@ -9,7 +10,18 @@ import useDepartmentsAsOptions
     from '../../../config/stores/global/hooks/useDepartmentsAsOptions';
 import usePatchUser from '../../../config/stores/user/hooks/usePatchUser';
 
-const InfoModal = ({ data, onClose }) => {
+const Wrapper = styled.div`
+    display: column;
+    flex-flow: row nowrap;
+    padding: 0 10px 10px 10px;
+`;
+
+const Row = styled.div`
+    display: flex;
+    flex-flow: row nowrap;
+`;
+
+const InfoEditModal = ({ data, onClose }) => {
     const [message, setMessage] = useState();
     const [formValues, handleChange] = useForm(data);
     const organizationOptions = useOrganizationsAsOptions();
@@ -50,6 +62,11 @@ const InfoModal = ({ data, onClose }) => {
 
     const handlePatchComplete = () => {
         setMessage({ type: 'ok', msg: 'Holy shit it worked!' });
+
+        // reset message after 10 seconds
+        setTimeout(() => {
+            setMessage();
+        }, 5000);
     }
 
     const handlePatch = (newData) => {
@@ -61,14 +78,29 @@ const InfoModal = ({ data, onClose }) => {
          size={ {width: 'fit-content', height: 'fit-content'} }
          title={ data.firstName + ' ' + data.lastName }
          onClose={ handleClose }>
-            <EditableDataList
-             data={ formValues }
-             onChange={ handleChange }
-             onPatch={ handlePatch }
-             format={ format }
-             message={ message } />
+            <Wrapper>
+                <EditableDataList
+                data={ formValues }
+                onChange={ handleChange }
+                onPatch={ handlePatch }
+                format={ format }
+                message={ message } 
+                />
+            </Wrapper>
+            <Row>
+                tickets
+            </Row>
+            <Row>
+                assets
+            </Row>
+            <Row>
+                items
+            </Row>
+            <Row>
+                
+            </Row>
         </Modal>
     );
 }
 
-export default InfoModal;
+export default InfoEditModal;

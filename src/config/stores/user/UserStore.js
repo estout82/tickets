@@ -53,14 +53,17 @@ const UserStore = ({ children }) => {
         // dispatch action
         // pass in id, new data, finish (call when complete to update UI with status of op)
         userDispatch({
-            type: userActions.PATCH,
+            type: userActions.PATCH_START,
             payload: {
                 id: id,
                 dataToSet: dataToSet,
-                onComplete: onComplete
+                onComplete: onComplete,
+                dispatch: userDispatch
             }
         });
     }
+
+    //console.dir(users);
 
     const value = {
         // DATA

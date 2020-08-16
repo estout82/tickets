@@ -18,7 +18,7 @@ import EditIcon from './edit.svg';
 import EditableDataListFormComponent from './EditableDataListFormComponent';
 
 const Wrapper = styled.div`
-    padding: 0 10px 10px 10px;
+    
 `;
 
 const Row = styled.div`
@@ -82,7 +82,9 @@ const EditableDataList = ({ data, format, message, onChange, onDelete, onPatch }
 
     const handleSaveButtonClick = () => {
         // TODO: validate data and send to server
-        onPatch(editingRow, data[editingRow]);
+        let newDataForPatch = {};
+        newDataForPatch[editingRow] = data[editingRow];
+        onPatch(newDataForPatch);
         rowValueBeforeEdit.current = data[editingRow];
         setEditingRow(NONE);
     }

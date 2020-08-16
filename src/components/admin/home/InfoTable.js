@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import InfoTableHeader from './InfoTableHeader';
 import InfoTableBody from './InfoTableBody';
-import InfoModal from './InfoModal';
+import InfoEditModal from './InfoEditModal';
 import useUserPage from '../../../config/stores/user/hooks/useUserPage';
 
 const Wrapper = styled.div`
@@ -32,7 +32,7 @@ const InfoTable = (props) => {
             />
             {
                 infoModalData ?
-                <InfoModal
+                <InfoEditModal
                  data={ infoModalData }
                  onClose={ handleInfoModalClose }    
                 />

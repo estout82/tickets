@@ -7,7 +7,6 @@ const EditableDataListFormComponent = ({ value, format, onChange }) => {
     const doRender = (value, format, onChange) => {
         switch (format.type) {
             case 'input':
-                console.log(value);
                 return (
                     <Input
                      minimal

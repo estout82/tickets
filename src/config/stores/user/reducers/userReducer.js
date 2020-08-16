@@ -156,6 +156,8 @@ const reducer = (state, action) => {
                 });
             }, 1000);
 
+            console.dir(state);
+
             return state;
         case actions.PATCH_SUCESS:
             // since op was sucess, set data in cache
@@ -173,7 +175,8 @@ const reducer = (state, action) => {
             return;
         default:
             // TODO:
-            return;
+            console.error(`unknown action ${action}`);
+            return state;
     }
 }
 
