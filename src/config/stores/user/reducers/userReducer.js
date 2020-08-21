@@ -35,10 +35,7 @@ const fakePageResponse = {
                 organization: 'Granite Bay',
                 tags: [],
                 department: 'Information Services',
-                openTicketCount: 0,
-                assetCount: 0,
-                itemCount: 0,
-                onLoanCount: 1
+                openTickets: [0, 1] // array with ids of open tickets
             }
         },
         2: {
@@ -50,10 +47,7 @@ const fakePageResponse = {
                 organization: 'Midtown',
                 tags: [],
                 department: 'Childrens',
-                openTicketCount: 1,
-                assetCount: 0,
-                itemCount: 0,
-                onLoanCount: 22
+                onLoanItems: [0]
             }
         }
     }

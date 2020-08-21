@@ -1,8 +1,7 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-
-import AzureIntegrationCard from './AzureIntegrationCard';
+import useItem from '../../../config/stores/item/hooks/useItem';
 
 // TODO: make the grid responsive
 
@@ -20,16 +19,13 @@ const Content = styled.div`
 `;
 
 const Config = (props) => {
-    // eslint-disable-next-line
-    const [cards, setCards] = useState([
-        { pos: { row: 1, col: 1 }, size: { width: 2, height: 2 } },
-        { pos: { row: 1, col: 3 }, size: { width: 2, height: 2 } },
-        { pos: { row: 1, col: 5 }, size: { width: 2, height: 2 } }
-    ]);
+    const store = useItem(1);
+
+    console.dir(store);
 
     return (
         <Content>
-            <AzureIntegrationCard pos={{ row: 1, col: 1 }}/>
+            
         </Content>
     );
 }

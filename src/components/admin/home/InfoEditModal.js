@@ -9,6 +9,9 @@ import useOrganizationsAsOptions
 import useDepartmentsAsOptions 
     from '../../../config/stores/global/hooks/useDepartmentsAsOptions';
 import usePatchUser from '../../../config/stores/user/hooks/usePatchUser';
+import Accordian from '../../common/Accordian';
+import Button from '../../common/Button';
+import InfoEditModalTickets from './InfoEditModalTickets';
 
 const Wrapper = styled.div`
     display: column;
@@ -19,6 +22,8 @@ const Wrapper = styled.div`
 const Row = styled.div`
     display: flex;
     flex-flow: row nowrap;
+
+    padding-bottom: 10px;
 `;
 
 const InfoEditModal = ({ data, onClose }) => {
@@ -86,19 +91,30 @@ const InfoEditModal = ({ data, onClose }) => {
                 format={ format }
                 message={ message } 
                 />
+                <Row>
+                    <InfoEditModalTickets 
+                     ticketIds={ data.openTickets }
+                    />
+                </Row>
+                <Row>
+                    <Accordian
+                     title="Items"
+                     isExpanded={ true }>
+                        items
+                    </Accordian>
+                </Row>
+                <Row>
+                    <Accordian
+                     title="Assets"
+                     isExpanded={ true }>
+                        assets
+                    </Accordian>
+                </Row>
+                <Row>
+                    <Button>Deactivate Account</Button>
+                    <Button>Revolk Licenses</Button>
+                </Row>
             </Wrapper>
-            <Row>
-                tickets
-            </Row>
-            <Row>
-                assets
-            </Row>
-            <Row>
-                items
-            </Row>
-            <Row>
-                
-            </Row>
         </Modal>
     );
 }

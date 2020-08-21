@@ -19,6 +19,8 @@ const Wrapper = styled.div`
 const ContentWrapper = styled.div`
     width: ${ props => props.size.width ? props.size.width : '400px' };
     height: ${ props => props.size.height ? props.size.height : '400px' };
+    max-height: 90%;
+    overflow: scroll;
     background: orange;
     display: flex;
     flex-flow: column nowrap;

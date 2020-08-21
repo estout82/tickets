@@ -22,7 +22,13 @@ const InfoTableBody = ({ data, onRowClick }) => {
                     Object.keys(data.users).map((key, index) => {
                         // extract actual data from page references to user cache
                         const row = data.users[key].data;
-                
+
+                        // calculate counts from array based parameters
+                        const openTicketCount = row.openTickets ? row.openTickets.length : 0;
+                        const assetCount = row.assets ? row.assets.length : 0;
+                        const itemCount = row.items ? row.items.length : 0;
+                        const onLoanCount = row.onLoanItems ? row.onLoanItems.count : 0;
+
                         return (
                             <InfoTableRow 
                             key={ row.firstName + row.lastName }
@@ -30,10 +36,10 @@ const InfoTableBody = ({ data, onRowClick }) => {
                             organization={ row.organization }
                             tags={ row.tags }
                             department={ row.department }
-                            openTicketCount={ row.openTicketCount }
-                            assetCount={ row.assetCount }
-                            itemCount={ row.itemCount }
-                            onLoanCount={ row.onLoanCount }
+                            openTicketCount={ openTicketCount }
+                            assetCount={ assetCount }
+                            itemCount={ itemCount }
+                            onLoanCount={ onLoanCount }
                             onClick={ () => handleRowClick(index) }
                             />
                         );

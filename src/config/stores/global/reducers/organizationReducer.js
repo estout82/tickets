@@ -29,7 +29,7 @@ const reducer = (state, action) => {
                         response: fakeResponse
                     }
                 });
-            }, 2000);
+            }, 10);
 
             return copyAndSet(state, 'status', 'loading');
         case actions.FETCH_SUCESS:
