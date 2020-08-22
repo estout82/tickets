@@ -1,5 +1,5 @@
 
-import { LOADING, DONE } from '../../storeUtil';
+import { LOADING, DONE } from '../../util';
 
 export const actions = {
     FETCH: 'FETCH',

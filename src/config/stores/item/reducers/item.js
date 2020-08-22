@@ -1,5 +1,5 @@
 
-import { LOADING_OBJ, DONE } from '../../storeUtil';
+import { LOADING_OBJ, DONE } from '../../util';
 
 export const actions = {
     FETCH_PAGE: 'FETCH_PAGE',

@@ -2,7 +2,7 @@
 import React, { createContext, useReducer, useEffect } from 'react';
 import metaReducer, { actions as metaActions } from './reducers/metaReducer';
 import ticketReducer, { actions as ticketActions } from './reducers/ticketReducer';
-import { getFromCache } from '../storeUtil';
+import { getFromCache } from '../util';
 
 export const context = createContext();
 

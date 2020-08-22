@@ -43,33 +43,33 @@ const useForm = (fields, initalValues) => {
     }
 
     const genContainerProps = () => {
-        let containerProps = { };
+        console.log(fields);
 
-        fields.forEach( ( field, index ) => {
-            containerProps[field] = {
-                onMouseEnter: () => handleContainerMouseEnter(field),
+        let containerProps = {};
+
+        Object.keys(fields).forEach((key, index) => {
+            containerProps[key] = {
+                onMouseEnter: () => handleContainerMouseEnter(key),
                 onMouseLeave: handleContainerMouseLeave
             }
-        } );
+        });
 
         return containerProps;
     }
 
     const genFieldProps = () => {
-        return fields.map( ( fields, index ) => {
+        return Object.keys(fields).map((key, index) => {
             return null;
-        } );
+        });
     }
 
-    return {
+    return [
         values,
         handleChange,
-        formProps: {
-            onSubmit: handleSubmit
-        },
-        containerProps: genContainerProps(),
-        fieldProps: genFieldProps()
-    }
+        { onSubmit: handleSubmit },
+        genContainerProps(),
+        genFieldProps()
+    ]
 }
 
 export default useForm;

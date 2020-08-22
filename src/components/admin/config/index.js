@@ -1,7 +1,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import useItem from '../../../config/stores/item/hooks/useItem';
+import useCategories from '../../../config/stores/asset/useCategories';
 
 // TODO: make the grid responsive
 
@@ -19,9 +19,8 @@ const Content = styled.div`
 `;
 
 const Config = (props) => {
-    const store = useItem(1);
-
-    console.dir(store);
+    let x = useCategories();
+    console.log(x);
 
     return (
         <Content>

@@ -1,7 +1,7 @@
 
 import { useEffect } from 'react'
 import useItemStore from './useItemStore';
-import { LOADING_OBJ } from '../../storeUtil';
+import { LOADING_OBJ } from '../../util';
 
 const useTicketBatch = (ids) => {
     const store = useItemStore();

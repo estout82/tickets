@@ -13,22 +13,25 @@ import Home from './home/Home';
 import UserStore from '../../config/stores/user/UserStore';
 import TicketStore from '../../config/stores/tickets/TicketStore';
 import ItemStore from '../../config/stores/item/ItemStore';
+import AssetStore from '../../config/stores/asset/AssetStore';
 
 const Admin = (props) => {
     return (
         <UserStore>
             <TicketStore>
                 <ItemStore>
-                    <Page direction="row">
-                        <Sidebar />
-                        <Switch>
-                            <Route exact path="/admin/" component={Home} />
-                            <Route exact path="/admin/wiki" component={Wiki} />
-                            <Route exact path="/admin/tickets" component={Tickets} />
-                            <Route path="/admin/inventory" component={Inventory} />
-                            <Route exact path="/admin/config" component={Config} />
-                        </Switch>
-                    </Page>
+                    <AssetStore>
+                        <Page direction="row">
+                            <Sidebar />
+                            <Switch>
+                                <Route exact path="/admin/" component={Home} />
+                                <Route exact path="/admin/wiki" component={Wiki} />
+                                <Route exact path="/admin/tickets" component={Tickets} />
+                                <Route path="/admin/inventory" component={Inventory} />
+                                <Route exact path="/admin/config" component={Config} />
+                            </Switch>
+                        </Page>
+                    </AssetStore>
                 </ItemStore>
             </TicketStore>
         </UserStore>

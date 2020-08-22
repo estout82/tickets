@@ -1,88 +1,53 @@
 
-// TODO: maybe use this??
-
 import { useReducer, useEffect } from 'react';
 
-const actions = {
-    FETCH_META: 'FETCH_META',
-    FETCH_META_SUCESS: 'FETCH_META_SUCESS',
-    FETCH_META_ERROR: 'FETCH_META_ERROR',
-    FETCH_PAGE: 'FETCH_PAGE',
-    FETCH_PAGE_SUCESS: 'FETCH_PAGE_SUCESS',
-    FETCH_PAGE_ERROR: 'FETCH_PAGE_ERROR',
-    FETCH_BATCH: 'FETCH_BATCH',
-    FETCH_BATCH_SUCESS: 'FETCH_BACTH_SUCESS',
-    FETCH_BATCH_ERROR: 'FETCH_BACTH_ERROR',
-    PATCH: 'PATCH',
-    PATCH_SUCESS: 'PATCH_SUCESS',
-    PATCH_ERROR: 'PATCH_ERROR'
-};
+const useCreateStore = (context, reducer, actions) => {
+    const [state, dispatch] = useReducer(reducer, { 
+        status: 'loading',
+        cache: {}
+    });
 
-const useCreateStore = (init) => {
-    const reducer = (state, action) => {
-        const type = action.type;
-
-        // call the function mapped to the action
-        return init[type](state, action);
-    }
-
-    const [state, dispatch] = useReducer(reducer, { status: 'loading', cache: {} });
-
-    // load meta on mount
+    // dispatch load to reducer on mount
     useEffect(() => {
         dispatch({
-            type: actions.FETCH_META,
+            type: 'LOAD',
             payload: {
                 dispatch: dispatch
             }
-        })
+        });
     }, []);
 
-    const getMeta = () => {
-        if (state.status === 'done') {
-            return state.meta;
-        } else {
-            // if state is error or loading, just return the whole state
-            return state;
+    // this function preforms an action
+    const action = (name, ...args) => {
+        // ensure action exists
+        if (!actions[name]) {
+            console.error(`unknown action ${name} in store action function`);
+            return;
         }
-    }
 
-    const getSingle = (id) => {
-        if (state.cache[id]) {
-            // if id exists in cache, just return it
-            return state.cache[id];
-        } else {
-            // if it doesn't, get it and return loading
-            dispatch({
-                type: actions.FETCH_SINGLE,
-                payload: {
-                    dispatch: dispatch,
-                    id: id
-                }
-            });
-
-            return { status: 'loading' };
+        // if store is still loading, just return loading
+        if (state.status === 'loading') {
+            return { status: 'loading' }
         }
+        
+        // if loaded, call action
+        return actions[name]({ 
+            cache: state.cache,
+            dispatch: dispatchWrapper
+        }, ...args);
     }
 
-    const getPage = (pageNum) => {
-
+    // wraps the dispatch function so all args are set in payload
+    const dispatchWrapper = (action) => {
+        action.payload.dispatch = dispatch;
+        dispatch(action);
     }
 
-    const patch = (id) => {
-
-    }
-
-    const search = (criteria) => {
-
-    }
+    // this is the provider component
+    const value = { action };
 
     return {
-        getMeta,
-        getSingle,
-        getPage,
-        patch,
-        search
+        value,
     }
 }
 

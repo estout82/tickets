@@ -23,7 +23,7 @@ const Row = styled.div`
     padding-bottom: 10px;
 `;
 
-const InfoEditModal = ({ data, onClose }) => {
+const InfoModal = ({ data, onClose }) => {
     const [message, setMessage] = useState();
     const [formValues, handleChange] = useForm(data);
     const organizationOptions = useOrganizationsAsOptions();
@@ -82,11 +82,11 @@ const InfoEditModal = ({ data, onClose }) => {
          onClose={ handleClose }>
             <Wrapper>
                 <EditableDataList
-                data={ formValues }
-                onChange={ handleChange }
-                onPatch={ handlePatch }
-                format={ format }
-                message={ message } 
+                 data={ formValues }
+                 onChange={ handleChange }
+                 onPatch={ handlePatch }
+                 format={ format }
+                 message={ message } 
                 />
                 <Row>
                     <Tickets 
@@ -100,12 +100,11 @@ const InfoEditModal = ({ data, onClose }) => {
                     
                 </Row>
                 <Row>
-                    <Button>Deactivate Account</Button>
-                    <Button>Revolk Licenses</Button>
+                    <Button>Deactivate</Button>
                 </Row>
             </Wrapper>
         </Modal>
     );
 }
 
-export default InfoEditModal;
+export default InfoModal;

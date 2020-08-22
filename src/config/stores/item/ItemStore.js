@@ -2,7 +2,7 @@
 import React, { createContext, useReducer, useEffect } from 'react';
 import itemReducer, { actions as itemActions } from './reducers/item';
 import metaReducer, { actions as metaActions } from './reducers/meta';
-import { LOADING_OBJ, DONE } from '../storeUtil';
+import { LOADING_OBJ, DONE } from '../util';
 
 export const context = createContext();
 

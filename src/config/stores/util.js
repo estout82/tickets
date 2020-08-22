@@ -16,3 +16,16 @@ export const getFromCache = (cache, id, onMiss) => {
         return LOADING_OBJ;
     }
 }
+
+export const copyState = (state) => {
+    return {...state};
+}
+
+export const setStatus = (state, status) => {
+    state.status = status;
+    return state;
+}
+
+export const setInCache = (cache, field, value) => {
+    cache[field] = value;
+}
