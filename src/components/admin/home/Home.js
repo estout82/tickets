@@ -1,7 +1,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import Info from './Info';
+import UsersDisplay from './UsersDisplay/UsersDisplay';
 
 const Wrapper = styled.div`
     width: 100%;
@@ -12,7 +12,7 @@ const Wrapper = styled.div`
 const Home = (props) => {
     return (
         <Wrapper>
-            <Info />
+            <UsersDisplay />
         </Wrapper>
     );
 }

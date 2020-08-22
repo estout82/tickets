@@ -1,8 +1,8 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import InfoControls from './InfoControls';
-import InfoTable from './InfoTable';
+import Controls from './Controls/Controls';
+import List from './List/List';
 
 const Wrapper = styled.div`
     width: 100%;
@@ -14,8 +14,8 @@ const Wrapper = styled.div`
 const Info = (props) => {
     return (
         <Wrapper>
-            <InfoControls />
-            <InfoTable />
+            <Controls />
+            <List />
         </Wrapper>
     );
 }

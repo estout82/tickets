@@ -1,10 +1,10 @@
 
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import InfoTableHeader from './InfoTableHeader';
-import InfoTableBody from './InfoTableBody';
-import InfoEditModal from './InfoEditModal';
-import useUserPage from '../../../config/stores/user/hooks/useUserPage';
+import Head from './Head';
+import Body from './Body';
+import EditModal from './EditModal/EditModal';
+import useUserPage from '../../../../../config/stores/user/hooks/useUserPage';
 
 const Wrapper = styled.div`
     padding: 0 10px 10px 10px;
@@ -25,14 +25,14 @@ const InfoTable = (props) => {
 
     return (
         <Wrapper>
-            <InfoTableHeader />
-            <InfoTableBody 
+            <Head />
+            <Body 
              data={ page }
              onRowClick={ handleRowClick }
             />
             {
                 infoModalData ?
-                <InfoEditModal
+                <EditModal
                  data={ infoModalData }
                  onClose={ handleInfoModalClose }    
                 />

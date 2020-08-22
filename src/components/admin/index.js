@@ -9,7 +9,7 @@ import Tickets from './tickets';
 import Wiki from './wiki';
 import Inventory from './inventory';
 import Config from './config';
-import Home from './home';
+import Home from './home/Home';
 import UserStore from '../../config/stores/user/UserStore';
 import TicketStore from '../../config/stores/tickets/TicketStore';
 import ItemStore from '../../config/stores/item/ItemStore';

@@ -1,9 +1,9 @@
 
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Select from '../../common/Select';
-import Input from '../../common/Input';
-import Button from '../../common/Button';
+import Select from '../../../../common/Select';
+import Input from '../../../../common/Input';
+import Button from '../../../../common/Button';
 
 const Wrapper = styled.div`
     display: flex;
@@ -40,7 +40,7 @@ const tmpJoins = {
     not: 'Not'
 };
 
-const InfoControls = (props) => {
+const Search = (props) => {
     const [ conditions ] = useState([
         { field: 'name', operator: 'is', value: '', join: '' },
         { field: 'name', operator: 'is', value: '', join: '' },
@@ -71,4 +71,4 @@ const InfoControls = (props) => {
     );
 }
 
-export default InfoControls;
+export default Search;

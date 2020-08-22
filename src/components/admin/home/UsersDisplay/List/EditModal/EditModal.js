@@ -1,17 +1,14 @@
 
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Modal from '../../common/Modal';
-import useForm from '../../../config/hooks/useForm';
-import EditableDataList from '../../common/EditableDataList';
-import useOrganizationsAsOptions 
-    from '../../../config/stores/global/hooks/useOrganizationsAsOptions';
-import useDepartmentsAsOptions 
-    from '../../../config/stores/global/hooks/useDepartmentsAsOptions';
-import usePatchUser from '../../../config/stores/user/hooks/usePatchUser';
-import Accordian from '../../common/Accordian';
-import Button from '../../common/Button';
-import InfoEditModalTickets from './InfoEditModalTickets';
+import useForm from '../../../../../common/hooks/useForm';
+import useOrganizationsAsOptions from '../../../../../../config/stores/global/hooks/useOrganizationsAsOptions';
+import useDepartmentsAsOptions from '../../../../../../config/stores/global/hooks/useDepartmentsAsOptions';
+import usePatchUser from '../../../../../../config/stores/user/hooks/usePatchUser';
+import Modal from '../../../../../common/Modal';
+import EditableDataList from '../../../../../common/EditableDataList';
+import Button from '../../../../../common/Button';
+import Tickets from './Tickets';
 
 const Wrapper = styled.div`
     display: column;
@@ -92,23 +89,15 @@ const InfoEditModal = ({ data, onClose }) => {
                 message={ message } 
                 />
                 <Row>
-                    <InfoEditModalTickets 
+                    <Tickets 
                      ticketIds={ data.openTickets }
                     />
                 </Row>
                 <Row>
-                    <Accordian
-                     title="Items"
-                     isExpanded={ true }>
-                        items
-                    </Accordian>
+                    
                 </Row>
                 <Row>
-                    <Accordian
-                     title="Assets"
-                     isExpanded={ true }>
-                        assets
-                    </Accordian>
+                    
                 </Row>
                 <Row>
                     <Button>Deactivate Account</Button>

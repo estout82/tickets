@@ -1,7 +1,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import InfoControlsSearch from './InfoControlsSearch';
+import Search from './Search';
 
 const Wrapper = styled.div`
     display: flex;
@@ -24,17 +24,17 @@ const Row = styled.div`
     align-items: center;
 `;
 
-const InfoControls = (props) => {
+const Controls = (props) => {
     return (
         <Wrapper>
             <Row>
                 <Header>All Users</Header>
             </Row>
             <Row>
-                <InfoControlsSearch />
+                <Search />
             </Row>
         </Wrapper>
     );
 }
 
-export default InfoControls;
+export default Controls;

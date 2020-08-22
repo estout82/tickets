@@ -1,9 +1,9 @@
 
 import React, { useState } from 'react';
-import Accordian from '../../common/Accordian';
-import useTicketBatch from '../../../config/stores/tickets/hooks/useTicketBatch';
+import Accordian from '../../../../../common/Accordian';
+import useTicketBatch from '../../../../../../config/stores/tickets/hooks/useTicketBatch';
 
-const InfoEditModalTickets = ({ ticketIds }) => {
+const Tickets = ({ ticketIds }) => {
     const tickets = useTicketBatch(ticketIds);
 
     const [isExpanded, setIsExpanded] = useState(false);
@@ -41,4 +41,4 @@ const InfoEditModalTickets = ({ ticketIds }) => {
     );
 }
 
-export default InfoEditModalTickets;
+export default Tickets;

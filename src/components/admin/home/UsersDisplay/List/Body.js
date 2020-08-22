@@ -1,7 +1,7 @@
 
 import React, { useCallback } from 'react';
-import InfoTableRow from './InfoTableRow';
-import useLoading from '../../common/hooks/useLoading';
+import Row from './Row';
+import useLoading from '../../../../common/hooks/useLoading';
 
 const InfoTableBody = ({ data, onRowClick }) => {
     const renderWhenLoaded = useLoading(useCallback(() => {
@@ -30,17 +30,17 @@ const InfoTableBody = ({ data, onRowClick }) => {
                         const onLoanCount = row.onLoanItems ? row.onLoanItems.count : 0;
 
                         return (
-                            <InfoTableRow 
-                            key={ row.firstName + row.lastName }
-                            name={ row.firstName + ' ' + row.lastName }
-                            organization={ row.organization }
-                            tags={ row.tags }
-                            department={ row.department }
-                            openTicketCount={ openTicketCount }
-                            assetCount={ assetCount }
-                            itemCount={ itemCount }
-                            onLoanCount={ onLoanCount }
-                            onClick={ () => handleRowClick(index) }
+                            <Row 
+                             key={ row.firstName + row.lastName }
+                             name={ row.firstName + ' ' + row.lastName }
+                             organization={ row.organization }
+                             tags={ row.tags }
+                             department={ row.department }
+                             openTicketCount={ openTicketCount }
+                             assetCount={ assetCount }
+                             itemCount={ itemCount }
+                             onLoanCount={ onLoanCount }
+                             onClick={ () => handleRowClick(index) }
                             />
                         );
                     })
