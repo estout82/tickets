@@ -38,7 +38,6 @@ const reducer = (state, { type, payload }) => {
             let stateAfterLoadDone = copyState(state);
             setStatus(stateAfterLoadDone, 'done');
             setInCache(state.cache, 'categories', payload.response.data);
-            console.log('after done ', stateAfterLoadDone);
             return stateAfterLoadDone;
         case 'FETCH_ASSET':
             return;
@@ -56,7 +55,6 @@ const reducer = (state, { type, payload }) => {
 
 const actions = {
     GET_CATEGORIES: (store) => {
-        console.log('store ', store);
         return store.cache.categories;
     },
     GET_ASSET: (store, id) => {

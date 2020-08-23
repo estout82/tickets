@@ -16,7 +16,7 @@ const exampleData = [
 
 const NONE = -1;
 
-const useForm = (fields, initalValues) => {
+const useForm = (initalValues) => {
     const [ values, setValues ] = useState( initalValues );
     
     // eslint-disable-next-line no-unused-vars
@@ -34,41 +34,10 @@ const useForm = (fields, initalValues) => {
         event.preventDefault();
     }
 
-    const handleContainerMouseEnter = (field) => {
-        setHoveringContainer(field.name);
-    }
-
-    const handleContainerMouseLeave = () => {
-        setHoveringContainer(NONE);
-    }
-
-    const genContainerProps = () => {
-        console.log(fields);
-
-        let containerProps = {};
-
-        Object.keys(fields).forEach((key, index) => {
-            containerProps[key] = {
-                onMouseEnter: () => handleContainerMouseEnter(key),
-                onMouseLeave: handleContainerMouseLeave
-            }
-        });
-
-        return containerProps;
-    }
-
-    const genFieldProps = () => {
-        return Object.keys(fields).map((key, index) => {
-            return null;
-        });
-    }
-
     return [
         values,
         handleChange,
-        { onSubmit: handleSubmit },
-        genContainerProps(),
-        genFieldProps()
+        { onSubmit: handleSubmit }
     ]
 }
 

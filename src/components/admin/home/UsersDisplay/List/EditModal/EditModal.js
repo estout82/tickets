@@ -29,7 +29,7 @@ const InfoModal = ({ data, onClose }) => {
     const organizationOptions = useOrganizationsAsOptions();
     const departmentOptions = useDepartmentsAsOptions();
     const patchUser = usePatchUser();
-
+    
     const format = {
         firstName: { 
             type: 'input', 
