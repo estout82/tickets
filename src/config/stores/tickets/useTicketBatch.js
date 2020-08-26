@@ -1,9 +1,9 @@
 
-import { useState, useCallback, useEffect } from 'react';
-import { apiRequest } from '../../util';
+import { useState, useEffect, useCallback } from 'react';
+import { apiRequest } from '../../../util';
 
-const useAssetBatch = (ids) => {
-    const [state, setState] = useState({ status: 'loading', assets: [] });
+const useTicketBatch = (ids) => {
+    const [state, setState] = useState({ status: 'loading', tickets: [] });
 
     const handleFetchError = useCallback((error) => {
         console.error(`error during asset batch fetch: ${error}`);
@@ -19,14 +19,16 @@ const useAssetBatch = (ids) => {
 
         // determine the new state from current state
         setState(c => {
-            let newState = {...c};
-            newState.assets.push({ ...response.data, status: 'done' });
+            console.log(c);
 
-            // see if all assets from ids list have been fetched
+            let newState = {...c};
+            newState.tickets.push({ ...response.data, status: 'done' });
+
+            // see if all tickets from ids list have been fetched
             // TODO: revamp this by checking ids
             let allDone = false;
 
-            if (newState.assets.length === ids.length) {
+            if (newState.tickets.length === ids.length) {
                 allDone = true;
             }
 
@@ -47,11 +49,12 @@ const useAssetBatch = (ids) => {
 
         // fetch each asset from API
         ids.forEach(id => {
-            apiRequest(`http://localhost:9000/api/inventory/asset/${id}`)
+            apiRequest(`http://localhost:9000/api/ticket/${id}`)
             .then((response) => {
                 return response.json();
             })
             .then((json) => {
+                console.dir(json);
                 handleFetchSuccess(json);
             })
             .catch((error) => {
@@ -63,5 +66,4 @@ const useAssetBatch = (ids) => {
     return state;
 }
 
-
-export default useAssetBatch;
+export default useTicketBatch;

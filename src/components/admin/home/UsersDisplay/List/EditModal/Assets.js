@@ -11,6 +11,7 @@ const Row = styled.div`
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
+    align-items: center;
     font-size: 10pt;
 
     p {

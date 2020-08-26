@@ -1,5 +1,5 @@
 
-import useUserStore from '../useUserStore';
+import useUserStore from './useUserStore';
 
 const usePatchUser = (onFinish) => {
     const store = useUserStore();

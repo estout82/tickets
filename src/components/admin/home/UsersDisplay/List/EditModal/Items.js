@@ -1,12 +1,21 @@
 
 import React from 'react';
+import styled from 'styled-components';
 import Accordian from '../../../../../common/Accordian';
 
-const Items = () => {
+
+const Row = styled.div`
+
+`;
+
+const Items = ({ data }) => {
+    
+
+
     return (
         <Accordian
          title="Items">
-            Items
+            <Row>Items</Row>
         </Accordian>
     );
 }
