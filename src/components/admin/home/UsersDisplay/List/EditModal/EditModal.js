@@ -9,17 +9,19 @@ import Modal from '../../../../../common/Modal';
 import EditableDataList from '../../../../../common/EditableDataList';
 import Button from '../../../../../common/Button';
 import Tickets from './Tickets';
+import Items from './Items';
+import Assets from './Assets';
 
 const Wrapper = styled.div`
     display: column;
     flex-flow: row nowrap;
     padding: 0 10px 10px 10px;
+    min-width: 500px;
 `;
 
 const Row = styled.div`
     display: flex;
     flex-flow: row nowrap;
-
     padding-bottom: 10px;
 `;
 
@@ -39,7 +41,7 @@ const InfoModal = ({ data, onClose }) => {
             type: 'input', 
             label: 'Last Name', 
             editable: false 
-        }, organization: { 
+        }, organizationName: { 
             type: 'select', 
             label: 'Organization', 
             options: organizationOptions,
@@ -77,7 +79,7 @@ const InfoModal = ({ data, onClose }) => {
 
     return (
         <Modal
-         size={ {width: 'fit-content', height: 'fit-content'} }
+         size={{ width: 'fit-content', height: 'fit-content' }}
          title={ data.firstName + ' ' + data.lastName }
          onClose={ handleClose }>
             <Wrapper>
@@ -90,14 +92,18 @@ const InfoModal = ({ data, onClose }) => {
                 />
                 <Row>
                     <Tickets 
-                     ticketIds={ data.openTickets }
+                     data={{ ticketIds: data.tickets }}
                     />
                 </Row>
                 <Row>
-                    
+                    <Items 
+                     data={{ itemIds: data.items }}
+                    />
                 </Row>
                 <Row>
-                    
+                    <Assets 
+                     data={{ assetIds: data.assets }}
+                    />
                 </Row>
                 <Row>
                     <Button>Deactivate</Button>

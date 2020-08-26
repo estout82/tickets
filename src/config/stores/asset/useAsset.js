@@ -36,9 +36,7 @@ const useAsset = (id) => {
         });
     }, [id, handleFetchError, handleFetchDone]);
 
-    return {
-        state
-    }
+    return state;
 }
 
 export default useAsset;

@@ -22,7 +22,7 @@ const InfoTableHeader = (props) => {
             <Cell>Organization</Cell>
             <Cell>Tags</Cell>
             <Cell>Department</Cell>
-            <Cell>Open Tickets</Cell>
+            <Cell>Tickets</Cell>
             <Cell>Assets</Cell>
             <Cell>Items</Cell>
             <Cell>On-Loan Count</Cell>

@@ -19,31 +19,30 @@ const InfoTableBody = ({ data, onRowClick }) => {
         return (
             <>
                 {
-                    Object.keys(data.users).map((key, index) => {
-                        // extract actual data from page references to user cache
-                        const row = data.users[key].data;
-
+                    data ? data.users.map((user, index) => {
                         // calculate counts from array based parameters
-                        const openTicketCount = row.openTickets ? row.openTickets.length : 0;
-                        const assetCount = row.assets ? row.assets.length : 0;
-                        const itemCount = row.items ? row.items.length : 0;
-                        const onLoanCount = row.onLoanItems ? row.onLoanItems.count : 0;
+                        const ticketCount = user.tickets ? user.tickets.length : 0;
+                        const assetCount = user.assets ? user.assets.length : 0;
+                        const itemCount = user.items ? user.items.length : 0;
+                        const onLoanCount = user.onLoanItems ? user.onLoanItems.count : 0;
 
                         return (
                             <Row 
-                             key={ row.firstName + row.lastName }
-                             name={ row.firstName + ' ' + row.lastName }
-                             organization={ row.organization }
-                             tags={ row.tags }
-                             department={ row.department }
-                             openTicketCount={ openTicketCount }
-                             assetCount={ assetCount }
-                             itemCount={ itemCount }
-                             onLoanCount={ onLoanCount }
+                             key={ user.firstName + user.lastName }
+                             data={{
+                                name: user.firstName + ' ' + user.lastName,
+                                organizationName: user.organization.name,
+                                tags: user.tags,
+                                department: user.department,
+                                ticketCount: ticketCount,
+                                assetCount: assetCount,
+                                itemCount: itemCount,
+                                onLoanCount: onLoanCount
+                             }}
                              onClick={ () => handleRowClick(index) }
                             />
                         );
-                    })
+                    }) : 'No users'
                 }
             </>
         );

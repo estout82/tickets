@@ -4,36 +4,55 @@ import styled from 'styled-components';
 import Head from './Head';
 import Body from './Body';
 import EditModal from './EditModal/EditModal';
+import Controls from './Controls';
 import useUserPage from '../../../../../config/stores/user/hooks/useUserPage';
 
 const Wrapper = styled.div`
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 50px 1fr 50px;
     padding: 0 10px 10px 10px;
 `;
 
-const InfoTable = (props) => {
-    const [ infoModalData, setInfoModalData ] = useState();
-    const page = useUserPage(0);
+const List = () => {
+    const [editModalData, setEditModalData] = useState();
+    const pageData = useUserPage(1);
 
     const handleRowClick = (index) => {
         // TODO: fix this jank ass crap
-        setInfoModalData(page.users[Object.keys(page.users)[index]].data);
+        const selectedUser = pageData.users[index];
+
+        setEditModalData({
+            firstName: selectedUser.firstName,
+            lastName: selectedUser.lastName,
+            organizationName: selectedUser.organization ? 
+                selectedUser.organization.name : null,
+            tags: selectedUser.tags,
+            departmentName: selectedUser.department ? 
+                selectedUser.department.name : null,
+            tickets: selectedUser.tickets,
+            items: selectedUser.items,
+            assets: selectedUser.assets
+        });
     }
 
     const handleInfoModalClose = () => {
-        setInfoModalData(null);
+        setEditModalData(null);
     }
 
     return (
         <Wrapper>
             <Head />
-            <Body 
-             data={ page }
+            <Body
+             data={ pageData }
              onRowClick={ handleRowClick }
             />
+            <Controls />
             {
-                infoModalData ?
+                editModalData ?
                 <EditModal
-                 data={ infoModalData }
+                 data={ editModalData }
                  onClose={ handleInfoModalClose }    
                 />
                 : null
@@ -42,4 +61,4 @@ const InfoTable = (props) => {
     );
 }
 
-export default InfoTable;
+export default List;
