@@ -1,6 +1,6 @@
 
 import { useState, useEffect, useCallback } from 'react';
-import { apiRequest } from '../../../util';
+import { apiRequest } from '../../util';
 
 const useTicketBatch = (ids) => {
     const [state, setState] = useState({ status: 'loading', tickets: [] });

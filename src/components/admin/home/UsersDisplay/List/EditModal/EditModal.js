@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import useForm from '../../../../../common/hooks/useForm';
 import useOrganizationsAsOptions from '../../../../../../config/stores/global/hooks/useOrganizationsAsOptions';
 import useDepartmentsAsOptions from '../../../../../../config/stores/global/hooks/useDepartmentsAsOptions';
-import usePatchUser from '../../../../../../config/stores/user/hooks/usePatchUser';
+import useUpdateUser from '../../../../../../config/stores/user/useUpdateUser';
 import Modal from '../../../../../common/Modal';
 import EditableDataList from '../../../../../common/EditableDataList';
 import Button from '../../../../../common/Button';
@@ -30,8 +30,8 @@ const InfoModal = ({ data, onClose }) => {
     const [formValues, handleChange] = useForm(data);
     const organizationOptions = useOrganizationsAsOptions();
     const departmentOptions = useDepartmentsAsOptions();
-    const patchUser = usePatchUser();
-    
+    const updateUser = useUpdateUser(handlePatchComplete);
+
     const format = {
         firstName: { 
             type: 'input', 
@@ -64,7 +64,7 @@ const InfoModal = ({ data, onClose }) => {
         }
     }
 
-    const handlePatchComplete = () => {
+    function handlePatchComplete() {
         setMessage({ type: 'ok', msg: 'Holy shit it worked!' });
 
         // reset message after 10 seconds
@@ -73,8 +73,8 @@ const InfoModal = ({ data, onClose }) => {
         }, 5000);
     }
 
-    const handlePatch = (newData) => {
-        patchUser(data.id, newData, handlePatchComplete);
+    const handleUpdate = (newData) => {
+        updateUser(data.id, newData);
     }
 
     return (
@@ -86,7 +86,7 @@ const InfoModal = ({ data, onClose }) => {
                 <EditableDataList
                  data={ formValues }
                  onChange={ handleChange }
-                 onPatch={ handlePatch }
+                 onUpdate={ handleUpdate }
                  format={ format }
                  message={ message } 
                 />

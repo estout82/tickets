@@ -2,7 +2,7 @@
 import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 import Accordian from '../../../../../common/Accordian';
-import useTicketBatch from '../../../../../../config/stores/tickets/hooks/useTicketBatch';
+import useTicketBatch from '../../../../../../config/stores/tickets/useTicketBatch';
 import useLoading from '../../../../../common/hooks/useLoading';
 
 const Row = styled.div`

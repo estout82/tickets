@@ -5,7 +5,7 @@ import Head from './Head';
 import Body from './Body';
 import EditModal from './EditModal/EditModal';
 import Controls from './Controls';
-import useUserPage from '../../../../../config/stores/user/hooks/useUserPage';
+import useUserPage from '../../../../../config/stores/user/useUserPage';
 
 const Wrapper = styled.div`
     flex-grow: 1;
