@@ -1,5 +1,5 @@
 
-import { copyAndSet } from '../../../util';
+import { copyAndSet, apiRequest } from '../../../util';
 
 export const actions = {
     FETCH_START: 'FETCH_START',
@@ -7,41 +7,60 @@ export const actions = {
     FETCH_ERROR: 'FETCH_ERROR'
 };
 
-const fakeResponse = {
-    msg: 'sucess',
-    data: [
-        { name: 'Granite Bay Campus', shortName: 'gbc' },
-        { name: 'Thriving Churches International', shortName: 'tci' }
-    ]
-};
-
-const reducer = (state, action) => {
-    const dispatch = action.payload.dispatch;
-    const response = action.payload.response;
-
-    switch (action.type) {
+const reducer = (state, { type, payload }) => {
+    switch (type) {
         case actions.FETCH_START:
-            // fetch fake data
-            setTimeout(() => {
-                dispatch({
+            // fetch data
+            const endpoint = 'http://localhost:9000/api/organization/';
+
+            apiRequest(endpoint, {
+                method: 'GET'
+            })
+            .then(response => {
+                return response.json();
+            })
+            .then(json => {
+                // if a soft error occurred, dispatch error action
+                if (json.status !== 'ok') {
+                    payload.dispatch({
+                        type: actions.FETCH_ERROR,
+                        payload: {
+                            response: json
+                        }
+                    });
+                    return;
+                }
+
+                // if we are here, fetch sucess... dispatch success action
+                payload.dispatch({
                     type: actions.FETCH_SUCESS,
                     payload: {
-                        response: fakeResponse
+                        response: json
                     }
                 });
-            }, 10);
-
+            })
+            .catch(error => {
+                payload.dispatch({
+                    type: actions.FETCH_ERROR,
+                    payload: {
+                        response: error
+                    }
+                });
+            });
+            
             return copyAndSet(state, 'status', 'loading');
         case actions.FETCH_SUCESS:
-            let newState = copyAndSet(state, 'status', 'done');
-            newState.data = response.data;
-            return newState;
+            return {
+                ...state,
+                status: 'done',
+                data: payload.response.data
+            };
         case actions.FETCH_ERROR:
             // TODO:
             return;
         default:
             // TODO:
-            return;
+            return state;
     }
 }
 

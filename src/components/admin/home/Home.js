@@ -2,6 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import UsersDisplay from './UsersDisplay/UsersDisplay';
+import useGlobalStore from '../../../config/stores/global/useGlobalStore';
 
 const Wrapper = styled.div`
     width: 100%;
@@ -10,6 +11,9 @@ const Wrapper = styled.div`
 `;
 
 const Home = (props) => {
+    let x = useGlobalStore();
+    console.dir(x);
+
     return (
         <Wrapper>
             <UsersDisplay />
