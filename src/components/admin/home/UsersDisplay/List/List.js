@@ -33,7 +33,8 @@ const List = () => {
                 selectedUser.department.name : null,
             tickets: selectedUser.tickets,
             items: selectedUser.items,
-            assets: selectedUser.assets
+            assets: selectedUser.assets,
+            id: selectedUser._id
         });
     }
 

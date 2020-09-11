@@ -32,8 +32,12 @@ const GlobalStore = (props) => {
     }, []);
 
     // re-compute status on every render
+    // TODO: make better error logic
     useEffect(() => {
-        if (organizations.status !== 'done') return;
+        if (organizations.status !== 'done') {
+            setStatus(organizations.status);
+            return;
+        }
         if (departments.status !== 'done') return;
 
         // if we are here, then all required data is loaded

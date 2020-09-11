@@ -66,8 +66,6 @@ const Tickets = ({ data }) => {
         setIsExpanded(false);
     }
 
-    console.dir(ticketBatch);
-
     // render callback to pass into loading hook
     const render = () => {
         if (ticketBatch.status === 'error') {

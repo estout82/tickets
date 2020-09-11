@@ -7,7 +7,7 @@
  *      message: { type: 'ok|error', msg: '' }
  *      onChange (key newValue) =>
  *      onDelete: (key) => 
- *      onPatch: (key, nweValue) => 
+ *      onUpdate: (key, nweValue) => 
  *  }
  */
 
@@ -66,7 +66,7 @@ const Message = styled.p`
 
 const NONE = -1;
 
-const EditableDataList = ({ data, format, message, onChange, onDelete, onPatch }) => {
+const EditableDataList = ({ data, format, message, onChange, onDelete, onUpdate }) => {
     const [hoveringRow, setHoveringRow] = useState(NONE);
     const [editingRow, setEditingRow] = useState(NONE);
     const rowValueBeforeEdit = useRef(null);
@@ -82,9 +82,9 @@ const EditableDataList = ({ data, format, message, onChange, onDelete, onPatch }
 
     const handleSaveButtonClick = () => {
         // TODO: validate data and send to server
-        let newDataForPatch = {};
-        newDataForPatch[editingRow] = data[editingRow];
-        onPatch(newDataForPatch);
+        let newDataForUpdate = {};
+        newDataForUpdate[editingRow] = data[editingRow];
+        onUpdate(newDataForUpdate);
         rowValueBeforeEdit.current = data[editingRow];
         setEditingRow(NONE);
     }

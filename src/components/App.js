@@ -11,12 +11,22 @@ function App() {
   // used to determine loading status
   const globalStore = useGlobalStore();
 
-  // callback passed to loading component
-  const renderWhenLoaded = useLoading(useCallback(() => {
-      if (globalStore.status !== 'done') return true;
-      return false;
-    }, [globalStore.status])
-  );
+  // callback passed to loading component to deetermine loading status
+  const getStatus = useCallback(() => {
+    let r = {};
+
+    if (globalStore.status === 'done') {
+      r = { status: 'done' };
+    } else if (globalStore.status === 'error') {
+      r = { status: 'error', msg: globalStore.status.msg };
+    } else {
+      r = { status: 'loading' };
+    }
+
+    return r;
+  }, [globalStore.status]);
+
+  const renderWhenLoaded = useLoading(getStatus);
 
   const render = () => {
     return (

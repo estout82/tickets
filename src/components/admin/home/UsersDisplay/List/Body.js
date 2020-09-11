@@ -3,10 +3,10 @@ import React, { useCallback } from 'react';
 import Row from './Row';
 import useLoading from '../../../../common/hooks/useLoading';
 
-const InfoTableBody = ({ data, onRowClick }) => {
+const Body = ({ data, onRowClick }) => {
     const renderWhenLoaded = useLoading(useCallback(() => {
-        if (data.status !== 'done') return true;
-        return false;
+        if (data.status !== 'done') return { status: 'loading' };
+        else return { status: 'done' };
     }, [data.status]));
 
     const handleRowClick = (index) => {
@@ -31,7 +31,7 @@ const InfoTableBody = ({ data, onRowClick }) => {
                              key={ user.firstName + user.lastName }
                              data={{
                                 name: user.firstName + ' ' + user.lastName,
-                                organizationName: user.organization.name,
+                                organizationName: user.organization ? user.organization.name : null,
                                 tags: user.tags,
                                 department: user.department,
                                 ticketCount: ticketCount,
@@ -51,4 +51,4 @@ const InfoTableBody = ({ data, onRowClick }) => {
     return renderWhenLoaded(render);
 }
 
-export default InfoTableBody;
+export default Body;

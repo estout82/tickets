@@ -17,7 +17,11 @@ const useUpdateUser = (onDone) => {
         const endpoint = `http://localhost:9000/api/user/${id}`;
 
         apiRequest(endpoint, {
-            method: 'PATCH'
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newData)
         })
         .then(response => {
             return response.json();

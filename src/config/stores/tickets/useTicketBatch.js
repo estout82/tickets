@@ -19,8 +19,6 @@ const useTicketBatch = (ids) => {
 
         // determine the new state from current state
         setState(c => {
-            console.log(c);
-
             let newState = {...c};
             newState.tickets.push({ ...response.data, status: 'done' });
 
@@ -54,7 +52,6 @@ const useTicketBatch = (ids) => {
                 return response.json();
             })
             .then((json) => {
-                console.dir(json);
                 handleFetchSuccess(json);
             })
             .catch((error) => {

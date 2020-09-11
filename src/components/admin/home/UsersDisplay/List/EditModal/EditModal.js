@@ -45,7 +45,7 @@ const InfoModal = ({ data, onClose }) => {
             type: 'select', 
             label: 'Organization', 
             options: organizationOptions,
-            editable: true 
+            editable: true
         }, tags: { 
             type: 'input', 
             label: 'Tags', 
@@ -58,6 +58,11 @@ const InfoModal = ({ data, onClose }) => {
         }
     }
 
+    function setMessageWithTimeout(type, msg) {
+        setMessage({ type, msg });
+        setTimeout(() => setMessage(), 5000);
+    }
+
     const handleClose = () => {
         if (onClose) {
             onClose();
@@ -65,15 +70,32 @@ const InfoModal = ({ data, onClose }) => {
     }
 
     function handlePatchComplete() {
-        setMessage({ type: 'ok', msg: 'Holy shit it worked!' });
-
-        // reset message after 10 seconds
-        setTimeout(() => {
-            setMessage();
-        }, 5000);
+        setMessageWithTimeout({ type: 'ok', msg: 'Holy shit it worked!' });
     }
 
     const handleUpdate = (newData) => {
+        // if updating organzation, replace it with a field that the API understands
+        if (newData.organizationName) {
+            let orgId = null;
+
+            Object.keys(organizationOptions).forEach(key => {
+                if (newData.organizationName === organizationOptions[key]) {
+                    orgId = key;
+                }
+            });
+
+            if (!orgId) {
+                console.error(`error: could not find id of org with name ${newData.organizationName} 
+                    while updating user`);
+                setMessageWithTimeout('err', 
+                    `Error updating organization. Invalid name ${newData.organizationName}`);
+                return;
+            }
+
+            newData.organization = orgId;
+            delete newData.organizationName;
+        }
+
         updateUser(data.id, newData);
     }
 

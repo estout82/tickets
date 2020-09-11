@@ -13,7 +13,7 @@ const useOrganizationsAsOptions = () => {
     // build the options object to pass to select component
     let options = {};
     store.organizations.data.forEach(org => {
-        options[org.shortName] = org.name;
+        options[org._id] = org.name;
     });
 
     return options;

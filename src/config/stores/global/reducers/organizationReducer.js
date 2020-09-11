@@ -56,8 +56,12 @@ const reducer = (state, { type, payload }) => {
                 data: payload.response.data
             };
         case actions.FETCH_ERROR:
-            // TODO:
-            return;
+            return {
+                ...state,
+                status: 'error',
+                msg: payload.response.msg,
+                friendlyMsg: payload.response.friendlyMsg
+            };
         default:
             // TODO:
             return state;
