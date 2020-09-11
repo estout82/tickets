@@ -3,7 +3,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { apiRequest } from '../../util';
 
 const useAssetBatch = (ids) => {
-    const [state, setState] = useState({ status: 'loading', assets: [] });
+    const [state, setState] = useState({ status: 'loading', assets: {} });
 
     const handleFetchError = useCallback((error) => {
         console.error(`error during asset batch fetch: ${error}`);
@@ -20,17 +20,11 @@ const useAssetBatch = (ids) => {
         // determine the new state from current state
         setState(c => {
             let newState = {...c};
-            newState.assets.push({ ...response.data, status: 'done' });
+            newState.assets[response.data._id] = { ...response.data, status: 'done' };
 
-            // see if all assets from ids list have been fetched
-            // TODO: revamp this by checking ids
-            let allDone = false;
-
-            if (newState.assets.length === ids.length) {
-                allDone = true;
-            }
-
-            if (allDone) {
+            // if loaded assets and requested asset ids are same length, we're done
+            // TODO: error handling logic
+            if (Object.keys(newState.assets).length === ids.length) {
                 newState.status = 'done';
             }
 
@@ -47,6 +41,11 @@ const useAssetBatch = (ids) => {
 
         // fetch each asset from API
         ids.forEach(id => {
+            // did we already get the asset?
+            if (state.assets[id]) {
+                return;
+            }
+
             apiRequest(`http://localhost:9000/api/inventory/asset/${id}`)
             .then((response) => {
                 return response.json();
@@ -58,7 +57,7 @@ const useAssetBatch = (ids) => {
                 handleFetchError(error);
             });
         })
-    }, [handleFetchError, handleFetchSuccess, ids]);
+    }, [handleFetchError, handleFetchSuccess, ids, state.assets]);
 
     return state;
 }

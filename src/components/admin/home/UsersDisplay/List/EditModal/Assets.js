@@ -45,9 +45,10 @@ const Assets = ({ data }) => {
 
     // loading hook - only render assets in accordian if they are loaded
     const renderWhenLoaded = useLoading(useCallback(() => {
-        if (assets && assets.status === 'done') return false;
+        if (assets && assets.status === 'done') return { status: 'done' };
+        else if (assets & assets.status === 'error') return { status: 'error' };
 
-        return true;
+        return { status: 'loading' };
     }, [assets]));
 
     const handleExpand = () => {
@@ -64,7 +65,9 @@ const Assets = ({ data }) => {
             <>
                 {
                     assets.assets ?
-                    assets.assets.map(asset => {
+                    Object.keys(assets.assets).map(key => {
+                        const asset = assets.assets[key];
+
                         return (
                             <Row key={ asset._id }>
                                 <p>{ asset.name }</p>

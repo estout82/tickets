@@ -54,8 +54,9 @@ const Tickets = ({ data }) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
     const renderWhenLoaded = useLoading(useCallback(() => {
-        if (ticketBatch && ticketBatch.status === 'loading') return true;
-        return false;
+        if (ticketBatch && ticketBatch.status === 'loading') return { status: 'loading' };
+        else if (ticketBatch && ticketBatch.status === 'error') return { status: 'error' };
+        else if (ticketBatch && ticketBatch.status === 'done') return { status: 'done' }; 
     }, [ticketBatch]));
 
     const handleExpand = () => {
@@ -78,7 +79,9 @@ const Tickets = ({ data }) => {
 
         return (
             ticketBatch.tickets ? 
-            ticketBatch.tickets.map(ticket => {
+            Object.keys(ticketBatch.tickets).map(key => {
+                const ticket = ticketBatch.tickets[key];
+
                 return (
                     <Row key={ ticket._id }>
                         <TicketNumLabel>{ ticket.number }</TicketNumLabel>

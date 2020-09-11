@@ -96,6 +96,8 @@ const InfoModal = ({ data, onClose }) => {
             delete newData.organizationName;
         }
 
+        console.log(newData);
+
         updateUser(data.id, newData);
     }
 

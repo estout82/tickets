@@ -20,17 +20,9 @@ const useTicketBatch = (ids) => {
         // determine the new state from current state
         setState(c => {
             let newState = {...c};
-            newState.tickets.push({ ...response.data, status: 'done' });
+            newState.tickets[response.data._id] = { ...response.data, status: 'done' };
 
-            // see if all tickets from ids list have been fetched
-            // TODO: revamp this by checking ids
-            let allDone = false;
-
-            if (newState.tickets.length === ids.length) {
-                allDone = true;
-            }
-
-            if (allDone) {
+            if (Object.keys(newState.tickets).length === ids.length) {
                 newState.status = 'done';
             }
 
@@ -47,6 +39,11 @@ const useTicketBatch = (ids) => {
 
         // fetch each asset from API
         ids.forEach(id => {
+            // if we have already fetched this id, return
+            if (state.tickets[id]) {
+                return;
+            }
+
             apiRequest(`http://localhost:9000/api/ticket/${id}`)
             .then((response) => {
                 return response.json();
@@ -58,7 +55,7 @@ const useTicketBatch = (ids) => {
                 handleFetchError(error);
             });
         })
-    }, [handleFetchError, handleFetchSuccess, ids]);
+    }, [handleFetchError, handleFetchSuccess, ids, state.tickets]);
 
     return state;
 }
