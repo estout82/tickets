@@ -7,9 +7,8 @@ import Header from './Header';
 import Items from './items';
 import Assets from './assets';
 import Locations from './locations';
-import Order from './order';
+import Orders from './orders';
 import Issue from './issue';
-import Recieve from './recieve';
 
 const Content = styled.div`
     width: 100%;
@@ -27,9 +26,8 @@ const Inventory = (props) => {
                 <Route exact path="/admin/inventory/items" component={Items} />
                 <Route exact path="/admin/inventory/assets" component={Assets} />
                 <Route exact path="/admin/inventory/locations" component={Locations} />
-                <Route exact path="/admin/inventory/order" component={Order} />
+                <Route exact path="/admin/inventory/orders" component={Orders} />
                 <Route exact path="/admin/inventory/issue" component={Issue} />
-                <Route exact path="/admin/inventory/recieve" component={Recieve} />
             </Switch>
         </Content>
     );
