@@ -3,17 +3,15 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-    width: 100px;
-    height: 100px;
-    background: red;
+
 `;
 
-const Order = (props) => {
+const List = (props) => {
     return (
         <Wrapper>
-            Order
+
         </Wrapper>
     );
 }
 
-export default Order;
+export default List;

@@ -42,7 +42,7 @@ const Header = (props)  => {
                 <Link to='/admin/inventory/items'>Items</Link>
                 <Link to='/admin/inventory/assets'>Assets</Link>
                 <Link to='/admin/inventory/locations'>Locations</Link>
-                <Link to='/admin/inventory/order'>Orders</Link>
+                <Link to='/admin/inventory/orders'>Orders</Link>
                 <Link to='/admin/inventory/issue'>Issue</Link>
             </Nav>
         </Wrapper>

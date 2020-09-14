@@ -7,7 +7,7 @@ import Header from './Header';
 import Items from './items';
 import Assets from './assets';
 import Locations from './locations';
-import Orders from './orders';
+import Orders from './Orders/Orders';
 import Issue from './issue';
 
 const Content = styled.div`
