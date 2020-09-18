@@ -11,8 +11,6 @@ export const statuses = {
 
 const useLoading = () => {
     const render = (renderDoneState, status) => {
-        console.log(status);
-
         switch (status.status) {
             case 'done':
                 return renderDoneState();

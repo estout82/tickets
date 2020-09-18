@@ -1,6 +1,4 @@
 
-import { copyAndSet } from '../../../util';
-
 export const actions = {
     FETCH_START: 'FETCH_START',
     FETCH_SUCESS: 'FETCH_SUCESS',
