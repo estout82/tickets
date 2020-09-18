@@ -8,6 +8,9 @@ const Wrapper = styled.div`
     height: 100%;
     border-radius: 5px;
     box-shadow: ${ props => props.theme.largeShadow };
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
 `;
 
 const Orders = (props) => {

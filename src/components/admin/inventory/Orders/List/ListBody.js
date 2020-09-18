@@ -6,12 +6,12 @@ const Wrapper = styled.div`
 
 `;
 
-const ListItem = (props) => {
+const ListBody = (props) => {
     return (
         <Wrapper>
-            
+
         </Wrapper>
     );
 }
 
-export default ListItem;
+export default ListBody;

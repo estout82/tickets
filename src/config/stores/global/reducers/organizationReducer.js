@@ -1,5 +1,5 @@
 
-import { copyAndSet, apiRequest } from '../../../util';
+import { apiRequest } from '../../../util';
 
 export const actions = {
     FETCH_START: 'FETCH_START',
@@ -48,7 +48,8 @@ const reducer = (state, { type, payload }) => {
                 });
             });
             
-            return copyAndSet(state, 'status', 'loading');
+            const newState = {...state, status: 'loading' };
+            return newState;
         case actions.FETCH_SUCESS:
             return {
                 ...state,

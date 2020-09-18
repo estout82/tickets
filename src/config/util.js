@@ -1,10 +1,8 @@
 
-export const copyAndSet = (old, field, value) => {
-    let newObject = {...old};
-    newObject[field] = value;
-    return newObject;
-}
-
 export const apiRequest = (...args) => {
     return fetch(...args);
+}
+
+export function logError(msg) {
+    console.error(`error: ${msg}`);
 }

@@ -31,9 +31,9 @@ const reducer = (state, action) => {
                 });
             }, 10);
 
-            return copyAndSet(state, 'status', 'loading');
+            return {...state, status: 'loading'};
         case actions.FETCH_SUCESS:
-            let newState = copyAndSet(state, 'status', 'done');
+            let newState = {...state, status: 'done'};
             newState.data = response.data;
             return newState;
         case actions.FETCH_ERROR:
