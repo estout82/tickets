@@ -10,25 +10,9 @@ import useGlobalStore from '../config/stores/global/useGlobalStore';
 function App() {
   // used to determine loading status
   const globalStore = useGlobalStore();
+  const render = useLoading();
 
-  // callback passed to loading component to deetermine loading status
-  const getStatus = useCallback(() => {
-    let r = {};
-
-    if (globalStore.status === 'done') {
-      r = { status: 'done' };
-    } else if (globalStore.status === 'error') {
-      r = { status: 'error', msg: globalStore.status.msg };
-    } else {
-      r = { status: 'loading' };
-    }
-
-    return r;
-  }, [globalStore.status]);
-
-  const renderWhenLoaded = useLoading(getStatus);
-
-  const render = () => {
+  const renderDoneState = () => {
     return (
       <Router>
         <Switch>
@@ -40,7 +24,7 @@ function App() {
     );
   }
 
-  return renderWhenLoaded(render);
+  return render(renderDoneState, { status: globalStore.status, msg: globalStore.status.msg });
 }
 
 export default App;

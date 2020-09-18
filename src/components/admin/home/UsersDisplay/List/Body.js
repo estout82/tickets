@@ -1,13 +1,10 @@
 
-import React, { useCallback } from 'react';
+import React from 'react';
 import Row from './Row';
 import useLoading from '../../../../common/hooks/useLoading';
 
 const Body = ({ data, onRowClick }) => {
-    const renderWhenLoaded = useLoading(useCallback(() => {
-        if (data.status !== 'done') return { status: 'loading' };
-        else return { status: 'done' };
-    }, [data.status]));
+    const render = useLoading();
 
     const handleRowClick = (index) => {
         if (onRowClick) {
@@ -15,7 +12,7 @@ const Body = ({ data, onRowClick }) => {
         }
     }
 
-    const render = () => {
+    const renderDoneState = () => {
         return (
             <>
                 {
@@ -48,7 +45,7 @@ const Body = ({ data, onRowClick }) => {
         );
     }
 
-    return renderWhenLoaded(render);
+    return render(renderDoneState, { status: data.status });
 }
 
 export default Body;

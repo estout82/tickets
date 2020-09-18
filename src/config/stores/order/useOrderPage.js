@@ -9,7 +9,7 @@ function useOrderPage(page) {
         getRequest({
             endpoint: 'http://localhost:9000/api/inventory/order/page/1',
             errorMsg: `failed to get order page ${page}`,
-            friendlyErrorMsg: `Unable to get order page ${page}. Please try again.`
+            friendlyErrorMsg: `Unable to load order page ${page}. Please try again.`
         }, setStatus);
     }, [page]);
 
