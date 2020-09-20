@@ -1,13 +1,14 @@
 
-import React, { useCallback } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import List from './List/List';
 import useOrderMetadata from '../../../../config/stores/order/useOrderMetadata';
 import useLoading from '../../../common/hooks/useLoading';
+import Order from './Order/Order';
 
 const Wrapper = styled.div`
     width: 100%;
-    height: 100%;
+    flex-grow: 1;
     border-radius: 5px;
     box-shadow: ${ props => props.theme.largeShadow };
     display: grid;
@@ -15,27 +16,35 @@ const Wrapper = styled.div`
     grid-template-rows: 1fr;
 `;
 
-const Orders = (props) => {
-    // hook to load metadata
+const Orders = () => {
     const metadata = useOrderMetadata();
+    const render = useLoading();
 
-    const getStatus = useCallback(() => {
-        console.dir(metadata);
-        return metadata.status;
-    }, [metadata]);
+    const [selectedOrderId, setSelectedOrderId] = useState();
 
-    // hook to display loading / error state
-    const render = useLoading(getStatus);
+    // this is called when a row in the list is clicked
+    // it selects the order and displays the detail / edit pane on the right
+    const handleListRowClick = (orderId) => {
+        setSelectedOrderId(orderId)
+    }
 
     const renderDoneState = () => {
         return (
             <Wrapper>
-                <List />
+                <List 
+                 metadata={ metadata }
+                 onRowClick={ handleListRowClick }
+                />
+                {
+                    selectedOrderId ?
+                    <Order orderId={selectedOrderId} /> :
+                    null
+                }
             </Wrapper>
         );
     }
 
-    return render(renderDoneState);
+    return render(renderDoneState, { status: metadata.status });
 }
 
 export default Orders;

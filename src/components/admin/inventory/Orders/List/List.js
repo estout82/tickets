@@ -9,7 +9,7 @@ import useOrderPage from '../../../../../config/stores/order/useOrderPage';
 const Wrapper = styled.div`
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 50px 100px 1fr 50px;
+    grid-template-rows: 50px 40px 1fr 50px;
     padding: 10px;
 `;
 
@@ -27,16 +27,17 @@ const PagenationWrapper = styled.div`
     align-items: center;
 `;
 
-const List = (props) => {
-    const pageData = useOrderPage(1);
-
+const List = ({ metadata, onRowClick }) => {
     return (
         <Wrapper>
             <Header>
                 <h3>Orders</h3>
             </Header>
             <Filter />
-            <ListBody data={ [1, 2, 3, 4, 5] }/>
+            <ListBody 
+             metadata={ metadata } 
+             onRowClick={ onRowClick }
+            />
             <PagenationWrapper>
                 <Pagenation />
             </PagenationWrapper>
