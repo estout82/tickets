@@ -53,7 +53,7 @@ export function getRequest(options, setDataCallback) {
 export function patchRequest({ endpoint, data, onSucess, onError }) {
     apiRequest(endpoint, {
         method: 'PATCH',
-        body: data
+        body: JSON.stringify(data)
     })
     .then(response => {
         return response.json();
@@ -67,12 +67,12 @@ export function patchRequest({ endpoint, data, onSucess, onError }) {
                 return;
             case 'error':
                 handleError(json.msg, () => {
-                    onError({ msg: json.friendlyMsg })
+                    onError({ msg: json.friendlyMsg });
                 });
                 return;
             default:
                 handleError(json.msg, () => {
-                    onError({ msg: 'Failed to verify save completion' })
+                    onError({ msg: 'Failed to verify save completion' });
                 });
                 return;
         }

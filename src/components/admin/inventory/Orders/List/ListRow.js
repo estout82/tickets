@@ -29,8 +29,6 @@ const ListRow = ({ data, metadata, onClick }) => {
         onClick(orderId)
     }
 
-    console.log(metadata);
-
     return (
         <Wrapper
          onClick={ () => handleClick(data._id) }>

@@ -42,7 +42,7 @@ const Order = ({ orderId }) => {
     const updateOrder = useUpdateOrder();
 
     const handleStatusChange = (newValue) => {
-        updateOrder(orderId, { status: newValue });
+        updateOrder.updateOrder(orderId, { status: newValue });
     }
 
     const renderDoneState = () => {

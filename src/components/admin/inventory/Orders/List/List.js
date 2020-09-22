@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import ListBody from './ListBody';
 import Filter from './Filter';
 import Pagenation from '../../../../common/Pagenation';
-import useOrderPage from '../../../../../config/stores/order/useOrderPage';
 
 const Wrapper = styled.div`
     display: grid;

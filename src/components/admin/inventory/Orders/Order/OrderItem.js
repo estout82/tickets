@@ -1,9 +1,6 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import Select from '../../../../common/Select';
-import useEditableForm from '../../../../common/hooks/useEditableForm';
-import Input from '../../../../common/Input';
 
 const Wrapper = styled.div`
     display: grid;

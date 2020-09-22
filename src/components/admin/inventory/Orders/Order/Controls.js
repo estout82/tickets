@@ -7,7 +7,7 @@ const Wrapper = styled.div`
     font-size: 10pt;
 `;
 
-function Controls({ data, handleChange }) {
+function Controls({ data, onStatusChange }) {
     return (
         <Wrapper>
             <Select 
@@ -17,11 +17,10 @@ function Controls({ data, handleChange }) {
                  ordered: 'Ordered'
              }}
              value={data.status}
-             onChange={handleChange}
+             onChange={ onStatusChange }
             />
         </Wrapper>
     )
-
 }
 
 export default Controls;
