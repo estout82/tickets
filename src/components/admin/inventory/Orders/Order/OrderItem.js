@@ -5,20 +5,21 @@ import Button from '../../../../common/Button';
 import Input from '../../../../common/Input';
 import useEditableForm from '../../../../common/hooks/useEditableForm';
 import useUpdateOrder from '../../../../../config/stores/order/useUpdateOrder';
+import PillLabel from '../../../../common/PillLabel';
 
 const Wrapper = styled.div`
     display: grid;
     grid-template-columns: 2fr 1fr 1fr .5fr;
     font-size: 12pt;
+`;
 
-    & > div {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
+const FieldWrapper = styled.div`
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 
-        & >:hover {
-            cursor: pointer;
-        }
+    & >:hover {
+        cursor: pointer;
     }
 `;
 
@@ -59,7 +60,8 @@ const OrderItemEditableForm = ({ data, orderId, itemIndex }) => {
 
         // preform actual request
         form.handleSubmit(() => {
-            // return th epromise that is returned by updateOrder.do
+            // return the promise that is returned by updateOrder.do
+            setEditingField();
             return updateOrder.do(orderId, requestData);
         });
     }
@@ -69,10 +71,12 @@ const OrderItemEditableForm = ({ data, orderId, itemIndex }) => {
         setEditingField();
     }
 
+    console.log(form);
+
     return (
         <Wrapper>
-            <div>{ data.item.name }</div>
-            <div onClick={ () => handleFieldClick('quantity') }>
+            <FieldWrapper>{ data.item.name }</FieldWrapper>
+            <FieldWrapper onClick={ () => handleFieldClick('quantity') }>
                 {
                     editingField === 'quantity' ?
                     <Input 
@@ -81,10 +85,10 @@ const OrderItemEditableForm = ({ data, orderId, itemIndex }) => {
                     /> :
                     <p>{form.values.quantity.value}</p>
                 }
-            </div>
-            <div>
+            </FieldWrapper>
+            <FieldWrapper>
                 <p>{data.source}</p>
-            </div>
+            </FieldWrapper>
             <ControlsWrapper>
                 {
                     editingField ?
@@ -100,7 +104,16 @@ const OrderItemEditableForm = ({ data, orderId, itemIndex }) => {
                             Cancel
                         </Button>
                     </> :
-                    'x'
+                    <>
+                        { 
+                            form.status ? 
+                            <PillLabel>
+                                { form.status.msg.msg }
+                            </PillLabel> :
+                            null
+                        }
+                        <p>x</p>
+                    </>
                 }
             </ControlsWrapper>
         </Wrapper>

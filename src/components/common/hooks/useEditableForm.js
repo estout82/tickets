@@ -28,6 +28,7 @@ function extractInitalValues(fields) {
 
 function useEditableForm(fields) {
     const [values, setValues] = useState(extractInitalValues(fields));
+    const [status, setStatus] = useState();
     const originalValues = useRef(extractInitalValues(fields));
 
     const handleChange = (field, value) => {
@@ -96,24 +97,28 @@ function useEditableForm(fields) {
 
         // preform request
         doRequest(extractInitalValues(values))
-        .then(response => {
+        .then(status => {
             let newOriginalValues = {}
 
             setValues(c => {
-                newOriginalValues = {
-                    ...c,
-                    formMeta: { status: 'ok', msg: response.friendlyMsg }
-                };
-                
+                newOriginalValues = {...c};
                 return newOriginalValues;
             });
             
             // set new original values
             originalValues.current = newOriginalValues;
+
+            // set the message based on the status of request passed into this function
+            setStatus({
+                status: status.status,
+                msg: status.msg
+            });
         })
-        .catch(error => {
-            setValues(c => {
-                return { ...c, formMeta: { status: 'error', msg: error.msg } }
+        .catch(status => {
+            // set the message based on the status of request passed into this function
+            setStatus({
+                status: status.status,
+                msg: status.msg
             });
         });
     }
@@ -127,7 +132,8 @@ function useEditableForm(fields) {
         values,
         handleChange,
         handleSubmit,
-        doReset
+        doReset,
+        status: values.formStatus
     }
 }
 
