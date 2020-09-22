@@ -64,19 +64,17 @@ export function patchRequest({ endpoint, data, onSucess, onError }) {
         return response.json();
     })
     .then(json => {
-        console.dir(json);
-
         switch (json.status) {
             case 'ok':
                 onSucess({
-                    msg: json.friendlyMsg,
+                    text: json.friendlyMsg,
                     appearance: 'ok'
                 });
                 return;
             case 'error':
                 handleError(json.msg, () => {
                     onError({ 
-                        msg: json.friendlyMsg,
+                        text: json.friendlyMsg,
                         appearance: 'error'
                     });
                 });
@@ -84,7 +82,7 @@ export function patchRequest({ endpoint, data, onSucess, onError }) {
             default:
                 handleError(json.msg, () => {
                     onError({ 
-                        msg: 'Failed to verify save completion',
+                        text: 'Failed to verify save completion',
                         appearance: 'error' 
                     });
                 });
@@ -94,7 +92,9 @@ export function patchRequest({ endpoint, data, onSucess, onError }) {
     .catch(error => {
         handleError(error.msg, () => {
             onError({ 
-                msg: error.friendlyMsg ? error.friendlyMsg : 'An error occured, the server responsed with code 500',
+                text: error.friendlyMsg ? 
+                    error.friendlyMsg : 
+                    'An error occured, the server responsed with code 500',
                 appearance: 'error'
             });
         });

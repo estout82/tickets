@@ -13,8 +13,6 @@ const Spacer = styled.div`
 `;
 
 function Controls({ data, onStatusChange, msg }) {
-    console.log(msg);
-
     return (
         <Wrapper>
             <Spacer>

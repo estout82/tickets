@@ -1,5 +1,6 @@
 
 import { useState, useRef } from 'react';
+import { MSG_CLEAR_TIME } from '../../../config/constants';
 
 // eslint-disable-next-line no-unused-vars
 const example = {
@@ -113,6 +114,11 @@ function useEditableForm(fields) {
                 status: status.status,
                 msg: status.msg
             });
+
+            // set timeout to clear message
+            setTimeout(() => {
+                setStatus();
+            }, MSG_CLEAR_TIME);
         })
         .catch(status => {
             // set the message based on the status of request passed into this function
@@ -120,6 +126,11 @@ function useEditableForm(fields) {
                 status: status.status,
                 msg: status.msg
             });
+
+            // set timeout to clear message
+            setTimeout(() => {
+                setStatus();
+            }, MSG_CLEAR_TIME);
         });
     }
 
@@ -130,10 +141,10 @@ function useEditableForm(fields) {
 
     return {
         values,
+        status,
         handleChange,
         handleSubmit,
-        doReset,
-        status: values.formStatus
+        doReset
     }
 }
 

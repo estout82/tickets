@@ -71,8 +71,6 @@ const OrderItemEditableForm = ({ data, orderId, itemIndex }) => {
         setEditingField();
     }
 
-    console.log(form);
-
     return (
         <Wrapper>
             <FieldWrapper>{ data.item.name }</FieldWrapper>
@@ -108,7 +106,7 @@ const OrderItemEditableForm = ({ data, orderId, itemIndex }) => {
                         { 
                             form.status ? 
                             <PillLabel>
-                                { form.status.msg.msg }
+                                { form.status.msg.text }
                             </PillLabel> :
                             null
                         }

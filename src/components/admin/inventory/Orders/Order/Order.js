@@ -64,8 +64,6 @@ const Order = ({ orderId }) => {
                         orderData.data.items &&
                         orderData.data.items.length > 0 ?
                         orderData.data.items.map((item, index) => {
-                            console.log(item);
-
                             return (
                                 <OrderItem 
                                  key={ `${index}${item._id}` }
