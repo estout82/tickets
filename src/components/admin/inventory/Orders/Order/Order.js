@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import useLoading from '../../../../common/hooks/useLoading';
 import Button from '../../../../common/Button';
@@ -11,7 +11,7 @@ import useUpdateOrder from '../../../../../config/stores/order/useUpdateOrder';
 const Wrapper = styled.div`
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 40px 50px 1fr 50px;
+    grid-template-rows: 40px auto 1fr 50px;
     padding: 10px;
 `;
 
@@ -50,7 +50,8 @@ const Order = ({ orderId }) => {
             <Wrapper>
                 <Header>Order #{ orderData.data.number }</Header>
                 <Controls
-                 data={{...orderData}}
+                 msg={updateOrder.msg}
+                 data={orderData}
                  onStatusChange={ handleStatusChange }
                 />
                 <ItemList>

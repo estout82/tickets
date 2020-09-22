@@ -14,6 +14,13 @@ export const okColorOne = '#5cd664';
 export const warningColorOne = '#fff268';
 export const neutralColorOne = '#bf7efc';
 
+export const background = {
+    ok: okColorOne,
+    error: errorColorOne,
+    warning: warningColorOne,
+    neutral: neutralColorOne
+}
+
 // rounding
 export const smallRound = '5px';
 export const meduimRound = '10px';

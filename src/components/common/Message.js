@@ -10,11 +10,12 @@ const Wrapper = styled.div`
         props.theme.highlightColorOne };
     text-align: left;
     vertical-align: center;
+    border-radius: 10px;
 `;
 
-function Message({ msg }) {
+function Message({ msg, appearance }) {
     return (
-        <Wrapper>
+        <Wrapper appearance={ appearance }>
             { msg }
         </Wrapper>
     );
