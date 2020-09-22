@@ -17,7 +17,7 @@ const Wrapper = styled.div`
         cursor: pointer;
     }
 
-    p {
+    & > div {
         padding-right: 10px;
     }
 `;
@@ -29,13 +29,15 @@ const ListRow = ({ data, metadata, onClick }) => {
         onClick(orderId)
     }
 
+    console.log(metadata);
+
     return (
         <Wrapper
          onClick={ () => handleClick(data._id) }>
-            <p>
+            <div>
                 <PillLabel>{ data.number }</PillLabel>
-            </p>
-            <p>
+            </div>
+            <div>
                 {
                     data.status ?
                     <PillLabel appearence={ metadata.data.statuses[data.status].appearence }>
@@ -45,8 +47,8 @@ const ListRow = ({ data, metadata, onClick }) => {
                         None
                     </PillLabel>
                 }
-            </p>
-            <p>
+            </div>
+            <div>
                 {
                     data.category ?
                     <PillLabel appearence={ metadata.data.categories[data.category].appearence }>
@@ -56,7 +58,7 @@ const ListRow = ({ data, metadata, onClick }) => {
                         No Category
                     </PillLabel>
                 }
-            </p>
+            </div>
         </Wrapper>
     );
 }

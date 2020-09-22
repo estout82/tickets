@@ -12,6 +12,7 @@ export const highlightColorTwoDark = '#9BC7EF';
 export const errorColorOne = '#edada3';
 export const okColorOne = '#5cd664';
 export const warningColorOne = '#fff268';
+export const neutralColorOne = '#bf7efc';
 
 // rounding
 export const smallRound = '5px';

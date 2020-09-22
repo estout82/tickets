@@ -20,6 +20,7 @@ const ListBody = ({ metadata, onRowClick }) => {
                     orderPage.data.map(order => {
                         return (
                             <ListRow
+                             key={ order._id }
                              metadata={ metadata }
                              data={ order }
                              onClick={ onRowClick }

@@ -1,11 +1,13 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import Checkbox from '../../../../common/Checkbox';
+import Select from '../../../../common/Select';
+import useEditableForm from '../../../../common/hooks/useEditableForm';
+import Input from '../../../../common/Input';
 
 const Wrapper = styled.div`
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr 1fr .1fr;
     font-size: 12pt;
 
     & > div {
@@ -15,21 +17,22 @@ const Wrapper = styled.div`
     }
 `;
 
-const OrderItem = ({ data }) => {
+const OrderItemEditableForm = ({ data, onChange }) => {
     return (
         <Wrapper>
             <div>{ data.item.name }</div>
             <div>
-                <Checkbox value={ data.approved }/>
+                
             </div>
             <div>
-                <Checkbox value={ data.ordered }/>
+                { data.quantity }
             </div>
-            <div>{ data.quantity }</div>
-            <div>{ data.source }</div>
+            <div>
+                { data.source }
+            </div>
             <div>x</div>
         </Wrapper>
     );
 }
 
-export default OrderItem;
+export default OrderItemEditableForm;

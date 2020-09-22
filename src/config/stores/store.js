@@ -1,9 +1,9 @@
 
 import { logError, apiRequest } from '../util';
 
-function handleError(msg, setData) {
+function handleError(msg, cleanup) {
     logError(msg);
-    setData();
+    if (cleanup) cleanup();
 }
 
 export function getRequest(options, setDataCallback) {
@@ -50,3 +50,36 @@ export function getRequest(options, setDataCallback) {
     });
 }
 
+export function patchRequest({ endpoint, data, onSucess, onError }) {
+    apiRequest(endpoint, {
+        method: 'PATCH',
+        body: data
+    })
+    .then(response => {
+        return response.json();
+    })
+    .then(json => {
+        switch (json.status) {
+            case 'ok':
+                onSucess({
+                    msg: json.friendlyMsg
+                });
+                return;
+            case 'error':
+                handleError(json.msg, () => {
+                    onError({ msg: json.friendlyMsg })
+                });
+                return;
+            default:
+                handleError(json.msg, () => {
+                    onError({ msg: 'Failed to verify save completion' })
+                });
+                return;
+        }
+    })
+    .catch(error => {
+        handleError(error.msg, () => {
+            onError(error.friendlyMsg ? error.friendlyMsg : 'A server error occured');
+        });
+    });
+}

@@ -21,10 +21,10 @@ const SelectComponent = styled.select`
     margin-right: 7px;
 `;
 
-const Select = (props) => {
+const Select = ({ options, value, onChange }) => {
     const handleChange = (event) => {
-        if (props.onChange) {
-            props.onChange(event.target.value);
+        if (onChange) {
+            onChange(event.target.value);
         }
     }
 
@@ -33,14 +33,14 @@ const Select = (props) => {
          backgroundImage={ DownArrowSVG }
          onChange={ handleChange }>
             { 
-                props.options ?
+                options ?
                 // options are structured as { value: label }
                 // value is name of property in DB
                 // value is what is presented to the user
-                Object.keys(props.options).map( key => {
-                    const label = props.options[key];
+                Object.keys(options).map( key => {
+                    const label = options[key];
 
-                    if (key === props.value) {
+                    if (key === value) {
                         return (
                             <option
                              name={ key }

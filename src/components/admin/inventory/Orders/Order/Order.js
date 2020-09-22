@@ -5,11 +5,13 @@ import useLoading from '../../../../common/hooks/useLoading';
 import Button from '../../../../common/Button';
 import useOrder from '../../../../../config/stores/order/useOrder';
 import OrderItem from './OrderItem';
+import Controls from './Controls';
+import useUpdateOrder from '../../../../../config/stores/order/useUpdateOrder';
 
 const Wrapper = styled.div`
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 50px 1fr 50px;
+    grid-template-rows: 40px 50px 1fr 50px;
     padding: 10px;
 `;
 
@@ -25,7 +27,7 @@ const ItemList = styled.div`
 
 const ItemListHeader = styled.div`
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr 1fr .1fr;
     border-bottom: 1px solid ${ props => props.theme.textColorThree };
     margin-bottom: 5px;
 `;
@@ -37,16 +39,24 @@ const Footer = styled.div`
 const Order = ({ orderId }) => {
     const render = useLoading();
     const orderData = useOrder(orderId);
+    const updateOrder = useUpdateOrder();
+
+    const handleStatusChange = (newValue) => {
+        updateOrder(orderId, { status: newValue });
+    }
 
     const renderDoneState = () => {
         return (
             <Wrapper>
-                <Header>Order #{ orderData.data.number }</Header>  
+                <Header>Order #{ orderData.data.number }</Header>
+                <Controls
+                 data={{...orderData}}
+                 onStatusChange={ handleStatusChange }
+                />
                 <ItemList>
                     <ItemListHeader>
                         <p>Name</p>
-                        <p>Approved</p>
-                        <p>Ordered</p>
+                        <p>Status</p>
                         <p>Quantity</p>
                         <p>Source</p>
                     </ItemListHeader>
@@ -55,7 +65,10 @@ const Order = ({ orderId }) => {
                         orderData.data.items.length > 0 ?
                         orderData.data.items.map(item => {
                             return (
-                                <OrderItem data={ item }/>
+                                <OrderItem 
+                                 key={ item.item._id }
+                                 data={ item }
+                                />
                             );
                         }) :
                         'No Items'

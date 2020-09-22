@@ -22,6 +22,8 @@ function getBackgroundFromAppearence(appearence) {
             return 'warningColorOne';
         case 'error':
             return 'errorColorOne';
+        case 'neutral':
+            return 'neutralColorOne';
         default:
             return null;
     }
