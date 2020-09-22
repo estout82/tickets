@@ -51,9 +51,14 @@ export function getRequest(options, setDataCallback) {
 }
 
 export function patchRequest({ endpoint, data, onSucess, onError }) {
+    const headers = {
+        'Content-Type': 'application/json'
+    };
+
     apiRequest(endpoint, {
         method: 'PATCH',
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
+        headers: new Headers(headers)
     })
     .then(response => {
         return response.json();
@@ -65,7 +70,7 @@ export function patchRequest({ endpoint, data, onSucess, onError }) {
             case 'ok':
                 onSucess({
                     msg: json.friendlyMsg,
-                    appearange: 'ok'
+                    appearance: 'ok'
                 });
                 return;
             case 'error':

@@ -43,7 +43,7 @@ const Select = ({ options, value, onChange }) => {
                     if (key === value) {
                         return (
                             <option
-                             name={ key }
+                             value={ key }
                              selected >
                                 { label }
                             </option>
@@ -53,7 +53,7 @@ const Select = ({ options, value, onChange }) => {
                     return (
                         <option
                          key={ key }
-                         name={ key }>
+                         value={ key }>
                             { label }
                         </option>
                     );

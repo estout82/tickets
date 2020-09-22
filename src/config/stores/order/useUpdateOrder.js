@@ -16,32 +16,45 @@ function useUpdateOrder() {
     }
 
     const updateOrder = (orderId, data) => {
-        patchRequest({
-            endpoint: `http://localhost:9000/api/inventory/order/${orderId}`,
-            data: data,
-            onSucess: (msg) => {
-                setStatus({
-                    status: 'ok',
-                    msg: msg
-                });
+        // function to pass to promise constructor
+        const callback = (resolve, reject) => {
+            patchRequest({
+                endpoint: `http://localhost:9000/api/inventory/order/${orderId}`,
+                data: data,
+                onSucess: (msg) => {
+                    const statusData = {
+                        status: 'ok',
+                        msg: msg
+                    }
 
-                // set timeout to clear the message
-                setTimeout(clearMsg, MSG_CLEAR_TIME);
-            },
-            onError: (msg) => {
-                setStatus({
-                    status: 'error',
-                    msg: msg
-                });
+                    setStatus(statusData);
+    
+                    // set timeout to clear the message
+                    setTimeout(clearMsg, MSG_CLEAR_TIME);
 
-                // set timeout to clear the message
-                setTimeout(clearMsg, MSG_CLEAR_TIME);
-            }
-        });
+                    return resolve(statusData)
+                },
+                onError: (msg) => {
+                    const statusData = {
+                        status: 'error',
+                        msg: msg
+                    }
+
+                    setStatus(statusData);
+    
+                    // set timeout to clear the message
+                    setTimeout(clearMsg, MSG_CLEAR_TIME);
+
+                    return reject(statusData);
+                }
+            });
+        }
+
+        return new Promise(callback);
     }
 
     return {
-        updateOrder,
+        do: updateOrder,
         status: status.status,
         msg: status.msg
     }; 

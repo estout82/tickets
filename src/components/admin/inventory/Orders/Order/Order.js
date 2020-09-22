@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import useLoading from '../../../../common/hooks/useLoading';
 import Button from '../../../../common/Button';
@@ -27,7 +27,7 @@ const ItemList = styled.div`
 
 const ItemListHeader = styled.div`
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr .1fr;
+    grid-template-columns: 2fr 1fr 1fr .5fr;
     border-bottom: 1px solid ${ props => props.theme.textColorThree };
     margin-bottom: 5px;
 `;
@@ -42,7 +42,7 @@ const Order = ({ orderId }) => {
     const updateOrder = useUpdateOrder();
 
     const handleStatusChange = (newValue) => {
-        updateOrder.updateOrder(orderId, { status: newValue });
+        updateOrder.do(orderId, { status: newValue });
     }
 
     const renderDoneState = () => {
@@ -57,18 +57,21 @@ const Order = ({ orderId }) => {
                 <ItemList>
                     <ItemListHeader>
                         <p>Name</p>
-                        <p>Status</p>
                         <p>Quantity</p>
                         <p>Source</p>
                     </ItemListHeader>
                     {
                         orderData.data.items &&
                         orderData.data.items.length > 0 ?
-                        orderData.data.items.map(item => {
+                        orderData.data.items.map((item, index) => {
+                            console.log(item);
+
                             return (
                                 <OrderItem 
-                                 key={ item.item._id }
+                                 key={ `${index}${item._id}` }
                                  data={ item }
+                                 orderId={ orderId }
+                                 itemIndex={ index }
                                 />
                             );
                         }) :
