@@ -5,7 +5,7 @@ import { getRequestPromise, patchRequestPromise, mergeObjects } from '../store';
 
 export default function useTicket(ticketId) {
     const [data, setData] = useState();
-    const [status, setStatus] = useState({ status: 'loading' });
+    const [status, setStatus] = useState({ text: 'loading' });
 
     // effect that fetches data on mount
     useEffect(() => {
@@ -15,13 +15,13 @@ export default function useTicket(ticketId) {
         .then(({ data, msg }) => {
             setData(data);
             setStatus(c => {
-                let n = {...c, status: 'done', msg: msg};
+                let n = {...c, text: 'done', msg: msg};
                 return n;
             });
         })
         .catch(({ msg }) => {
             setStatus(c => {
-                let n = {...c, status: 'error', msg: msg};
+                let n = {...c, text: 'error', msg: msg};
                 return n;
             });
         });

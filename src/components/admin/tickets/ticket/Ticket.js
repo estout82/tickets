@@ -54,7 +54,7 @@ const CommentWrapper = styled.div`
     overflow: scroll;
 `;
 
-const TicketDetails = (props) => {
+const Ticket = (props) => {
     return (
         <Wrapper>
             <TitleWrapper>
@@ -86,4 +86,4 @@ const TicketDetails = (props) => {
     );
 } 
 
-export default TicketDetails;
+export default Ticket;

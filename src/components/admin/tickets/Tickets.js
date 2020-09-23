@@ -2,9 +2,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import TicketList from './TicketList';
-import TicketDetails from './TicketDetails';
-import Button from '../../common/Button';
+import List from './list/List';
+import Ticket from './ticket/Ticket';
+import useTicketPage from '../../../config/stores/tickets/useTicketPage';
 
 const Wrapper = styled.div`
     height: 100%;
@@ -49,7 +49,9 @@ const Content = styled.div`
     justify-content: flex-start;
 `;
 
-const Tickets = (props) => {
+const Tickets = () => {
+    let page = useTicketPage(1);
+
     return (
         <Wrapper>
             <Header>
@@ -63,8 +65,8 @@ const Tickets = (props) => {
                 </Nav>
             </Header>
             <Content>
-                <TicketList />
-                <TicketDetails />
+                <List data={ page }/>
+                <Ticket />
             </Content>
         </Wrapper>
     );

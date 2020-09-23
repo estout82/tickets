@@ -2,8 +2,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Button from '../../common/Button';
-import Select from '../../common/Select';
+import Button from '../../../common/Button';
+import Select from '../../../common/Select';
 
 const Wrapper = styled.div`
     display: grid;

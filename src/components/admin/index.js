@@ -5,7 +5,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Page from '../common/Page';
 import Sidebar from './Sidebar';
-import Tickets from './tickets';
+import Tickets from './tickets/Tickets';
 import Wiki from './wiki';
 import Inventory from './inventory';
 import Config from './config';
