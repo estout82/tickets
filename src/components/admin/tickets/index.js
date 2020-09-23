@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import TicketList from './TicketList';
 import TicketDetails from './TicketDetails';
-import useTicket from '../../../config/stores/tickets/useTicket';
+import Button from '../../common/Button';
 
 const Wrapper = styled.div`
     height: 100%;

@@ -200,6 +200,59 @@ export function getRequestPromise(endpoint, options) {
     return new Promise(promiseCallback);
 }
 
+export function patchRequestPromise(endpoint, { data, onSucess, onError }) {
+    console.log('patch promise');
+
+    const promiseCallback = (resolve, reject) => {
+        console.log('in promise');
+        apiRequest(endpoint, {
+            method: 'PATCH',
+            body: JSON.stringify(data),
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            })
+        })
+        .then(response => {
+            return response.json();
+        })
+        .then(json => {
+            switch (json.status) {
+                case 'ok':
+                    return resolve({
+                        text: json.friendlyMsg,
+                        appearance: 'ok'
+                    });
+                case 'error':
+                    handleError(json.msg);
+
+                    return reject({ 
+                        text: json.friendlyMsg,
+                        appearance: 'error'
+                    });
+                default:
+                    handleError(json.msg);
+
+                    return reject({ 
+                        text: json.friendlyMsg,
+                        appearance: 'error'
+                    });
+            }
+        })
+        .catch(error => {
+            handleError(error.msg);
+
+            return reject({ 
+                text: error.friendlyMsg ? 
+                    error.friendlyMsg : 
+                    'An error occured, the server responsed with code 500',
+                appearance: 'error'
+            });
+        });
+    }
+
+    return new Promise(promiseCallback);
+}
+
 // recursivley merges objects
 // TODO: handle arrays
 export function mergeObjects(dataToMerge, data) {

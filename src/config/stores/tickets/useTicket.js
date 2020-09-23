@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { getRequestPromise, patchRequest, mergeObjects } from '../store';
+import { getRequestPromise, patchRequestPromise, mergeObjects } from '../store';
 
 
 export default function useTicket(ticketId) {
@@ -33,7 +33,9 @@ export default function useTicket(ticketId) {
 
         // return promise that resolves to status of update request
         return new Promise((resolve, reject) => {
-            patchRequest(patchRequestEndpoint)
+            patchRequestPromise(patchRequestEndpoint, {
+                data: patchData
+            })
             .then((msg) => {
                 // update local data
                 setData(c => {
