@@ -27,7 +27,7 @@ const ItemList = styled.div`
 
 const ItemListHeader = styled.div`
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr .5fr;
+    grid-template-columns: 2fr 1fr 1fr .75fr;
     border-bottom: 1px solid ${ props => props.theme.textColorThree };
     margin-bottom: 5px;
 `;
@@ -38,11 +38,28 @@ const Footer = styled.div`
 
 const Order = ({ orderId }) => {
     const render = useLoading();
-    const orderData = useOrder(orderId);
+    const [orderData, editOrderData] = useOrder(orderId);
     const updateOrder = useUpdateOrder();
 
     const handleStatusChange = (newValue) => {
         updateOrder.do(orderId, { status: newValue });
+    }
+
+    const handleOrderItemDelete = (orderId, itemIndex) => {
+        let requestData = { items: {} };
+        requestData.items[itemIndex] = {};
+
+        updateOrder.do(orderId, requestData);
+
+        // remove from orderData
+        // TODO: this is bad!
+        let newOrderData = {...orderData};
+        newOrderData.data.items = [
+            ...newOrderData.data.items.splice(0, itemIndex),
+            ...newOrderData.data.items.splice(itemIndex + 1)
+        ];
+
+        editOrderData(newOrderData);
     }
 
     const renderDoneState = () => {
@@ -51,7 +68,7 @@ const Order = ({ orderId }) => {
                 <Header>Order #{ orderData.data.number }</Header>
                 <Controls
                  msg={updateOrder.msg}
-                 data={orderData}
+                 data={orderData.data}
                  onStatusChange={ handleStatusChange }
                 />
                 <ItemList>
@@ -70,6 +87,7 @@ const Order = ({ orderId }) => {
                                  data={ item }
                                  orderId={ orderId }
                                  itemIndex={ index }
+                                 onItemDelete={ handleOrderItemDelete }
                                 />
                             );
                         }) :
@@ -77,8 +95,6 @@ const Order = ({ orderId }) => {
                     }
                 </ItemList>
                 <Footer>
-                    <Button>Save</Button>
-                    <Button>Cancel</Button>
                 </Footer>
             </Wrapper>
         );

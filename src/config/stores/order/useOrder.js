@@ -17,7 +17,11 @@ function useOrder(orderId) {
         request();
     }, [request]);
 
-    return state;
+    const edit = (newState) => {
+        setState(newState);
+    }
+
+    return [state, edit];
 }
 
 export default useOrder;

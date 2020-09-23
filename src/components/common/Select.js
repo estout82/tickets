@@ -30,6 +30,7 @@ const Select = ({ options, value, onChange }) => {
 
     return (
         <SelectComponent
+         value={ value }
          backgroundImage={ DownArrowSVG }
          onChange={ handleChange }>
             { 
@@ -39,16 +40,6 @@ const Select = ({ options, value, onChange }) => {
                 // value is what is presented to the user
                 Object.keys(options).map( key => {
                     const label = options[key];
-
-                    if (key === value) {
-                        return (
-                            <option
-                             value={ key }
-                             selected >
-                                { label }
-                            </option>
-                        );
-                    }
 
                     return (
                         <option

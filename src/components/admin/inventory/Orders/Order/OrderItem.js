@@ -3,13 +3,14 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from '../../../../common/Button';
 import Input from '../../../../common/Input';
+import ExButton from '../../../../common/ExButton';
 import useEditableForm from '../../../../common/hooks/useEditableForm';
 import useUpdateOrder from '../../../../../config/stores/order/useUpdateOrder';
 import PillLabel from '../../../../common/PillLabel';
 
 const Wrapper = styled.div`
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr .5fr;
+    grid-template-columns: 2fr 1fr 1fr .75fr;
     font-size: 12pt;
 `;
 
@@ -29,7 +30,7 @@ const ControlsWrapper = styled.div`
     justify-content: flex-end;
 `;
 
-const OrderItemEditableForm = ({ data, orderId, itemIndex }) => {
+const OrderItemEditableForm = ({ data, orderId, itemIndex, onItemDelete }) => {
     const [editingField, setEditingField] = useState();
     const updateOrder = useUpdateOrder();
     const form = useEditableForm({
@@ -71,10 +72,14 @@ const OrderItemEditableForm = ({ data, orderId, itemIndex }) => {
         setEditingField();
     }
 
+    const handleDeleteButtonClick = () => {
+        if (onItemDelete) onItemDelete(orderId, itemIndex);
+    }
+
     return (
         <Wrapper>
-            <FieldWrapper>{ data.item.name }</FieldWrapper>
-            <FieldWrapper onClick={ () => handleFieldClick('quantity') }>
+            <FieldWrapper>{data.item.name}</FieldWrapper>
+            <FieldWrapper onClick={() => handleFieldClick('quantity')}>
                 {
                     editingField === 'quantity' ?
                     <Input 
@@ -105,12 +110,13 @@ const OrderItemEditableForm = ({ data, orderId, itemIndex }) => {
                     <>
                         { 
                             form.status ? 
-                            <PillLabel>
-                                { form.status.msg.text }
+                            <PillLabel
+                             appearence={form.status.msg.appearance}>
+                                {form.status.msg.text}
                             </PillLabel> :
                             null
                         }
-                        <p>x</p>
+                        <ExButton onClick={handleDeleteButtonClick}/>
                     </>
                 }
             </ControlsWrapper>
