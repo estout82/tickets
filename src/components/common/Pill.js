@@ -12,6 +12,7 @@ const Wrapper = styled.div`
     text-align: center;
 `;
 
+// TODO: fix this
 function getBackgroundFromAppearence(appearence) {
     switch (appearence) {
         case 'ok': 
@@ -29,6 +30,7 @@ function getBackgroundFromAppearence(appearence) {
     }
 }
 
+// TODO: fix this
 function getColorFromAppearence(appearence) {
     switch (appearence) {
         case 'ok': 
@@ -44,7 +46,7 @@ function getColorFromAppearence(appearence) {
     }
 }
 
-function PillLabel({ children, appearence }) {
+function Pill({ children, appearence }) {
     return (
         <Wrapper 
          background={ getBackgroundFromAppearence(appearence) }
@@ -54,4 +56,4 @@ function PillLabel({ children, appearence }) {
     );
 }
 
-export default PillLabel;
+export default Pill;
