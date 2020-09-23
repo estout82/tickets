@@ -2,13 +2,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import ListBody from './ListBody';
-import Filter from './Filter';
+import Controls from './Controls';
 import Pagenation from '../../../../common/Pagenation';
 
 const Wrapper = styled.div`
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 50px 40px 1fr 50px;
+    grid-template-rows: 50px auto 1fr 50px;
     padding: 10px;
 `;
 
@@ -32,8 +32,8 @@ const List = ({ metadata, onRowClick }) => {
             <Header>
                 <h3>Orders</h3>
             </Header>
-            <Filter />
-            <ListBody 
+            <Controls />
+            <ListBody
              metadata={ metadata } 
              onRowClick={ onRowClick }
             />
