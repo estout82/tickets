@@ -1,7 +1,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import PillLabel from '../../../../common/PillLabel';
+import Pill from '../../../../common/Pill';
 
 const Wrapper = styled.div`
     display: flex;
@@ -33,28 +33,28 @@ const ListRow = ({ data, metadata, onClick }) => {
         <Wrapper
          onClick={ () => handleClick(data._id) }>
             <div>
-                <PillLabel>{ data.number }</PillLabel>
+                <Pill>{ data.number }</Pill>
             </div>
             <div>
                 {
                     data.status ?
-                    <PillLabel appearence={ metadata.data.statuses[data.status].appearence }>
+                    <Pill appearence={ metadata.data.statuses[data.status].appearence }>
                         { metadata.data.statuses[data.status].label }
-                    </PillLabel> :
-                    <PillLabel appearence="none">
+                    </Pill> :
+                    <Pill appearence="none">
                         None
-                    </PillLabel>
+                    </Pill>
                 }
             </div>
             <div>
                 {
                     data.category ?
-                    <PillLabel appearence={ metadata.data.categories[data.category].appearence }>
+                    <Pill appearence={ metadata.data.categories[data.category].appearence }>
                         { metadata.data.categories[data.category].label }
-                    </PillLabel> :
-                    <PillLabel appearence="none">
+                    </Pill> :
+                    <Pill appearence="none">
                         No Category
-                    </PillLabel>
+                    </Pill>
                 }
             </div>
         </Wrapper>

@@ -14,6 +14,7 @@ const Wrapper = styled.div`
     height: 100%;
     box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
+    padding: 10px;
 `;
 
 const ToolBarWrapper = styled.div`

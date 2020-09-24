@@ -2,7 +2,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import useLoading from '../../../../common/hooks/useLoading';
-import Button from '../../../../common/Button';
 import useOrder from '../../../../../config/stores/order/useOrder';
 import OrderItem from './OrderItem';
 import Controls from './Controls';

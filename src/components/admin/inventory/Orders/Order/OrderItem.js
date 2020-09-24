@@ -6,7 +6,7 @@ import Input from '../../../../common/Input';
 import ExButton from '../../../../common/ExButton';
 import useEditableForm from '../../../../common/hooks/useEditableForm';
 import useUpdateOrder from '../../../../../config/stores/order/useUpdateOrder';
-import PillLabel from '../../../../common/PillLabel';
+import Pill from '../../../../common/Pill';
 
 const Wrapper = styled.div`
     display: grid;
@@ -110,10 +110,10 @@ const OrderItemEditableForm = ({ data, orderId, itemIndex, onItemDelete }) => {
                     <>
                         { 
                             form.status ? 
-                            <PillLabel
+                            <Pill
                              appearence={form.status.msg.appearance}>
                                 {form.status.msg.text}
-                            </PillLabel> :
+                            </Pill> :
                             null
                         }
                         <ExButton onClick={handleDeleteButtonClick}/>
