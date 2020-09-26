@@ -52,11 +52,11 @@ const SearchInput = styled.input`
     }
 `;
 
-const List = ({ data }) => {
+const List = ({ page, onTicketSelect }) => {
     const render = useLoading();
 
     const handleRowClick = (ticketId) => {
-        // TODO:
+        if (onTicketSelect) onTicketSelect(ticketId);
     }
 
     const renderDoneState = () => {
@@ -67,8 +67,8 @@ const List = ({ data }) => {
                 </ToolBarWrapper>
                 <ListWrapper>
                     {
-                        data.data ?
-                        data.data.map(ticket => {
+                        page.data ?
+                        page.data.map(ticket => {
                             return (
                                 <ListRow 
                                  key={ticket._id}
@@ -87,7 +87,7 @@ const List = ({ data }) => {
         );
     }
 
-    return render(renderDoneState, { status: data.status.text });
+    return render(renderDoneState, { status: page.status.text });
 }
 
 export default List;

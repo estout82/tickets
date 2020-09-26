@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import List from './list/List';
@@ -50,7 +50,12 @@ const Content = styled.div`
 `;
 
 const Tickets = () => {
-    let page = useTicketPage(1);
+    const page = useTicketPage(1);
+    const [selectedTicket, setSelectedTicket] = useState();
+
+    const handleTicketSelect = (ticketId) => {
+        setSelectedTicket(ticketId);
+    }
 
     return (
         <Wrapper>
@@ -65,8 +70,17 @@ const Tickets = () => {
                 </Nav>
             </Header>
             <Content>
-                <List data={ page }/>
-                <Ticket />
+                <List 
+                 page={ page }
+                 onTicketSelect={ handleTicketSelect }
+                />
+                {
+                    selectedTicket ?
+                    <Ticket 
+                     ticketId={selectedTicket}
+                    /> :
+                    null
+                }
             </Content>
         </Wrapper>
     );

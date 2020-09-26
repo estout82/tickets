@@ -23,6 +23,7 @@ const FieldWrapper = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    margin-right: 5px;
 `;
 
 const ListRow = ({ data, onClick }) => {
