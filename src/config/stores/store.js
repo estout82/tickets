@@ -101,20 +101,31 @@ export function patchRequest({ endpoint, data, onSucess, onError }) {
     });
 }
 
-export function postRequest({ endpoint, data }) {
-    const promiseCallback = (resolve, reject) => {
+export function postRequest(endpoint, { data }) {
+    return new Promise((resolve, reject) => {
+        console.log(`post requeset ${endpoint}`);
+
         apiRequest(endpoint, {
-            method: 'POST'
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify(data)
         })
         .then(response => {
             return response.json();
         })
         .then(json => {
+            console.log('api request rsolved');
             switch (json.status) {
                 case 'ok':
                     return resolve({
-                        text: json.friendlyMsg,
-                        appearance: 'ok'
+                        text: 'ok',
+                        msg: {
+                            text: json.friendlyMsg,
+                            appearance: 'ok'
+                        },
+                        data: json.data
                     });
                 case 'error':
                     // log to console
@@ -125,7 +136,13 @@ export function postRequest({ endpoint, data }) {
                         appearance: 'error'
                     });
                 default:
-                    return;
+                    // log to console
+                    handleError(json.msg);
+
+                    return reject({
+                        text: `Unknown request status ${json.status}`,
+                        appearance: 'warning'
+                    });
             }
         })
         .catch(error => {
@@ -139,9 +156,7 @@ export function postRequest({ endpoint, data }) {
 
             return reject(msgObject);
         });
-    };
-
-    return new Promise(promiseCallback);
+    });
 }
 
 // function preforms a get request to specified endpoint and returns a promise
@@ -200,13 +215,11 @@ export function getRequestPromise(endpoint, options) {
     return new Promise(promiseCallback);
 }
 
-export function patchRequestPromise(endpoint, { data, onSucess, onError }) {
-    console.log('patch promise');
-
+// TODO: this is the only function that is used!
+export function request(endpoint, { method, data }) {
     const promiseCallback = (resolve, reject) => {
-        console.log('in promise');
         apiRequest(endpoint, {
-            method: 'PATCH',
+            method: method,
             body: JSON.stringify(data),
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -219,8 +232,12 @@ export function patchRequestPromise(endpoint, { data, onSucess, onError }) {
             switch (json.status) {
                 case 'ok':
                     return resolve({
-                        text: json.friendlyMsg,
-                        appearance: 'ok'
+                        text: 'ok',
+                        msg: {
+                            text: json.friendlyMsg,
+                            appearance: 'ok'
+                        },
+                        data: json.data
                     });
                 case 'error':
                     handleError(json.msg);

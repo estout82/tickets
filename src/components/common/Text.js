@@ -14,17 +14,17 @@ const TextComponent = styled.textarea`
     color: ${ props => props.theme.textColorOne };
 `;
 
-const Text = (props) => {
+const Text = ({ value, placeholder, children, onChange }) => {
     const handleValueChange = (event) => {
-        if (props.onValueChange) {
-            props.onValueChange(event.target.value);
-        }
+        if (onChange) onChange(event.target.value);
     }
 
     return (
-        <TextComponent onChange={handleValueChange} value={props.value} 
-            placeholder={props.placeholder}>
-            {props.children}
+        <TextComponent 
+         value={ value } 
+         placeholder={ placeholder }
+         onChange={ handleValueChange }>
+             { children }
         </TextComponent>
     );
 }

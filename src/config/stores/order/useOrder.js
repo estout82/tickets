@@ -21,7 +21,11 @@ function useOrder(orderId) {
         setState(newState);
     }
 
-    return [state, edit];
+    return { 
+        state,
+        status: state.status, 
+        edit
+    };
 }
 
 export default useOrder;

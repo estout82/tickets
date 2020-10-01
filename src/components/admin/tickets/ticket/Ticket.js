@@ -1,16 +1,17 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import TodoList from './TodoList';
-import CommentList from './CommentList';
+import TodoCard from './TodoCard';
+import Comments from './Comments';
 import useLoading from '../../../common/hooks/useLoading';
 import useTicket from '../../../../config/stores/tickets/useTicket';
 import Pill from '../../../common/Pill';
+import CommentForm from './CommentForm';
+import OrderCard from './OrderCard';
 
 const Wrapper = styled.div`
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 60px auto min-content minmax(200px, min-content) 1fr;
+    display: flex;
+    flex-flow: column nowrap;
     margin: 10px;
     width: calc(50% - 20px);
     height: 100%;
@@ -24,51 +25,55 @@ const TitleWrapper = styled.div`
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
+    height: 60px;
     align-items: center;
     padding: 0 20px;
-    grid-column: 1 / 4;
 `;
 
 const DescriptionWrapper = styled.div`
     overflow: scroll;
     padding: 0 20px;
     margin: 0;
-    grid-column: 1 / 4;
 
     p {
         margin: 0;
     }
 `;
 
-const ToDoWrapper = styled.div`
-    grid-column: 1;
+const WorkflowWrapper = styled.div`
+    display: flex;
+    flex-flow: row nowrap;
     padding: 0 20px;
 `;
 
+const WorkflowCardWrapper = styled.div`
+    padding-right: 10px;
+`;
+
 const InfoWrapper = styled.div`
-    grid-column: 1 / 4;
     padding: 10px 20px;
 `;
 
 const CommentWrapper = styled.div`
-    grid-column: 1 / 4;
     overflow: scroll;
+    padding: 10px;
 `;
 
 const Ticket = ({ ticketId }) => {
     const render = useLoading();
     const ticket = useTicket(ticketId);
 
-    const handleAddTodo = () => {
-
+    const handleAddTodo = (data) => {
+        // return promise returned by add todo hook in ticket store
+        return ticket.addTodo(data);
     }
 
-    const handleUpdateTodo = () => {
-
+    const handleToggleTodo = (todoId, newCompletedValue) => {
+        return ticket.updateTodo(todoId, { completed: newCompletedValue });
     }
 
-    const handleToggleTodo = () => {
-
+    const handleDeleteTodo = (todoId) => {
+        return ticket.deleteTodo(todoId);
     }
 
     const renderDoneState = () => {
@@ -98,16 +103,24 @@ const Ticket = ({ ticketId }) => {
                 <InfoWrapper>
                     Info
                 </InfoWrapper>
-                <ToDoWrapper>
-                    <TodoList
-                     data={ticket.data.todos}
-                     onAddTodo={handleAddTodo}
-                     onUpdateTodo={handleUpdateTodo}
-                     onToggleTodo={handleToggleTodo}
-                    />
-                </ToDoWrapper>
+                <WorkflowWrapper>
+                    <WorkflowCardWrapper>
+                        <TodoCard
+                         data={ticket.data.todos}
+                         handleAddTodo={handleAddTodo}
+                         handleToggleTodo={handleToggleTodo}
+                         handleDeleteTodo={handleDeleteTodo}
+                        />
+                    </WorkflowCardWrapper>
+                    <WorkflowCardWrapper>
+                        <OrderCard 
+                         orderId={ '5f5fe64e7fd98032580c7ea5' }
+                        />
+                    </WorkflowCardWrapper>
+                </WorkflowWrapper>
                 <CommentWrapper>
-                    <CommentList />
+                    <Comments data={ ticket.data.comments }/>
+                    <CommentForm addComment={ ticket.addComment }/>
                 </CommentWrapper>
             </Wrapper>
         );

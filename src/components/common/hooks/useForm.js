@@ -14,31 +14,50 @@ const exampleData = [
     }
 ]
 
-const NONE = -1;
-
-const useForm = (initalValues) => {
-    const [ values, setValues ] = useState( initalValues );
-    
-    // eslint-disable-next-line no-unused-vars
-    const [ hoveringContainer, setHoveringContainer ] = useState(NONE);
+const useForm = (initalValues, options) => {
+    const [values, setValues] = useState(initalValues);
+    const [state, setState] = useState();
 
     const handleChange = (field, newValue) => {
-        let newValues = { ...values };
-        newValues[field] = newValue;
-        setValues(newValues);
+        // TODO: fun validator
 
-        // check for error
+        setValues(c => {
+            let n = {...values};
+            n[field] = newValue;
+            return n;
+        });
     }
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
+    const handleSubmit = (doRequest) => {
+        // TODO: check form state to ensure validators
+
+        // return a new promise that resolves or rejects on request completion
+        return new Promise((resolve, reject) => {
+            doRequest(values)
+            .then(status => {
+                return resolve(status);
+            })
+            .catch(status => {
+                return reject(status);
+            });
+        });
     }
 
-    return [
+    const doReset = () => {
+        // reset values
+        setValues(initalValues);
+
+        // reset form state
+        setState();
+    }
+
+    return {
         values,
+        state,
         handleChange,
-        { onSubmit: handleSubmit }
-    ]
+        handleSubmit,
+        doReset
+    }
 }
 
 export default useForm;

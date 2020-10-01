@@ -74,64 +74,86 @@ function useEditableForm(fields) {
     // @param doRequest: a function to preform the request
     // - (values) => {}
     const handleSubmit = (doRequest) => {
-        // ensure all fields are valid
-        let allValid = true;
+        // callback to pass to promise
+        // resolves with status of request
+        // { text: msg: { text: appearance: } }
+        const promiseCallback = (resolve, reject) => {
+            // ensure all fields are valid
+            let allValid = true;
 
-        Object.keys(values).forEach(key => {
-            const v = values[key];
+            Object.keys(values).forEach(key => {
+                const v = values[key];
 
-            if (v.status === 'none' || v.status === 'ok') {
-                return;
-            } else {
-                allValid = false;
-            }
-        });
-
-        // all fields are not valid, display an error message
-        if (allValid !== true) {
-            setValues(c => {
-                c.formMeta = { status: 'error', msg: fields.formMeta.validationErrorMessage };
-                return c;
+                if (v.status === 'none' || v.status === 'ok') {
+                    return;
+                } else {
+                    allValid = false;
+                }
             });
-            return;
+
+            // all fields are not valid, reeject promise
+            if (allValid !== true) {
+                return reject({
+                    text: 'error',
+                    msg: {
+                        text: fields.formMeta.validationErrorMessage,
+                        appearance: 'error'
+                    }
+                });
+            }
+
+            // preform request
+            doRequest(extractInitalValues(values))
+            .then(status => {
+                let newOriginalValues = {}
+
+                setValues(c => {
+                    newOriginalValues = {...c};
+                    return newOriginalValues;
+                });
+                
+                // set new original values
+                originalValues.current = newOriginalValues;
+
+                // set the message based on the status of request passed into this function
+                // TODO: possibly remove this
+                setStatus({
+                    status: status.status,
+                    msg: status.msg
+                });
+
+                // set timeout to clear message
+                setTimeout(() => {
+                    setStatus();
+                }, MSG_CLEAR_TIME);
+
+                // resolve with status of the request
+                return resolve({
+                    text: status.status,
+                    msg: status.msg
+                });
+            })
+            .catch(status => {
+                // set the message based on the status of request passed into this function
+                setStatus({
+                    status: status.status,
+                    msg: status.msg
+                });
+
+                // set timeout to clear message
+                setTimeout(() => {
+                    setStatus();
+                }, MSG_CLEAR_TIME);
+
+                // reject promise and pass in status
+                return reject({
+                    text: 'error',
+                    msg : status.msg
+                });
+            });
         }
 
-        // preform request
-        doRequest(extractInitalValues(values))
-        .then(status => {
-            let newOriginalValues = {}
-
-            setValues(c => {
-                newOriginalValues = {...c};
-                return newOriginalValues;
-            });
-            
-            // set new original values
-            originalValues.current = newOriginalValues;
-
-            // set the message based on the status of request passed into this function
-            setStatus({
-                status: status.status,
-                msg: status.msg
-            });
-
-            // set timeout to clear message
-            setTimeout(() => {
-                setStatus();
-            }, MSG_CLEAR_TIME);
-        })
-        .catch(status => {
-            // set the message based on the status of request passed into this function
-            setStatus({
-                status: status.status,
-                msg: status.msg
-            });
-
-            // set timeout to clear message
-            setTimeout(() => {
-                setStatus();
-            }, MSG_CLEAR_TIME);
-        });
+        return new Promise(promiseCallback);
     }
 
     const doReset = () => {

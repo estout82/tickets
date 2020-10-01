@@ -1,50 +1,83 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-
+import useEditableForm from '../../../common/hooks/useEditableForm';
 import Button from '../../../common/Button';
-import Select from '../../../common/Select';
+import Text from '../../../common/Text';
 
 const Wrapper = styled.div`
-    display: grid;
-    grid-template-columns: 1fr;
-    border: 1px solid ${ props => props.theme.textColorTwo };
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 10px;
+    border: 1px solid ${ props => props.theme.textColorThree };
     border-radius: 5px;
-    margin: 10px;
-
-    input {
-        grid-row: 1;
-        margin: 10px;
-        background: none;
-        outline: none;
-        border: 1px solid ${ props => props.theme.textColorTwo };
-        border-radius: 5px;
-        font-size: 10pt;
-        padding: 10px;
-        color: ${ props => props.theme.textColorOne };
-    }
 `;
 
-const ControlWrapper = styled.div`
+const Row = styled.div`
     display: flex;
     flex-flow: row nowrap;
-    justify-content: flex-start;
-    margin: 0 0 10px 10px;
+    margin-bottom: ${ props => props.margin ? '10px' : '0' }
 `;
 
-const TicketCommentForm = (props) => {
+const CommentForm = ({ addComment }) => {
+    const [showForm, setShowForm] = useState(false);
+    const form = useEditableForm({
+        body: {
+            value: ''
+        }
+    });
+
+    const handleAddButtonClick = () => {
+        setShowForm(true);
+    }
+
+    const handleSaveButtonClick = () => {
+        form.handleSubmit((values) => {
+            console.log('do request');
+
+            const commentData = {
+                // TODO: fix this
+                user: '5ef6936f71a9e87d80122bba',
+                timeCreated: Date(),
+                body: values.body.value
+            };
+
+            return addComment(commentData);
+        })
+        .then(status => {
+            console.log('done');
+            console.log(status);
+        })
+        .catch(status => {
+            console.log(status);
+        });
+    }
+
+    const handleCancelButtonClick = () => {
+        setShowForm(false);
+        form.doReset();
+    }
+
     return (
-        <Wrapper>
-            <input placeholder="Add a comment..." />
-            <ControlWrapper>
-                <Button>Post</Button>
-                <Select 
-                 name="title"
-                 options={ { public: 'Public', private: 'Private', personal: 'Personal' } }
-                />
-            </ControlWrapper>
-        </Wrapper>
+        <>
+            {
+                showForm ?
+                <Wrapper>
+                    <Row margin>
+                        <Text 
+                         value={ form.values.body.value }
+                         onChange={ (val) => form.handleChange('body', val) }
+                        />
+                    </Row>
+                    <Row>
+                        <Button onClick={ handleSaveButtonClick }>Save</Button>
+                        <Button onClick={ handleCancelButtonClick }>Cancel</Button>
+                    </Row>
+                </Wrapper> :
+                <Button onClick={ handleAddButtonClick }>+</Button>
+            }
+        </>
     );
 };
 
-export default TicketCommentForm;
+export default CommentForm;
