@@ -14,6 +14,8 @@ const useLoading = () => {
         switch (status.status) {
             case 'done':
                 return renderDoneState();
+            case 'ok':
+                return renderDoneState();
             case 'loading':
                 return (
                     <Loading />

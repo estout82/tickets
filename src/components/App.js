@@ -5,11 +5,11 @@ import Admin from './admin';
 import Portal from './portal';
 import Login from './login';
 import useLoading from './common/hooks/useLoading';
-import useGlobalStore from '../config/stores/global/useGlobalStore';
+import useGlobalStoreContext from '../config/stores/global/useeGlobalStoreContext';
 
 function App() {
   // used to determine loading status
-  const globalStore = useGlobalStore();
+  const globalStore = useGlobalStoreContext();
   const render = useLoading();
 
   const renderDoneState = () => {
@@ -24,7 +24,7 @@ function App() {
     );
   }
 
-  return render(renderDoneState, { status: globalStore.status, msg: globalStore.status.msg });
+  return render(renderDoneState, { status: globalStore.status.text });
 }
 
 export default App;

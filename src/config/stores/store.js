@@ -220,9 +220,10 @@ export function request(endpoint, { method, data }) {
     const promiseCallback = (resolve, reject) => {
         apiRequest(endpoint, {
             method: method,
-            body: JSON.stringify(data),
+            body: data ? JSON.stringify(data) : null,
             headers: new Headers({
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
             })
         })
         .then(response => {
