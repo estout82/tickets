@@ -12,6 +12,8 @@ function App() {
   const globalStore = useGlobalStoreContext();
   const render = useLoading();
 
+  console.log(globalStore);
+
   const renderDoneState = () => {
     return (
       <Router>

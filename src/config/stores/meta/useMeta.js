@@ -8,12 +8,17 @@ export default function useMeta() {
 
     // effect to initally load all data
     useEffect(() => {
-        const getRequestEndpoint = `http://localhost:9000/meta`;
+        const getRequestEndpoint = `http://localhost:9000/api/meta`;
 
         request(getRequestEndpoint, { method: 'GET' })
         .then(status => {
-            // set data
-            setData(status.data);
+            // format data so it is easily findable by API user
+            const formattedData = {};
+            formattedData.ticket = status.data.find(elem => elem.metaCategory === 'ticket');
+            formattedData.order = status.data.find(elem => elem.metaCategory === 'order');
+            formattedData.init = status.data.find(elem => elem.metaCategory === 'init');
+
+            setData(formattedData);
 
             // set status
             setStatus({ text: 'done' });

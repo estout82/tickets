@@ -25,8 +25,9 @@ export function Provider({ children }) {
     // context value
     const value = {
         status: { text: getStatusText() },
-        departments: departments,
-        organizations: organizations
+        departments,
+        organizations,
+        meta
     }
 
     return (
