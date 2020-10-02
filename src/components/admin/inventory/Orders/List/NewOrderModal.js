@@ -3,7 +3,6 @@ import React from 'react';
 import styled from 'styled-components';
 import Modal from '../../../../common/Modal';
 import Button from '../../../../common/Button';
-import useEditableForm from '../../../../common/hooks/useEditableForm';
 
 const Wrapper = styled.div`
     width: 100%;
@@ -14,12 +13,6 @@ const Wrapper = styled.div`
 `;
 
 export default function NewOrderModal({ onClose }) {
-    const form = useEditableForm({
-        items: {
-            value: []
-        }
-    });
-
     const handleClose = () => {
         if (onClose) onClose();
     }

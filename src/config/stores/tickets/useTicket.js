@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { getRequestPromise, request, mergeObjects } from '../store';
+import { request, mergeObjects } from '../store';
 import { error } from '../../util';
 
 

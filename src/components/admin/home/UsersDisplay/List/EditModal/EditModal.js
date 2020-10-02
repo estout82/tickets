@@ -2,8 +2,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import useForm from '../../../../../common/hooks/useForm';
-import useOrganizationsAsOptions from '../../../../../../config/stores/global/hooks/useOrganizationsAsOptions';
-import useDepartmentsAsOptions from '../../../../../../config/stores/global/hooks/useDepartmentsAsOptions';
 import useUpdateUser from '../../../../../../config/stores/user/useUpdateUser';
 import Modal from '../../../../../common/Modal';
 import EditableDataList from '../../../../../common/EditableDataList';
@@ -11,6 +9,7 @@ import Button from '../../../../../common/Button';
 import Tickets from './Tickets';
 import Items from './Items';
 import Assets from './Assets';
+import useGlobalStoreContext from '../../../../../../config/stores/global/useGlobalStoreContext';
 
 const Wrapper = styled.div`
     display: column;
@@ -28,9 +27,8 @@ const Row = styled.div`
 const InfoModal = ({ data, onClose }) => {
     const [message, setMessage] = useState();
     const [formValues, handleChange] = useForm(data);
-    const organizationOptions = useOrganizationsAsOptions();
-    const departmentOptions = useDepartmentsAsOptions();
     const updateUser = useUpdateUser(handlePatchComplete);
+    const globalStore = useGlobalStoreContext();
 
     const format = {
         firstName: { 
@@ -44,7 +42,7 @@ const InfoModal = ({ data, onClose }) => {
         }, organizationName: { 
             type: 'select', 
             label: 'Organization', 
-            options: organizationOptions,
+            options: globalStore.organizations.asOptions(),
             editable: true
         }, tags: { 
             type: 'input', 
@@ -54,7 +52,7 @@ const InfoModal = ({ data, onClose }) => {
             'select', 
             label: 'Department', 
             editable: true,
-            options: departmentOptions
+            options: globalStore.departments.asOptions()
         }
     }
 
@@ -78,8 +76,8 @@ const InfoModal = ({ data, onClose }) => {
         if (newData.organizationName) {
             let orgId = null;
 
-            Object.keys(organizationOptions).forEach(key => {
-                if (newData.organizationName === organizationOptions[key]) {
+            Object.keys(globalStore.organizations.asOptions()).forEach(key => {
+                if (newData.organizationName === globalStore.organizations.asOptions()[key]) {
                     orgId = key;
                 }
             });

@@ -23,8 +23,19 @@ export default function useOrganizations() {
         });
     }, []);
 
+    const asOptions = () => {
+        if (data) {
+            let r = {};
+            data.forEach(org => {
+                r[org._id] = org.name
+            });
+            return r;
+        }
+    }
+
     return {
         data,
-        status
+        status,
+        asOptions
     }
 }

@@ -11,8 +11,17 @@ export default function useDepartments() {
         
     }, []);
 
+    const asOptions = () => {
+        // TODO: this is temporary
+        return {
+           1: 'IT',
+           2: 'HR'
+        }
+    }
+
     return {
         data,
-        status
+        status,
+        asOptions
     }
 }
