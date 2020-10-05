@@ -1,5 +1,5 @@
 
-import React from 'react';
+categorycategimport React, { useState } from 'react';
 import styled from 'styled-components';
 import TicketForm from './TicketForm';
 import Select from '../../common/Select';
@@ -28,9 +28,12 @@ const Header = styled.h3`
 `;
 
 const NewTicket = () => {
+    const [selectedCategory, setSelectedCategory] = useState();
     const global = useGlobalStoreContext();
 
-    console.log(global.meta.data);
+    const handleCategorySelectChange = (val) => {
+        setSelectedCategory(val);
+    }
 
     return (
         <Content>
@@ -39,12 +42,16 @@ const NewTicket = () => {
             </Row>
             <Row>
                 <Select 
-                 options={{
-                     hardwareIssue: 'Hardware Issue'
-                 }}
+                 options={ global.ticket.categories.asOptions() }
+                 onChange={ handleCategorySelectChange }
+                 value={ selectedCategory }
                 />
             </Row>
-            <TicketForm />
+            {
+                selectedCategory ?
+                <TicketForm categoryId={ selectedCategory } /> :
+                null
+            }
         </Content>
     );
 }
