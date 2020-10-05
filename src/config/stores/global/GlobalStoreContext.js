@@ -3,12 +3,14 @@ import React, { createContext } from 'react';
 import useDepartments from './useDepartments';
 import useOrganizations from './useOrganizations';
 import useMeta from '../meta/useMeta';
+import useTicketCategories from './useTicketCategories';
 
 export let context = createContext();
 
 export function Provider({ children }) {
     const departments = useDepartments();
     const organizations = useOrganizations();
+    const ticketCategories = useTicketCategories();
     const meta = useMeta();
 
     // function that gets a single status from the statuses of all hooks

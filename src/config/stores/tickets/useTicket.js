@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { request, mergeObjects } from '../store';
 import { error } from '../../util';
 
-
 export default function useTicket(ticketId) {
     const [data, setData] = useState();
     const [status, setStatus] = useState({ text: 'loading' });
