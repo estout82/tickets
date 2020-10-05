@@ -1,5 +1,5 @@
 
-categorycategimport React, { useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import TicketForm from './TicketForm';
 import Select from '../../common/Select';
