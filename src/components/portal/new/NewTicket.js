@@ -35,6 +35,8 @@ const NewTicket = () => {
         setSelectedCategory(val);
     }
 
+    console.log(global.ticket);
+
     return (
         <Content>
             <Row>
@@ -49,7 +51,7 @@ const NewTicket = () => {
             </Row>
             {
                 selectedCategory ?
-                <TicketForm categoryId={ selectedCategory } /> :
+                <TicketForm formDefinition={ global.ticket.forms } /> :
                 null
             }
         </Content>

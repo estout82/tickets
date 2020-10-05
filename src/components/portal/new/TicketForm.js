@@ -12,7 +12,7 @@ export default function TicketForm({ formDefinition }) {
 
     return (
         <Wrapper>
-
+            
         </Wrapper>
     );
 }
