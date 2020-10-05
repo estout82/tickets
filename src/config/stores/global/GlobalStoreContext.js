@@ -2,7 +2,6 @@
 import React, { createContext } from 'react';
 import useDepartments from './useDepartments';
 import useOrganizations from './useOrganizations';
-import useMeta from '../meta/useMeta';
 import useTicketCategories from './useTicketCategories';
 import useTicketStatuses from './useTicketStatuses';
 
