@@ -27,9 +27,17 @@ export default function useTicketForms() {
             });
         })
     }, []);
+    
+    const getById = (id) => {
+        if (!id) return null;
+
+        // search array for form def with id
+        return data.find(form => form._id === id);
+    }
 
     return {
         data,
-        status
+        status,
+        getById
     }
 }
