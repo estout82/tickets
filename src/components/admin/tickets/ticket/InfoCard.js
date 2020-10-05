@@ -41,13 +41,13 @@ export default function InfoCard({ data, updateTicket }) {
             <Row>
                 <Select 
                  value={ form.values.status.value }
-                 options={ global.meta.ticketStatusesAsOptions() }
+                 options={ global.ticket.statuses.asOptions() }
                  onChange={ handleStatusChange }
                  formState={ form.values.status }
                 />
                 <Select
                  value={ form.values.category.value }
-                 options={ global.meta.ticketCategoriesAsOptions() }
+                 options={ global.ticket.categories.asOptions() }
                  onChange={ (val) => form.handleChange('category', val) }
                 />
             </Row>

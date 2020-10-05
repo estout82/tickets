@@ -13,8 +13,8 @@ const Wrapper = styled.div`
 `;
 
 // TODO: fix this
-function getBackgroundFromAppearence(appearence) {
-    switch (appearence) {
+function getBackgroundFromAppearance(appearance) {
+    switch (appearance) {
         case 'ok': 
             return 'okColorOne';
         case 'none':
@@ -31,8 +31,8 @@ function getBackgroundFromAppearence(appearence) {
 }
 
 // TODO: fix this
-function getColorFromAppearence(appearence) {
-    switch (appearence) {
+function getColorFromAppearance(appearance) {
+    switch (appearance) {
         case 'ok': 
             return 'textColorOne';
         case 'none':
@@ -46,11 +46,11 @@ function getColorFromAppearence(appearence) {
     }
 }
 
-function Pill({ children, appearence }) {
+function Pill({ children, appearance }) {
     return (
         <Wrapper 
-         background={ getBackgroundFromAppearence(appearence) }
-         color={ getColorFromAppearence(appearence) }>
+         background={ getBackgroundFromAppearance(appearance) }
+         color={ getColorFromAppearance(appearance) }>
             { children }
         </Wrapper>
     );

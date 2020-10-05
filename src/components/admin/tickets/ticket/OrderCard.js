@@ -55,7 +55,7 @@ export default function OrderCard({ orderId }) {
                     <PillWrapper>
                         <Pill>{ order.state.data.number }</Pill>
                     </PillWrapper>
-                    <Pill appearence={ statusData.appearence }>
+                    <Pill appearance={ statusData.appearance }>
                         { statusData.label }
                     </Pill>
                 </Header>
