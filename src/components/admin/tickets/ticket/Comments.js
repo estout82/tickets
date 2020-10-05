@@ -5,6 +5,7 @@ import Comment from './Comment';
 
 const Wrapper = styled.div` 
     margin-bottom: 10px;
+    padding: 10px 0;
 `;
 
 const CommentWrapper = styled.div`

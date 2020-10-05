@@ -11,7 +11,7 @@ const Wrapper = styled.div`
     grid-template-rows: 60px 1fr 50px;
     margin: 10px;
     width: calc(50% - 20px);
-    height: 100%;
+    height: calc(100% - 20px);
     box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     padding: 10px;

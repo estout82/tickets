@@ -33,8 +33,30 @@ export default function useMeta() {
 
     }, []);
 
+    const ticketStatusesAsOptions = () => {
+        let r = {};
+
+        data.ticket.statuses.forEach(status => {
+            r[status] = status;
+        });
+
+        return r;
+    }
+
+    const ticketCategoriesAsOptions = () => {
+        let r = {};
+
+        data.ticket.categories.forEach(category => {
+            r[category.name] = category.label;
+        });
+
+        return r;
+    }
+
     return {
         data,
-        status
+        status,
+        ticketCategoriesAsOptions,
+        ticketStatusesAsOptions
     };
 }

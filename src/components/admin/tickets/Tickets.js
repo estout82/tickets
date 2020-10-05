@@ -43,7 +43,7 @@ const Nav = styled.nav`
 `;
 
 const Content = styled.div`
-    height: calc(100% - 80px - 30px);
+    height: calc(100% - 120px);
     display: flex;
     flex-flow: row nowrap;
     justify-content: flex-start;

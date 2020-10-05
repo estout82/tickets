@@ -32,6 +32,23 @@ function useEditableForm(fields) {
     const [status, setStatus] = useState();
     const originalValues = useRef(extractInitalValues(fields));
 
+    const setFieldMessageWithTimeout = (field, msg) => {
+        setValues(c => {
+            let n = {...c};
+            n[field].msg = msg;
+            return n;
+        });
+
+        // set timeout so message goes away after period of time
+        setTimeout(() => {
+            setValues(c => {
+                let n = {...c};
+                delete n[field].msg;
+                return n;
+            });
+        }, MSG_CLEAR_TIME);
+    }
+
     const handleChange = (field, value) => {
         // attempt to validate value
         const validator = fields[field].validator;
@@ -48,7 +65,7 @@ function useEditableForm(fields) {
                     c[field].msg = validateResult.msg;
                     return c;
                 });
-                return;
+                return false;
             }
         }
 
@@ -58,7 +75,7 @@ function useEditableForm(fields) {
         if (setter) {
             const newValues = setter(field, value, {...values});
             setValues(newValues);
-            return;
+            return true;
         }
 
         // no seter, simply set the new values using the field
@@ -67,6 +84,25 @@ function useEditableForm(fields) {
             r[field].value = value;
             r[field].status = 'ok';
             return r;
+        });
+
+        return true;
+    }
+
+    const handleChangeAndSubmit = (field, value, doRequest) => {
+        // run validator and change local state if sucessful
+        if (!handleChange(field, value)) {
+            // if not sucessfull, return
+            return;
+        }
+
+        handleSubmit(() => doRequest(value))
+        .then(status => {
+            setFieldMessageWithTimeout(field, status.msg);
+            console.log(status);
+        })
+        .catch(status => {
+            setFieldMessageWithTimeout(field, status.msg);
         });
     }
     
@@ -166,6 +202,7 @@ function useEditableForm(fields) {
         status,
         handleChange,
         handleSubmit,
+        handleChangeAndSubmit,
         doReset
     }
 }

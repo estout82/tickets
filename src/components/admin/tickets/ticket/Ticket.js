@@ -8,6 +8,7 @@ import useTicket from '../../../../config/stores/tickets/useTicket';
 import Pill from '../../../common/Pill';
 import CommentForm from './CommentForm';
 import OrderCard from './OrderCard';
+import InfoCard from './InfoCard';
 
 const Wrapper = styled.div`
     display: flex;
@@ -32,10 +33,14 @@ const TitleWrapper = styled.div`
 
 const DescriptionWrapper = styled.div`
     overflow: scroll;
-    padding: 0 20px;
+    padding: 10px 20px;
     margin: 0;
 
     p {
+        min-width: 200px;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, .1);
         margin: 0;
     }
 `;
@@ -101,7 +106,10 @@ const Ticket = ({ ticketId }) => {
                     <p>{ticket.data.description}</p>
                 </DescriptionWrapper>
                 <InfoWrapper>
-                    Info
+                    <InfoCard
+                     data={ ticket.data }
+                     updateTicket={ ticket.update }
+                    />
                 </InfoWrapper>
                 <WorkflowWrapper>
                     <WorkflowCardWrapper>

@@ -243,16 +243,22 @@ export function request(endpoint, { method, data }) {
                 case 'error':
                     handleError(json.msg);
 
-                    return reject({ 
-                        text: json.friendlyMsg,
-                        appearance: 'error'
+                    return reject({
+                        text: 'error',
+                        msg: { 
+                            text: json.friendlyMsg,
+                            appearance: 'error'
+                        }
                     });
                 default:
                     handleError(json.msg);
 
-                    return reject({ 
-                        text: json.friendlyMsg,
-                        appearance: 'error'
+                    return reject({
+                        text: 'error',
+                        msg: { 
+                            text: json.friendlyMsg,
+                            appearance: 'error'
+                        }
                     });
             }
         })

@@ -3,6 +3,8 @@ import React from 'react';
 import styled from 'styled-components';
 import DownArrowSVG from './down-arrow.svg';
 
+const Wrapper = styled.div``;
+
 const SelectComponent = styled.select`
     background: none;
     appearance: none;
@@ -21,7 +23,19 @@ const SelectComponent = styled.select`
     margin-right: 7px;
 `;
 
-const Select = ({ options, value, onChange }) => {
+const ErrorWrapper = styled.div`
+    position: absolute;
+    width: min-content;
+    top: calc(100% + 1px);
+    padding: ${ props => props.theme.largePad };
+    border-radius: ${ props => props.theme.smallRound };
+    height: min-content;
+    z-index: 10;
+    background: ${ props => props.theme.errorColorOne };
+    font-size: ${ props => props.theme.smallSizeFont };
+`;
+
+const Select = ({ options, value, onChange, formState }) => {
     const handleChange = (event) => {
         if (onChange) {
             onChange(event.target.value);
@@ -29,29 +43,38 @@ const Select = ({ options, value, onChange }) => {
     }
 
     return (
-        <SelectComponent
-         value={ value }
-         backgroundImage={ DownArrowSVG }
-         onChange={ handleChange }>
-            { 
-                options ?
-                // options are structured as { value: label }
-                // value is name of property in DB
-                // value is what is presented to the user
-                Object.keys(options).map( key => {
-                    const label = options[key];
+        <Wrapper>
+            <SelectComponent
+             value={ value ? value : '' }
+             backgroundImage={ DownArrowSVG }
+             onChange={ handleChange }>
+                { 
+                    options ?
+                    // options are structured as { value: label }
+                    // value is name of property in DB
+                    // value is what is presented to the user
+                    Object.keys(options).map( key => {
+                        const label = options[key];
 
-                    return (
-                        <option
-                         key={ key }
-                         value={ key }>
-                            { label }
-                        </option>
-                    );
-                } ) :
+                        return (
+                            <option 
+                             value={ key }
+                             key={ key }>
+                                { label }
+                            </option>
+                        );
+                    } ) :
+                    null
+                }
+            </SelectComponent>
+            {
+                formState && formState.status === 'error' ?
+                <ErrorWrapper>
+                    { formState.msg ? formState.msg : null }
+                </ErrorWrapper> : 
                 null
             }
-        </SelectComponent>
+        </Wrapper>
     );
 }
 
