@@ -28,8 +28,21 @@ export default function useTicketStatuses() {
         })
     }, []);
 
+    const asOptions = () => {
+        let r = {};
+
+        if (data) {
+            data.forEach(status => {
+                r[status._id] = status.name;
+            });
+        } 
+
+        return r;
+    }
+
     return {
         data,
-        status
+        status,
+        asOptions
     }
 }

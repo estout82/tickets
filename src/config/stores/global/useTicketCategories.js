@@ -28,8 +28,21 @@ export default function useTicketCategories() {
         })
     }, []);
 
+    const asOptions = () => {
+        let r = {};
+
+        if (data) {
+            data.forEach(category => {
+                r[category._id] = category.name;
+            });
+        } 
+
+        return r;
+    }
+
     return {
         data,
-        status
+        status,
+        asOptions
     }
 }
