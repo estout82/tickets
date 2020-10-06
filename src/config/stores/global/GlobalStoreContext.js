@@ -5,7 +5,6 @@ import useOrganizations from './useOrganizations';
 import useMeta from '../meta/useMeta';
 import useTicketCategories from './useTicketCategories';
 import useTicketStatuses from './useTicketStatuses';
-import useTicketForms from './useTicketForms';
 
 export let context = createContext();
 
@@ -14,7 +13,6 @@ export function Provider({ children }) {
     const organizations = useOrganizations();
     const ticketCategories = useTicketCategories();
     const ticketStatuses = useTicketStatuses();
-    const ticketForms = useTicketForms();
     const meta = useMeta();
 
     // function that gets a single status from the statuses of all hooks
@@ -24,7 +22,6 @@ export function Provider({ children }) {
         else if (organizations.status.text !== 'done') return organizations.status.text;
         else if (ticketCategories.status.text !== 'done') return ticketCategories.status.text;
         else if (ticketStatuses.status.text !== 'done') return ticketStatuses.status.text;
-        else if (ticketForms.status.text !== 'done') return ticketForms.status.text;
         else if (meta.status.text !== 'done') return meta.status.text;
 
         // if we ar here, all statses are done
@@ -39,7 +36,6 @@ export function Provider({ children }) {
         ticket: {
             statuses: ticketStatuses,
             categories: ticketCategories,
-            forms: ticketForms
         },
         meta
     }

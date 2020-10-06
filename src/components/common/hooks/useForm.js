@@ -14,8 +14,38 @@ const exampleData = [
     }
 ]
 
-const useForm = (initalValues, options) => {
-    const [values, setValues] = useState(initalValues);
+// this function generates the form's inital values from the fields object
+const genInitalValuesFromFields = (fields) => {
+    let r = {};
+
+    Object.keys(fields).forEach(key => {
+        const field = fields[key];
+        let defaultValue = '';
+
+        console.log(field);
+
+        switch (field.element) {
+            case 'input':
+                defaultValue = '';
+                break;
+            case 'select':
+                defaultValue = field.options.default ? field.options.default : '';
+                break;
+            case 'checkbox':
+                defaultValue = false;
+                break;
+            default:
+                break;
+        }
+
+        r[field.name] = defaultValue;
+    });
+
+    return r;
+}
+
+const useForm = (fields) => {
+    const [values, setValues] = useState(genInitalValuesFromFields(fields));
     const [state, setState] = useState();
 
     const handleChange = (field, newValue) => {
@@ -45,7 +75,7 @@ const useForm = (initalValues, options) => {
 
     const doReset = () => {
         // reset values
-        setValues(initalValues);
+        setValues(genInitalValuesFromFields(fields));
 
         // reset form state
         setState();

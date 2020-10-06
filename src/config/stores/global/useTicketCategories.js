@@ -40,9 +40,16 @@ export default function useTicketCategories() {
         return r;
     }
 
+    const getById = (id) => {
+        if (!id) return;
+
+        return data.find(category => id === category._id);
+    }
+
     return {
         data,
         status,
-        asOptions
+        asOptions,
+        getById
     }
 }

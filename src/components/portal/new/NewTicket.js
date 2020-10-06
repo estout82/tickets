@@ -49,7 +49,9 @@ const NewTicket = () => {
             </Row>
             {
                 selectedCategory ?
-                <TicketForm formDefinition={ global.ticket.forms.getById(selectedCategory) } /> :
+                <TicketForm
+                 formDefinition={ global.ticket.categories.getById(selectedCategory).form } 
+                /> :
                 null
             }
         </Content>
