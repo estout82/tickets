@@ -120,10 +120,21 @@ const Ticket = ({ ticketId }) => {
                          handleDeleteTodo={handleDeleteTodo}
                         />
                     </WorkflowCardWrapper>
+                    {
+                        ticket.data.orders ?
+                        ticket.data.orders.map(order => {
+                            return (
+                                <WorkflowCardWrapper>
+                                    <OrderCard 
+                                     orderId={ order._id }
+                                    />
+                                </WorkflowCardWrapper>
+                            )
+                        }) :
+                        null
+                    }
                     <WorkflowCardWrapper>
-                        <OrderCard 
-                         orderId={ '5f5fe64e7fd98032580c7ea5' }
-                        />
+                        
                     </WorkflowCardWrapper>
                 </WorkflowWrapper>
                 <CommentWrapper>

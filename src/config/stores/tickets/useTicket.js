@@ -11,6 +11,13 @@ export default function useTicket(ticketId) {
     useEffect(() => {
         const getRequestEndpoint = `http://localhost:9000/api/ticket/${ticketId}`;
 
+        // if status is not loading, set status to loading
+        if (status.text !== 'loading') {
+            setStatus(c => {
+                return {...c, text: 'loading'};
+            })
+        }
+
         request(getRequestEndpoint, { method: 'GET' })
         .then(({ data, msg }) => {
             setData(data);
@@ -25,7 +32,8 @@ export default function useTicket(ticketId) {
                 return n;
             });
         });
-    }, [ticketId, setData, setStatus])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [ticketId])
 
     // sends a patch request to update the ticket with specified data
     const update = (patchData) => {

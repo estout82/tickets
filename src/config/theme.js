@@ -18,7 +18,12 @@ export const background = {
     ok: okColorOne,
     error: errorColorOne,
     warning: warningColorOne,
-    neutral: neutralColorOne
+    neutral: neutralColorOne,
+    none: backgroundColorThree
+}
+
+export const text = {
+    
 }
 
 // rounding

@@ -5,7 +5,7 @@ import Pill from '../../../common/Pill';
 
 const Wrapper = styled.div`
     display: grid;
-    grid-template-columns: .1fr 1fr .2fr .2fr;
+    grid-template-columns: .1fr 100px 1fr .2fr 120px;
     padding: 0px 20px;
     height: 40px;
     color: ${ props => props.theme.textColorOne };
@@ -32,10 +32,17 @@ const ListRow = ({ data, onClick }) => {
         if (onClick) onClick();
     }
 
+    console.log(data);
+
     return (
         <Wrapper onClick={handleClick}>
             <FieldWrapper>
                 <Pill>{data.number}</Pill>
+            </FieldWrapper>
+            <FieldWrapper>
+                <Pill appearance={data.status.appearance}>
+                    { data.status.name }
+                </Pill>
             </FieldWrapper>
             <FieldWrapper>
                 {data.title}
