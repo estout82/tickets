@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import List from './list/List';
 import Ticket from './ticket/Ticket';
-import useTicketPage from '../../../config/stores/tickets/useTicketPage';
 
 const Wrapper = styled.div`
     height: 100%;
@@ -50,7 +49,6 @@ const Content = styled.div`
 `;
 
 const Tickets = () => {
-    const page = useTicketPage(1);
     const [selectedTicket, setSelectedTicket] = useState();
 
     const handleTicketSelect = (ticketId) => {
@@ -70,14 +68,11 @@ const Tickets = () => {
                 </Nav>
             </Header>
             <Content>
-                <List 
-                 page={ page }
-                 onTicketSelect={ handleTicketSelect }
-                />
+                <List onTicketSelect={ handleTicketSelect }/>
                 {
                     selectedTicket ?
                     <Ticket 
-                     ticketId={selectedTicket}
+                    ticketId={selectedTicket}
                     /> :
                     null
                 }

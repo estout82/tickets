@@ -86,7 +86,8 @@ const Input = (props) => {
          onClick={ props.onClick }
          value={ props.value } 
          ref={ props.innerRef } 
-         placeholder={ props.placeholder } 
+         placeholder={ props.placeholder }
+         fluid={ props.fluid }
         />
     );
 };

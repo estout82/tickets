@@ -11,8 +11,8 @@ const Content = styled.div`
     align-items: center;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, .1);
-    width: 200px;
-    height: 100px;
+    width: 50%;
+    padding: 10px;
 `;
 
 const Row = styled.div`
@@ -34,8 +34,6 @@ const NewTicket = () => {
     const handleCategorySelectChange = (val) => {
         setSelectedCategory(val);
     }
-
-    console.log(global.ticket);
 
     return (
         <Content>

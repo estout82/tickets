@@ -4,6 +4,9 @@ import styled from 'styled-components';
 import ListRow from './ListRow';
 import Pagenation from '../../../common/Pagenation';
 import useLoading from '../../../common/hooks/useLoading';
+import usePagenation from '../../../common/hooks/usePagenation';
+import useNumTicketPages from '../../../../config/stores/tickets/useNumTicketPages';
+import useTicketPage from '../../../../config/stores/tickets/useTicketPage';
 
 const Wrapper = styled.div`
     display: grid;
@@ -52,11 +55,18 @@ const SearchInput = styled.input`
     }
 `;
 
-const List = ({ page, onTicketSelect }) => {
+const List = ({ onTicketSelect }) => {
+    const numPages = useNumTicketPages();
+    const pagenation = usePagenation(numPages.data);
+    const page = useTicketPage(pagenation.currentPage);
     const render = useLoading();
 
     const handleRowClick = (ticketId) => {
         if (onTicketSelect) onTicketSelect(ticketId);
+    }
+
+    const handlePageChange = (newPage) => {
+        pagenation.goToPage(newPage);
     }
 
     const renderDoneState = () => {
@@ -81,13 +91,22 @@ const List = ({ page, onTicketSelect }) => {
                     }
                 </ListWrapper>
                 <PagenationWrapper>
-                    <Pagenation />
+                    <Pagenation 
+                     numPages={ numPages.data }
+                     currentPage={ pagenation.currentPage } 
+                     onPageChange={ handlePageChange } 
+                    />
                 </PagenationWrapper>
             </Wrapper>
         );
     }
 
-    return render(renderDoneState, { status: page.status.text });
+    return render(renderDoneState, () => {
+        if (numPages.status.text !== 'done') return { status: numPages.status.text };
+        else if (page.status.text !== 'done') return { status: page.status.text };
+
+        return { status: 'done' };
+    });
 }
 
 export default List;

@@ -46,22 +46,22 @@ const PageIcon = styled.span`
     }
 `;
 
-const Pagenation = (props) => {
+const Pagenation = ({ currentPage, onPageChange, numPages }) => {
     const handlePrevPageClick = () => {
-        if ( props.currentPage > 1 && props.onPageChange ) {
-            props.onPageChange(props.currentPage - 1);
+        if (currentPage > 1 && onPageChange) {
+            onPageChange(currentPage - 1);
         }
     }
 
     const handleNextPageClick = () => {
-        if ( props.currentPage < props.numPages && props.onPageChange ) {
-            props.onPageChange(props.currentPage + 1);
+        if (currentPage < numPages && onPageChange) {
+            onPageChange(currentPage + 1);
         }
     }
 
     const handlePageClick = (page) => {
-        if ( props.onPageChange ) {
-            props.onPageChange(page);
+        if (onPageChange) {
+            onPageChange(page);
         }
     }
 
@@ -75,10 +75,11 @@ const Pagenation = (props) => {
                     (() => {
                         let components = [];
 
-                        for ( let i = 1; i < props.numPages + 1; i++ ) {
-                            if ( props.currentPage === i ) {
+                        for (let i = 1; i < numPages + 1; i++) {
+                            if (currentPage === i) {
                                 components.push(
                                     <PageIcon 
+                                     key={i}
                                      selected>
                                         { i }
                                     </PageIcon> 
@@ -86,6 +87,7 @@ const Pagenation = (props) => {
                             } else {
                                 components.push(
                                     <PageIcon
+                                     key={i}
                                      onClick={ () => handlePageClick(i) }>
                                         { i }
                                     </PageIcon>

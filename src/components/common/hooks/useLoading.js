@@ -11,7 +11,10 @@ export const statuses = {
 
 const useLoading = () => {
     const render = (renderDoneState, status) => {
-        switch (status.status) {
+        // if status is a function, use its return value as status
+        let realStatus = typeof status === 'function' ? status() : status;
+
+        switch (realStatus.status) {
             case 'done':
                 return renderDoneState();
             case 'ok':

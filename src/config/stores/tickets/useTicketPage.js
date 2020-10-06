@@ -24,7 +24,9 @@ export default function useTicketPage(pageNumber) {
                 return n;
             });
         });
-    }, [pageNumber])
+
+        console.log(`effect ${pageNumber}`);
+    }, [pageNumber]);
 
     const deleteTicket = (ticketId) => {
         // TODO: 
