@@ -2,10 +2,12 @@
 import { useState, useEffect } from 'react';
 import { request, mergeObjects } from '../store';
 import { error } from '../../util';
+import useAuthUser from '../../../components/context/useAuthUser';
 
 export default function useTicket(ticketId) {
     const [data, setData] = useState();
     const [status, setStatus] = useState({ text: 'loading' });
+    const authUser = useAuthUser();
 
     // effect that fetches data on mount
     useEffect(() => {
@@ -87,7 +89,14 @@ export default function useTicket(ticketId) {
                     }
 
                     // add new comment to array
-                    n.comments.push(addCommentData);
+                    n.comments.push({
+                        ...addCommentData,
+                        user: {
+                            _id: addCommentData.user,
+                            firstName: authUser.firstName,
+                            lastName: authUser.lastName
+                        }
+                    });
 
                     return n;
                 });

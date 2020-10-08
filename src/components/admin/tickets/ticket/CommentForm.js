@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import useEditableForm from '../../../common/hooks/useEditableForm';
 import Button from '../../../common/Button';
 import Text from '../../../common/Text';
+import useAuthUser from '../../../context/useAuthUser';
 
 const Wrapper = styled.div`
     display: flex;
@@ -20,6 +21,7 @@ const Row = styled.div`
 `;
 
 const CommentForm = ({ addComment }) => {
+    const authUser = useAuthUser();
     const [showForm, setShowForm] = useState(false);
     const form = useEditableForm({
         body: {
@@ -36,8 +38,7 @@ const CommentForm = ({ addComment }) => {
             console.log('do request');
 
             const commentData = {
-                // TODO: fix this
-                user: '5ef6936f71a9e87d80122bba',
+                user: authUser._id,
                 timeCreated: Date(),
                 body: values.body.value
             };
