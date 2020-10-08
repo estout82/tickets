@@ -31,8 +31,8 @@ const TitleWrapper = styled.div`
     padding: 0 20px;
 `;
 
-const DescriptionWrapper = styled.div`
-    overflow: scroll;
+const ParemetersWrapper = styled.div`
+    overflow: scroll;  
     padding: 10px 20px;
     margin: 0;
 
@@ -48,7 +48,7 @@ const DescriptionWrapper = styled.div`
 const WorkflowWrapper = styled.div`
     display: flex;
     flex-flow: row nowrap;
-    padding: 0 20px;
+    padding: 10px 20px;
 `;
 
 const WorkflowCardWrapper = styled.div`
@@ -62,6 +62,13 @@ const InfoWrapper = styled.div`
 const CommentWrapper = styled.div`
     overflow: scroll;
     padding: 10px;
+`;
+
+const ParameterWrapper = styled.div`
+    span {
+        font-weight: 400;
+        padding-right: 5px;
+    }
 `;
 
 const Ticket = ({ ticketId }) => {
@@ -102,10 +109,30 @@ const Ticket = ({ ticketId }) => {
                         }
                     </span>
                 </TitleWrapper>
-                <DescriptionWrapper>
-                    <p>{ticket.data.description}</p>
-                </DescriptionWrapper>
-                <InfoWrapper>
+                <ParemetersWrapper>
+                    {
+                        ticket.data.category.form ?
+                        ticket.data.category.form.fields.map(formElem => {
+                            if (formElem.element === 'select') {
+                                return (
+                                    <ParameterWrapper>
+                                        <span>{ formElem.label + ': ' }</span>
+                                        { formElem.options[ticket.data.parameters[formElem.name]] }
+                                    </ParameterWrapper>
+                                );
+                            }
+
+                            return (
+                                <ParameterWrapper>
+                                    <span>{ formElem.label + ': ' }</span>
+                                    { ticket.data.parameters[formElem.name] }
+                                </ParameterWrapper>
+                            )
+                        })
+                        : null
+                    }
+                </ParemetersWrapper>
+                <InfoWrapper>  
                     <InfoCard
                      data={ ticket.data }
                      updateTicket={ ticket.update }

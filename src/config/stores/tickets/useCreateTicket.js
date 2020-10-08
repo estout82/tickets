@@ -21,10 +21,10 @@ export default function useCreateTicket() {
                 data: data
             })
             .then(status => {
-                resolve(status);
+                return resolve(status);
             })
             .catch(status => {
-                reject(status);
+                return reject(status);
             });
         });
     }

@@ -7,9 +7,7 @@ import Select from '../../../common/Select';
 
 const Wrapper = styled.div`
     min-width: 200px;
-    padding: 10px;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
     display: flex;
     flex-flow: column nowrap;
 `;

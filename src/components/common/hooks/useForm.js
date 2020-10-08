@@ -3,17 +3,6 @@
 
 import { useState } from 'react';
 
-// eslint-disable-next-line no-unused-vars
-const exampleData = [
-    {
-        name: 'age',
-        label: 'Age',
-        validator: (value) => /[0-9]*/.test(value),
-        required: true,
-        editable: true
-    }
-]
-
 // this function generates the form's inital values from the fields object
 const genInitalValuesFromFields = (fields) => {
     let r = {};
@@ -21,8 +10,6 @@ const genInitalValuesFromFields = (fields) => {
     Object.keys(fields).forEach(key => {
         const field = fields[key];
         let defaultValue = '';
-
-        console.log(field);
 
         switch (field.element) {
             case 'input':
@@ -50,6 +37,25 @@ const useForm = (fields) => {
 
     const handleChange = (field, newValue) => {
         // TODO: fun validator
+        const validator = fields[field].validator;
+
+        if (validator) {
+            let validateResult = validator(newValue);
+
+            if (validateResult !== true) {
+                setState(c => {
+                    let n = {...c};
+                    n[field] = { valid: false, msg: validateResult };
+                    return n;
+                });
+            } else {
+                setState(c => {
+                    let n = {...c};
+                    n[field] = { valid: true };
+                    return n;
+                })
+            }
+        }
 
         setValues(c => {
             let n = {...values};

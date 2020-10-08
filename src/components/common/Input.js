@@ -2,6 +2,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const Wrapper = styled.div`
+    display: flex;
+    flex-flow: column nowrap;
+    width: 100%;
+`;
+
 const InputComponent = styled.input`
     display: inline-block;
     width: ${ props => props.fliud ? '100%' : 'auto' };
@@ -22,7 +28,9 @@ const InputComponent = styled.input`
     color: ${ props => props.theme.textColorOne };
 
     &:focus {
-        border-color: ${ props => props.theme.highlightColorOne };
+        border-color: ${ props => props.valid === true ? 
+            props.theme.highlightColorOne : 
+            props.theme.errorColorOne };
     }
 
     &::placeholder {
@@ -48,7 +56,9 @@ const InputComponentMinimal = styled.input`
     font-weight: 300;
 
     &:focus {
-        border-color: ${ props => props.theme.highlightColorOne };
+        border-color: ${ props => props.valid === false ? 
+            props.theme.highlightColorOne : 
+            props.theme.errorColorOne };
     }
 
     &::placeholder {
@@ -56,39 +66,87 @@ const InputComponentMinimal = styled.input`
     }
 `;
 
-const Input = (props) => {
+const ErrorWrapper = styled.div`
+    position: absolute;
+`;
+
+const ErrorMessage = styled.div`
+    position: relative;
+    background: ${ props => props.theme.errorColorOne };
+    font-size: 8pt;
+    border-radius: 5px;
+    padding: 3px;
+    top: 28px;
+`;
+
+
+
+const Input = ({
+    name, 
+    value, 
+    placeholder, 
+    minimal, 
+    fluid,
+    formState, 
+    innerRef,
+    onChange, 
+    onBlur, 
+    onFocus, 
+    onClick }) => {
+
+    console.log(formState ? formState && formState.valid === false : null);
+
     const handleValueChange = (event) => {
-        if (props.onChange) {
-            props.onChange(event.target.value);
+        if (onChange) {
+            onChange(event.target.value);
         }
     }
 
-    if (props.minimal) {
+    if (minimal) {
         return (
-            <InputComponentMinimal
-             name={ props.name }
-             onChange={ handleValueChange }
-             onBlur={ props.onBlur }
-             onFocus={ props.onFocus }
-             onClick={ props.onClick }
-             value={ props.value }
-             placeholder={ props.placeholder } 
-            />
+            <>
+                <InputComponentMinimal
+                 name={ name }
+                 onChange={ handleValueChange }
+                 onBlur={ onBlur }
+                 onFocus={ onFocus }
+                 onClick={ onClick }
+                 value={ value }
+                 placeholder={ placeholder } 
+                />
+                {
+                    formState && formState.valid === false ? (
+                        <ErrorWrapper>
+                            { formState.msg.text }
+                        </ErrorWrapper>
+                    ) : null
+                }
+            </>
         );
     }
 
     return (
-        <InputComponent 
-         name={ props.name } 
-         onChange={ handleValueChange } 
-         onBlur={ props.onBlur }
-         onFocus={ props.onFocus }
-         onClick={ props.onClick }
-         value={ props.value } 
-         ref={ props.innerRef } 
-         placeholder={ props.placeholder }
-         fluid={ props.fluid }
-        />
+        <Wrapper>
+            <InputComponent 
+             name={ name } 
+             onChange={ handleValueChange } 
+             onBlur={ onBlur }
+             onFocus={ onFocus }
+             onClick={ onClick }
+             value={ value } 
+             ref={ innerRef } 
+             placeholder={ placeholder }
+             fluid={ fluid }
+             valid={ formState ? formState.valid : true }
+            />
+            {
+                formState && formState.valid === false ? (
+                    <ErrorWrapper>
+                        <ErrorMessage>{ formState.msg.text }</ErrorMessage>
+                    </ErrorWrapper>
+                ) : null
+            }
+        </Wrapper>
     );
 };
 

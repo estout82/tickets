@@ -32,8 +32,6 @@ const ListRow = ({ data, onClick }) => {
         if (onClick) onClick();
     }
 
-    console.log(data);
-
     return (
         <Wrapper onClick={handleClick}>
             <FieldWrapper>

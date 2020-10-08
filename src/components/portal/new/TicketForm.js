@@ -44,24 +44,34 @@ const FieldDescription = styled.p`
 
 export default function TicketForm({ formDefinition, categoryId }) {
     const realFormDefinition = formDefinition ? {
-        ...formDefinition.fields,
-        title: {
-            name: 'title'
-        }
-    } : {
-        title: {
-            name: 'title',
-            label: 'Title',
-            description: 'A brief summary of your issue',
-            element: 'input'
-        },
-        description: {
-            name: 'description',
-            label: 'Description',
-            description: 'A detailed description of your issue',
-            element: 'text'
-        }
-    };
+            ...formDefinition.fields,
+            title: {
+                name: 'title'
+            }
+        } : {
+            title: {
+                name: 'title',
+                label: 'Title',
+                description: 'A brief summary of your issue',
+                element: 'input',
+                validator: (v) => {
+                    return v !== '' && v !== null ?
+                        true :
+                        { text: 'Please enter a title', appearance: 'error' }
+                }
+            },
+            description: {
+                name: 'description',
+                label: 'Description',
+                description: 'A detailed description of your issue',
+                element: 'text',
+                validator: (v) => {
+                    return v !== '' && v !== null ?
+                        true :
+                        { text: 'Please enter a title', appearance: 'error' }
+                }
+            }
+        };
 
     const createTicket = useCreateTicket();
     const form = useForm(realFormDefinition);
@@ -95,6 +105,7 @@ export default function TicketForm({ formDefinition, categoryId }) {
                                      fluid
                                      onChange={ (v) => form.handleChange(field.name, v) }
                                      value={ form.values[field.name] }
+                                     formState={ form.state ? form.state[field.name] : null }
                                     />
                                 </FormFieldWrapper>
                             );
