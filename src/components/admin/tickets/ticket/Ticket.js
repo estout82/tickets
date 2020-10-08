@@ -93,7 +93,7 @@ const Ticket = ({ ticketId }) => {
             <Wrapper>
                 <TitleWrapper>
                     <Pill>{ticket.data.number}</Pill>
-                    <span>{ticket.data.title}</span>
+                    <span><p>{ ticket.data.category.name }</p></span>
                     <span>
                         {
                             ticket.data.user ?

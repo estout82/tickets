@@ -15,16 +15,20 @@ const Wrapper = styled.div`
 const Row = styled.div`
     display: flex;
     flex-flow: row nowrap;
+
+    p {
+        font-size: 10pt;
+    }
 `;
 
 export default function InfoCard({ data, updateTicket }) {
     const global = useGlobalStoreContext();
     const form = useEditableForm({
         status: {
-            value: data.status
+            value: data.status._id
         },
         category: {
-            value: data.category
+            value: data.category._id
         }
     });
 
@@ -42,11 +46,6 @@ export default function InfoCard({ data, updateTicket }) {
                  options={ global.ticket.statuses.asOptions() }
                  onChange={ handleStatusChange }
                  formState={ form.values.status }
-                />
-                <Select
-                 value={ form.values.category.value }
-                 options={ global.ticket.categories.asOptions() }
-                 onChange={ (val) => form.handleChange('category', val) }
                 />
             </Row>
             <Row>

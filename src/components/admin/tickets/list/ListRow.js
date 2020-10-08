@@ -5,7 +5,7 @@ import Pill from '../../../common/Pill';
 
 const Wrapper = styled.div`
     display: grid;
-    grid-template-columns: .1fr 100px 1fr .2fr 120px;
+    grid-template-columns: .1fr 130px .7fr .2fr 120px;
     padding: 0px 20px;
     height: 40px;
     color: ${ props => props.theme.textColorOne };
@@ -43,7 +43,7 @@ const ListRow = ({ data, onClick }) => {
                 </Pill>
             </FieldWrapper>
             <FieldWrapper>
-                {data.title}
+                {data.category.name}
             </FieldWrapper>
             <FieldWrapper>
                 {
