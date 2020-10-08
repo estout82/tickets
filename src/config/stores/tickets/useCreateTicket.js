@@ -30,6 +30,6 @@ export default function useCreateTicket() {
     }
 
     return {
-        doRequest
+        do: doRequest
     }
 }

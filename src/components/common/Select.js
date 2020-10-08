@@ -3,7 +3,6 @@ import React from 'react';
 import styled from 'styled-components';
 import DownArrowSVG from './down-arrow.svg';
 
-const Wrapper = styled.div``;
 
 const SelectComponent = styled.select`
     background: none;
@@ -21,6 +20,7 @@ const SelectComponent = styled.select`
     background-position: center right 5px;
     color: ${ props => props.theme.textColorOne };
     margin-right: 7px;
+    margin-top: 0;
 `;
 
 const ErrorWrapper = styled.div`
@@ -43,7 +43,7 @@ const Select = ({ options, value, onChange, formState }) => {
     }
 
     return (
-        <Wrapper>
+        <>
             <SelectComponent
              value={ value ? value : '' }
              backgroundImage={ DownArrowSVG }
@@ -74,7 +74,7 @@ const Select = ({ options, value, onChange, formState }) => {
                 </ErrorWrapper> : 
                 null
             }
-        </Wrapper>
+        </>
     );
 }
 

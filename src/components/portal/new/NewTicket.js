@@ -51,6 +51,7 @@ const NewTicket = () => {
                 selectedCategory ?
                 <TicketForm
                  formDefinition={ global.ticket.categories.getById(selectedCategory).form } 
+                 categoryId={ selectedCategory }
                 /> :
                 null
             }
