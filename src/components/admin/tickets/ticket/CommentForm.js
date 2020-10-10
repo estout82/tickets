@@ -1,12 +1,16 @@
 
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import useEditableForm from '../../../common/hooks/useEditableForm';
+import useForm from '../../../common/hooks/useForm';
 import Button from '../../../common/Button';
 import Text from '../../../common/Text';
 import useAuthUser from '../../../context/useAuthUser';
 
 const Wrapper = styled.div`
+    padding: 0 10px;
+`;
+
+const FormWrapper = styled.div`
     display: flex;
     flex-flow: column nowrap;
     padding: 10px;
@@ -23,9 +27,9 @@ const Row = styled.div`
 const CommentForm = ({ addComment }) => {
     const authUser = useAuthUser();
     const [showForm, setShowForm] = useState(false);
-    const form = useEditableForm({
+    const form = useForm({
         body: {
-            value: ''
+            element: 'input'
         }
     });
 
@@ -35,23 +39,23 @@ const CommentForm = ({ addComment }) => {
 
     const handleSaveButtonClick = () => {
         form.handleSubmit((values) => {
-            console.log('do request');
-
             const commentData = {
                 user: authUser._id,
                 timeCreated: Date(),
-                body: values.body.value
+                body: values.body
             };
 
             return addComment(commentData);
         })
         .then(status => {
-            console.log('done');
-            console.log(status);
+            // TODO:
         })
         .catch(status => {
-            console.log(status);
+            // TODO: 
         });
+
+        setShowForm(false);
+        form.doReset();
     }
 
     const handleCancelButtonClick = () => {
@@ -60,10 +64,10 @@ const CommentForm = ({ addComment }) => {
     }
 
     return (
-        <>
+        <Wrapper>
             {
                 showForm ?
-                <Wrapper>
+                <FormWrapper>
                     <Row margin>
                         <Text 
                          value={ form.values.body.value }
@@ -74,10 +78,10 @@ const CommentForm = ({ addComment }) => {
                         <Button onClick={ handleSaveButtonClick }>Save</Button>
                         <Button onClick={ handleCancelButtonClick }>Cancel</Button>
                     </Row>
-                </Wrapper> :
+                </FormWrapper> :
                 <Button onClick={ handleAddButtonClick }>+</Button>
             }
-        </>
+        </Wrapper>
     );
 };
 

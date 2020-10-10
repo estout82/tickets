@@ -5,7 +5,7 @@ import Comment from './Comment';
 
 const Wrapper = styled.div` 
     margin-bottom: 10px;
-    padding: 10px 0;
+    padding: 0 10px;
 `;
 
 const CommentWrapper = styled.div`
@@ -18,6 +18,7 @@ const Comments = ({ data }) => {
             {
                 data ? 
                 data.map(comment => {
+                    console.log(comment);
                     return (
                         <CommentWrapper key={comment._id}>
                             <Comment data={comment} />

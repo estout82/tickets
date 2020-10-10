@@ -91,10 +91,12 @@ const TodoCard = ({ data, handleAddTodo, handleToggleTodo, handleDeleteTodo }) =
         });
 
         form.doReset();
+        setAddingTodo(false);
     }
 
     const handleAddTodoCancelButtonClick = () => {
         setAddingTodo(false);
+        form.doReset();
     }
 
     const handleTodoDeleteButtonClick = (todoId) => {

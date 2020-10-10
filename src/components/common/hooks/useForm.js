@@ -25,7 +25,7 @@ const genInitalValuesFromFields = (fields) => {
                 break;
         }
 
-        r[field.name] = defaultValue;
+        r[key] = defaultValue;
     });
 
     return r;
@@ -68,20 +68,13 @@ const useForm = (fields) => {
         // TODO: check form state to ensure validators
 
         // return a new promise that resolves or rejects on request completion
-        return new Promise((resolve, reject) => {
-            doRequest(values)
-            .then(status => {
-                return resolve(status);
-            })
-            .catch(status => {
-                return reject(status);
-            });
-        });
+        return doRequest(values);
     }
 
     const doReset = () => {
         // reset values
-        setValues(genInitalValuesFromFields(fields));
+        let newValues = genInitalValuesFromFields(fields);
+        setValues(newValues);
 
         // reset form state
         setState();

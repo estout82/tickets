@@ -46,10 +46,19 @@ export default function useTicketCategories() {
         return data.find(category => id === category._id);
     }
 
+    const getForm = (categoryId) => {
+        let category = getById(categoryId);
+
+        if (category) {
+            return category.form;
+        }
+    }
+
     return {
         data,
         status,
         asOptions,
-        getById
+        getById,
+        getForm
     }
 }

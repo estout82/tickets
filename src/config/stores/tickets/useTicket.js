@@ -69,15 +69,11 @@ export default function useTicket(ticketId) {
         const addCommentEndpoint = `http://localhost:9000/api/ticket/${ticketId}/comment`;
 
         return new Promise((resolve, reject) => {
-            console.log('add comment');
-
             request(addCommentEndpoint, {
                 method: 'POST',
                 data: addCommentData
             })
             .then(msg => {
-                console.log(msg);
-
                 // update local data
                 // TODO: set date, and user name according to current auth user
                 setData(c => {
@@ -105,8 +101,6 @@ export default function useTicket(ticketId) {
                 return resolve(msg);
             })
             .catch(msg => {
-                console.log(msg);
-
                 return reject(msg);
             });
         });
@@ -169,8 +163,6 @@ export default function useTicket(ticketId) {
                 data: data
             })
             .then(status => {
-                console.log(status);
-
                 // update local data
                 setData(c => {
                     let n = {...c};
@@ -212,8 +204,6 @@ export default function useTicket(ticketId) {
                 setData(c => {
                     let n = {...c};
                     const index = data.todos.findIndex(todo => todo._id === todoId); // find index of the todo in local data
-
-                    console.log(n);
 
                     // if found, remote it from local data array
                     if (index !== -1) {

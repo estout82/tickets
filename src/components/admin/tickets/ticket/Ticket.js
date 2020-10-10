@@ -61,7 +61,7 @@ const InfoWrapper = styled.div`
 
 const CommentWrapper = styled.div`
     overflow: scroll;
-    padding: 10px;
+    padding: 0 10px;
 `;
 
 const ParameterWrapper = styled.div`
