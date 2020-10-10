@@ -3,13 +3,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import Modal from '../../../common/Modal';
-import FormInput from '../../../common/FormInput';
-import FormSelect from '../../../common/FormSelect';
-import FormText from '../../../common/FormText';
 import Button from '../../../common/Button';
-import LocationPicker from './LocationPicker';
-import * as constants from '../../../../config/constants';
-import Banner from '../../../common/Banner';
 
 const FormControlWrapper = styled.div`
     height: 50px;
@@ -23,16 +17,16 @@ const AddItemModal = (props) => {
     const [error, setError] = useState({ error: false, msg: [] });
 
     // form data state
-    const [name, setName] = useState(null);
-    const [category, setCategory] = useState(null);
-    const [manufacture, setManufacture] = useState(null);
-    const [upc, setUpc] = useState(null);
-    const [price, setPrice] = useState(null);
+    const [name] = useState(null);
+    const [category] = useState(null);
+    const [manufacture] = useState(null);
+    const [upc] = useState(null);
+    const [price] = useState(null);
     const [showInStore ] = useState(null);
-    const [description, setDescription] = useState(null);
-    const [sourceUrl, setSourceUrl] = useState(null);
-    const [sourceVendor, setSourceVendor] = useState(null);
-    const [locations, setLocations] = useState(null);
+    const [description] = useState(null);
+    const [sourceUrl] = useState(null);
+    const [sourceVendor] = useState(null);
+    const [locations] = useState(null);
 
     // TODO: 2 way state binging of location data
 
@@ -40,39 +34,39 @@ const AddItemModal = (props) => {
         'name', 'category', 'locations'
     ];
 
-    const nameValidator = (value) => {
-        if (value === constants.EMPTY_STRING) {
-            return { msg: 'Please enter a name' };
-        } else {
-            return true;
-        }
-    }
+    // const nameValidator = (value) => {
+    //     if (value === constants.EMPTY_STRING) {
+    //         return { msg: 'Please enter a name' };
+    //     } else {
+    //         return true;
+    //     }
+    // }
 
-    const upcValidator = (value) => {
-        if (/[0-9]{12}/.test(value) || value === constants.EMPTY_STRING) {
-            return true;
-        } else {
-            return { msg: 'Please enter a 12-digit UPC' }
-        }
-    }
+    // const upcValidator = (value) => {
+    //     if (/[0-9]{12}/.test(value) || value === constants.EMPTY_STRING) {
+    //         return true;
+    //     } else {
+    //         return { msg: 'Please enter a 12-digit UPC' }
+    //     }
+    // }
 
-    const priceValidator = (value) => {
-        if (/\$[0-9]+\.[0-9]{2}/.test(value) || value === constants.EMPTY_STRING) {
-            return true;
-        } else {
-            return { msg: 'Please enter a valid price $x.xx' };
-        }
-    }
+    // const priceValidator = (value) => {
+    //     if (/\$[0-9]+\.[0-9]{2}/.test(value) || value === constants.EMPTY_STRING) {
+    //         return true;
+    //     } else {
+    //         return { msg: 'Please enter a valid price $x.xx' };
+    //     }
+    // }
 
-    // TODO: make this a real url validator
-    const sourceUrlValidator = (value) => {
-        if (/(http:\/\/|https:\/\/)[^.]+\.[^.]+/.test(value) || 
-            value === constants.EMPTY_STRING) {
-            return true;
-        } else {
-            return { msg: 'Please enter a valid url' };
-        }
-    }
+    // // TODO: make this a real url validator
+    // const sourceUrlValidator = (value) => {
+    //     if (/(http:\/\/|https:\/\/)[^.]+\.[^.]+/.test(value) || 
+    //         value === constants.EMPTY_STRING) {
+    //         return true;
+    //     } else {
+    //         return { msg: 'Please enter a valid url' };
+    //     }
+    // }
 
     const handleSave = async () => {
         // build object with all form data
@@ -133,9 +127,9 @@ const AddItemModal = (props) => {
         onClose(); // close modal
     };
 
-    const onErrorBannerClose = () => {
-        setError({ error: false, msg: [] });
-    }
+    // const onErrorBannerClose = () => {
+    //     setError({ error: false, msg: [] });
+    // }
 
     // given to modal as onClose event
     const onClose = () => {
@@ -155,17 +149,17 @@ const AddItemModal = (props) => {
             {
                 error.error ? 
                 (
-                    <Banner type='error' onClose={ onErrorBannerClose }>
+                    {/* <Banner type='error' onClose={ onErrorBannerClose }>
                         {
                             error.msg.map(elem => <p>{elem}</p>)
                         }
-                    </Banner>
+                    </Banner> */}
                 ) :
                 null
             }
             <Modal size={{ width: '1000px', height: 'min-content' }} 
                     title="New Item" onClose={ onClose } >
-                    <FormInput boundSetter={ setName } row='1 / 2' col="1 / 2" 
+                    {/* {<FormInput boundSetter={ setName } row='1 / 2' col="1 / 2" 
                         name="Name" placeholder="Name" validator={ nameValidator } />
                     <FormSelect boundSetter={ setCategory }
                         name="Category" options={ ['Adapter', 'Monitor', 'Keyboard'] } />
@@ -183,7 +177,7 @@ const AddItemModal = (props) => {
                         validator={ sourceUrlValidator } />
                     <FormSelect boundSetter={ setSourceVendor } row="3 /4" col="5 / 7" 
                         name="Source Vendor" options={['Apple', 'Amazon', 'Tiger Direct']} />
-                    <LocationPicker boundSetter={ setLocations } row="4 / 7" col="1 / 7" />
+                    <LocationPicker boundSetter={ setLocations } row="4 / 7" col="1 / 7" />} */}
                 <FormControlWrapper>
                     <Button onClick={ handleSave }>Save</Button>
                 </FormControlWrapper>

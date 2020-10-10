@@ -6,7 +6,6 @@ import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 
 import Page from '../common/Page';
-import FormInput from '../common/FormInput';
 import Button from '../common/Button';
 import Logo from './bayside-b.jpg';
 import * as constants from '../../config/constants';
@@ -189,28 +188,28 @@ const Login = (props) => {
     // validators -------------------------------------------
 
     // requires user to enter a username
-    const usernameValidator = (value) => {
-        if (value === constants.EMPTY_STRING ||
-            value == null) {
-            setFormValid(false);
-            return { msg: 'Please enter your username' }
-        } else {
-            setFormValid(true);
-            return true;
-        }
-    }
+    // const usernameValidator = (value) => {
+    //     if (value === constants.EMPTY_STRING ||
+    //         value == null) {
+    //         setFormValid(false);
+    //         return { msg: 'Please enter your username' }
+    //     } else {
+    //         setFormValid(true);
+    //         return true;
+    //     }
+    // }
 
-    // requires user to enter a password
-    const passwordValidator = (value) => {
-        if (value === constants.EMPTY_STRING ||
-            value == null) {
-                setFormValid(false);
-            return { msg: 'Please enter your password' }
-        } else {
-            setFormValid(true);
-            return true;
-        }
-    }
+    // // requires user to enter a password
+    // const passwordValidator = (value) => {
+    //     if (value === constants.EMPTY_STRING ||
+    //         value == null) {
+    //             setFormValid(false);
+    //         return { msg: 'Please enter your password' }
+    //     } else {
+    //         setFormValid(true);
+    //         return true;
+    //     }
+    // }
 
     return (
         <>
@@ -238,10 +237,10 @@ const Login = (props) => {
                 <Content>
                     <FormWrapper>
                         <h3>Login</h3>
-                        <FormInput boundSetter={ setUsername } validator={ usernameValidator }
+                        {/* {<FormInput boundSetter={ setUsername } validator={ usernameValidator }
                         name="Username" value={ username } />
                         <FormInput boundSetter={ setPassword } validator={ passwordValidator }
-                        name="Password" type="password" value={ password } />
+                        name="Password" type="password" value={ password } />} */}
                         <Button onClick={ onLogin } marginRight="0">Login</Button>
                     </FormWrapper>
                 </Content>

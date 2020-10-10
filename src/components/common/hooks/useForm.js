@@ -37,6 +37,8 @@ const useForm = (fields) => {
 
     const handleChange = (field, newValue) => {
         // TODO: fun validator
+        console.log(fields);
+
         const validator = fields[field].validator;
 
         if (validator) {

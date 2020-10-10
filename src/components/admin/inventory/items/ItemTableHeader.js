@@ -36,12 +36,6 @@ const ResizeButton = styled.span`
 `;
 
 const ItemTableHeader = ( props ) => {
-    const handleResizeButtonClick = (colIndex) => {
-        if (props.onResizeClick) {
-            props.onResizeClick(colIndex);
-        }
-    }
-
     return (
         <Wrapper
          cols={ props.cols }>

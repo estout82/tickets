@@ -35,6 +35,11 @@ const NewTicket = () => {
         setSelectedCategory(val);
     }
 
+    const onFormSubmit = () => {
+        // set selected catgeory to null so form component unmounts
+        setSelectedCategory();
+    }
+
     return (
         <Content>
             <Row>
@@ -52,6 +57,7 @@ const NewTicket = () => {
                 <TicketForm
                  formDefinition={ global.ticket.categories.getById(selectedCategory).form } 
                  categoryId={ selectedCategory }
+                 onFormSubmit={ onFormSubmit }
                 /> :
                 null
             }

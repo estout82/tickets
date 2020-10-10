@@ -3,11 +3,9 @@ import React from 'react';
 import styled from 'styled-components';
 import useForm from '../../common/hooks/useForm';
 import Button from '../../common/Button';
-import Input from '../../common/Input';
-import Checkbox from '../../common/Checkbox';
-import Select from '../../common/Select';
-import Text from '../../common/Text';
+import FormComponent from '../../common/FormComponent';
 import useCreateTicket from '../../../config/stores/tickets/useCreateTicket';
+import useGenFormFieldsFromFormDefinition from '../../common/hooks/useGenFormFieldsFromFormDefinition';
 
 const Wrapper = styled.div`
     display: flex;
@@ -24,54 +22,47 @@ const ControlsWrapper = styled.div`
     padding: 10px 0;
 `;
 
-const FormFieldWrapper = styled.div`
-    display: flex;
-    flex-flow: column nowrap;
-    flex-grow: 1;
-    width: 100%;
-    padding: 5px 0;
-`;
+const defaultFormDefinition = {
+    title: {
+        name: 'title',
+        label: 'Title',
+        description: 'A brief summary of your issue',
+        element: 'input',
+        validator: (v) => {
+            return v !== '' && v !== null ?
+                true :
+                { text: 'Please enter a title', appearance: 'error' }
+        }
+    },
+    description: {
+        name: 'description',
+        label: 'Description',
+        description: 'A detailed description of your issue',
+        element: 'text',
+        validator: (v) => {
+            return v !== '' && v !== null ?
+                true :
+                { text: 'Please enter a title', appearance: 'error' }
+        }
+    }
+};
 
-const FieldLabel = styled.label`
-    font-size: 12pt;
-    font-weight: 300;
-`;
+export default function TicketForm({ formDefinition, categoryId, onFormSubmit }) {
+    const generateFields = useGenFormFieldsFromFormDefinition(formDefinition);
 
-const FieldDescription = styled.p`
-    font-size: 8pt;
-    font-weight: 200;
-`;
-
-export default function TicketForm({ formDefinition, categoryId }) {
-    const realFormDefinition = formDefinition ? {
-            ...formDefinition.fields,
-            title: {
-                name: 'title'
+    const realFormDefinition = formDefinition ? 
+    {
+        ...generateFields.do(),
+        title: {
+            name: 'title',
+            validator: (v) => {
+                return v !== '' && v !== null ?
+                    true :
+                    { text: 'Please enter a title', appearance: 'error' }
             }
-        } : {
-            title: {
-                name: 'title',
-                label: 'Title',
-                description: 'A brief summary of your issue',
-                element: 'input',
-                validator: (v) => {
-                    return v !== '' && v !== null ?
-                        true :
-                        { text: 'Please enter a title', appearance: 'error' }
-                }
-            },
-            description: {
-                name: 'description',
-                label: 'Description',
-                description: 'A detailed description of your issue',
-                element: 'text',
-                validator: (v) => {
-                    return v !== '' && v !== null ?
-                        true :
-                        { text: 'Please enter a title', appearance: 'error' }
-                }
-            }
-        };
+        }
+    } : 
+    defaultFormDefinition;
 
     const createTicket = useCreateTicket();
     const form = useForm(realFormDefinition);
@@ -87,66 +78,23 @@ export default function TicketForm({ formDefinition, categoryId }) {
         .catch(status => {
             console.error(status);
         });
+
+        if (onFormSubmit) onFormSubmit();
     }
 
     return (
         <Wrapper>
             {
                 Object.keys(realFormDefinition).map(key => {
-                    const field = realFormDefinition[key];
-                    
-                    switch (field.element) {
-                        case 'input':
-                            return (
-                                <FormFieldWrapper key={field._id}>
-                                    <FieldLabel>{ field.label }</FieldLabel>
-                                    <FieldDescription>{ field.description }</FieldDescription>
-                                    <Input
-                                     fluid
-                                     onChange={ (v) => form.handleChange(field.name, v) }
-                                     value={ form.values[field.name] }
-                                     formState={ form.state ? form.state[field.name] : null }
-                                    />
-                                </FormFieldWrapper>
-                            );
-                        case 'select':
-                            return (
-                                <FormFieldWrapper key={ field._id }>
-                                    <FieldLabel>{ field.label }</FieldLabel>
-                                    <FieldDescription>{ field.description }</FieldDescription>
-                                    <Select
-                                     onChange={ (v) => form.handleChange(field.name, v) }
-                                     value={ form.values[field.name] }
-                                     options={ field.options }
-                                    />
-                                </FormFieldWrapper>
-                            );
-                        case 'checkbox':
-                            return (
-                                <FormFieldWrapper>
-                                    <FieldLabel>{ field.label }</FieldLabel>
-                                    <FieldDescription>{ field.description }</FieldDescription>
-                                    <Checkbox 
-                                     onChange={ (v) => form.handleChange(field.name, v) }
-                                     value={ form.values[field.name] }
-                                    />
-                                </FormFieldWrapper>
-                            );
-                        case 'text':
-                            return (
-                                <FormFieldWrapper key={ field._id }>
-                                    <FieldLabel>{ field.label }</FieldLabel>
-                                    <FieldDescription>{ field.description }</FieldDescription>
-                                    <Text
-                                     onChange={ (v) => form.handleChange(field.name, v) }
-                                     value={ form.values[field.name] }
-                                     options={ field.options }
-                                    />
-                                </FormFieldWrapper>
-                            );
-                        default:
-                            return null;
-                    }
+                    const definition = realFormDefinition[key];
+
+                    return (
+                        <FormComponent
+                         key={ definition._id }  
+                         definition={ definition }
+                         form={ form } 
+                        />
+                    );
                 })
             }
             <ControlsWrapper>
